@@ -25,9 +25,9 @@ export const site = {
   title: 'phaooo blog', // required
   favicon: '/favicon.svg', // required
   description: 'Welcome to my independent blog website! ',
-  author: "Astro-Yi", // required
+  author: "phaooo", // required
   avatar: '/avatar.png', // required
-  url: 'https://astro-yi-nu.vercel.app', // required
+  url: 'https://phaooo.github.io/', // required
   motto: 'Actions speak louder than words.',
   recentBlogSize: 5,
   archivePageSize: 25,
