@@ -22,13 +22,13 @@ import {AnalyticsConfig} from "./types/analyticsTypes"
  *    All tags will be displayed in single page "/tags".
  */
 export const site = {
-  title: 'phaooo blog', // required
-  favicon: '/favicon.svg', // required
-  description: 'Welcome to my independent blog website! ',
-  author: "phaooo", // required
-  avatar: '/avatar.png', // required
+  title: "Phaooo's blog", // required
+  favicon: '/Phaooo.svg', // required
+  description: '',
+  author: "Phaooo", // required
+  avatar: '/avatar.jpeg', // required
   url: 'https://phaooo.github.io/', // required
-  motto: 'Actions speak louder than words.',
+  motto: 'Stay curious, stay sharp.',
   recentBlogSize: 5,
   archivePageSize: 25,
   postPageSize: 10,
@@ -79,39 +79,24 @@ export const categories = [
   //   iconClass: "ri-quill-pen-line",
   //   href: "/memos",
   // },
-  {
-    name: "Archive",
-    iconClass: "ri-archive-line",
-    href: "/archive/1",
-  },
-  {
-    name: "Message",
-    iconClass: "ri-chat-1-line",
-    href: "/message",
-  },
+  // {
+  //   name: "Message",
+  //   iconClass: "ri-chat-1-line",
+  //   href: "/message",
+  // },
   {
     name: "Search",
     iconClass: "ri-search-line",
     href: "/search",
   },
+ 
   {
-    name: "More",
-    iconClass: "ri-more-fill",
-    href: "javascript:void(0);",
-    children: [
-      {
-        name: 'About',
-        iconClass: 'ri-information-line',
-        href: '/about',
-      },
-      {
-        name: 'Friends',
-        iconClass: 'ri-user-5-line',
-        href: '/friends',
-        target: '_self',
-      },
-    ]
-  }
+    name: 'About',
+    iconClass: 'ri-information-line',
+    href: '/about',
+  },
+       
+  
 ]
 
 /**
