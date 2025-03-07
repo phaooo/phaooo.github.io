@@ -104,29 +104,24 @@ export const categories = [
  */
 export const infoLinks = [
   {
-    icon: 'ri-telegram-fill',
-    name: 'telegram',
-    outlink: '',
-  },
-  {
-    icon: 'ri-twitter-fill',
-    name: 'twitter',
-    outlink: '',
+    icon: 'ri-twitter-x-fill',
+    name: 'twitter-x',
+    outlink: 'https://x.com/YAMANAGI67',
   },
   {
     icon: 'ri-instagram-fill',
     name: 'instagram',
-    outlink: '',
+    outlink: 'https://www.instagram.com/p.haoooo/',
   },
   {
     icon: 'ri-github-fill',
     name: 'github',
-    outlink: 'https://github.com/cirry/astro-yi',
+    outlink: 'https://github.com/phaooo',
   },
   {
-    icon: 'ri-rss-fill',
-    name: 'rss',
-    outlink: '',
+    icon: 'ri-steam-fill',
+    name: 'steam',
+    outlink: 'https://steamcommunity.com/profiles/76561198142669892/',
   }
 ]
 
