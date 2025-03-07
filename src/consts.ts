@@ -22,7 +22,7 @@ import {AnalyticsConfig} from "./types/analyticsTypes"
  *    All tags will be displayed in single page "/tags".
  */
 export const site = {
-  title: 'Astro Theme Yi', // required
+  title: 'phaooo blog', // required
   favicon: '/favicon.svg', // required
   description: 'Welcome to my independent blog website! ',
   author: "Astro-Yi", // required
