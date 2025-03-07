@@ -28,7 +28,7 @@ export const site = {
   author: "Phaooo", // required
   avatar: '/avatar.jpeg', // required
   url: 'https://phaooo.github.io/', // required
-  motto: 'Stay curious, stay sharp.',
+  motto: 'Stay curious, stay sharp. \n penghao@eagle.sophia.ac.jp',
   recentBlogSize: 5,
   archivePageSize: 25,
   postPageSize: 10,
@@ -122,6 +122,11 @@ export const infoLinks = [
     icon: 'ri-steam-fill',
     name: 'steam',
     outlink: 'https://steamcommunity.com/profiles/76561198142669892/',
+  },
+  {
+    icon: 'ri-mail-fill',
+    name: 'mail',
+    outlink: 'mailto:penghao@eagle.sophia.ac.jp',
   }
 ]
 
