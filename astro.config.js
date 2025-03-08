@@ -19,7 +19,7 @@ import {remarkHtml} from "./src/plugins/remark-html.js";
 
 
 export default defineConfig({
-  site: 'https://phaooo.github.io/',
+  site: 'https://phaooo.github.io',
   integrations: [sitemap(), tailwind(), solid(), expressiveCode({
     plugins: [pluginLineNumbers(), pluginCollapsibleSections()],
     themes: ["github-dark", "github-light"],

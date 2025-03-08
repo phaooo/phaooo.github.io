@@ -27,7 +27,7 @@ export const site = {
   description: '',
   author: "Phaooo", // required
   avatar: '/avatar.jpeg', // required
-  url: 'https://phaooo.github.io/', // required
+  url: 'https://phaooo.github.io', // required
   motto: 'Stay curious, stay sharp. \n penghao@eagle.sophia.ac.jp',
   recentBlogSize: 5,
   archivePageSize: 25,
