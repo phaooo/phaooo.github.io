@@ -1,6 +1,7 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
+import { t } from "./i18n/utils"
 import {AnalyticsConfig} from "./types/analyticsTypes"
 
 /**
@@ -218,15 +219,15 @@ export const comment = {
  * It defines and exports the default settings for Umami and Google Analytics.
  */
 export const analytics: AnalyticsConfig = {
-  enable: false,
+  enable: true,
   umamiConfig: {
     enable: false,
     id: "",
     url: ""
   },
   gaConfig: {
-    enable: false,
-    id: ""
+    enable: true,
+    id: "G-5X33B3DNL1"
   },
   busuanzi: false,
 };
