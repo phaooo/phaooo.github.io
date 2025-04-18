@@ -8,11 +8,11 @@ comment: false
 
 中国出身で、現在は留学生として日本で学んでいます。上智大学 (**Sophia University**) 理工学部の学部4年生で、下村研究室 (**Shimomura Lab**) に所属しています 👨‍🎓。
 
-### 研究関心と情熱：Silicon Photonics Semiconductors ✨
+### 研究関心と情熱：Photonics Semiconductors ✨
 
-私の学術的興味と研究の焦点は、**Silicon Photonics Semiconductors** の分野にあります。
+私の学術的興味と研究の焦点は、**Photonics Semiconductors** の分野にあります。
 
-特に小型化・集積化された電子デバイスには強い関心を持っています 🤖。 **AI (Artificial Intelligence)** 技術が急速に進化する未来において、シリコンフォトニクス半導体は次世代のパーソナルインテリジェント端末で不可欠な役割を果たすと確信しています。それは、**VR/AR** デバイス向けの**高輝度・高精度・高指向性の光源 (High-brightness, High-precision, High-accuracy light sources)**💡であったり、将来のチップ間**高速光通信 (High-speed optical communication)** を実現する光信号線であったりします 🚀。 こうした**最先端技術 (Cutting-edge technology)** の進歩を推進する一員となり、貢献したいと強く願っています。
+特に小型化・集積化された電子デバイスには強い関心を持っています 🤖。 **AI (Artificial Intelligence)** 技術が急速に進化する未来において、フォトニクス半導体は次世代のパーソナルインテリジェント端末で不可欠な役割を果たすと確信しています。それは、**VR/AR** デバイス向けの**高輝度・高精度・高指向性の光源 (High-brightness, High-precision, High-accuracy light sources)**💡であったり、将来のチップ間**高速光通信 (High-speed optical communication)** を実現する光信号線であったりします 🚀。 こうした**最先端技術 (Cutting-edge technology)** の進歩を推進する一員となり、貢献したいと強く願っています。
 
 ### 挑戦と実践：Hackathonでの経験 🏆
 
