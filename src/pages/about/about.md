@@ -4,17 +4,23 @@ comment: false
 ---
 ## 私について：彭 浩（ペン・ハオ PENG HAO）🇨🇳➡️🇯🇵
 
-皆さん、こんにちは！ **彭 浩（ペン・ハオ PENG HAO）** と申します。中国出身で、現在は留学生として日本で学んでいます。上智大学 (**Sophia University**) 理工学部の学部4年生で、下村研究室 (**Shimomura Lab**) に所属しています 👨‍🎓。
+皆さん、こんにちは！ **彭 浩（ペン・ハオ PENG HAO）** と申します。
+
+中国出身で、現在は留学生として日本で学んでいます。上智大学 (**Sophia University**) 理工学部の学部4年生で、下村研究室 (**Shimomura Lab**) に所属しています 👨‍🎓。
 
 ### 研究関心と情熱：半導体光学 (Semiconductor Optics) ✨
 
-私の学術的興味と研究の焦点は、**半導体光学 (Semiconductor Optics)** の分野にあります。特に小型化・集積化された電子デバイスには強い関心を持っています 🤖。 **AI (Artificial Intelligence)** 技術が急速に進化する未来において、半導体光学は次世代のパーソナルインテリジェント端末で不可欠な役割を果たすと確信しています。それは、**VR/AR** デバイス向けの**高輝度・高精度・高指向性の光源 (High-brightness, High-precision, High-accuracy light sources)**💡であったり、将来のチップ間**高速光通信 (High-speed optical communication)** を実現する光信号線であったりします 🚀。 こうした**最先端技術 (Cutting-edge technology)** の進歩を推進する一員となり、貢献したいと強く願っています。
+私の学術的興味と研究の焦点は、**半導体光学 (Semiconductor Optics)** の分野にあります。
+
+特に小型化・集積化された電子デバイスには強い関心を持っています 🤖。 **AI (Artificial Intelligence)** 技術が急速に進化する未来において、半導体光学は次世代のパーソナルインテリジェント端末で不可欠な役割を果たすと確信しています。それは、**VR/AR** デバイス向けの**高輝度・高精度・高指向性の光源 (High-brightness, High-precision, High-accuracy light sources)**💡であったり、将来のチップ間**高速光通信 (High-speed optical communication)** を実現する光信号線であったりします 🚀。 こうした**最先端技術 (Cutting-edge technology)** の進歩を推進する一員となり、貢献したいと強く願っています。
 
 ### 挑戦と実践：Hackathonでの経験 🏆
 
-私は新しいことに挑戦するのが好きで、困難にも積極的に立ち向かう性格です。また、アイデアをコンセプトから **Design (設計), Demo (デモ制作), Validation (検証・評価), Feedback (フィードバック), Improvement (改善)** というサイクルを経て、最終的に**製品 (Product)** として磨き上げるプロセスに大きなやりがいを感じます 💪。 大学時代には、一人で「**Sony Sensing Solution Hackathon**」に参加しました。半年間にわたり、コンセプト立案から開発、最終的な作品発表までを独立して行い、完成させることができました。その結果、私のプロジェクトは **「Sense the Wonder」Award** を受賞することができ、これは上智大学の学生としては初の快挙でした 🎉。
+私は新しいことに挑戦するのが好きで、困難にも積極的に立ち向かう性格です。また、アイデアをコンセプトから **Design (設計), Demo (デモ制作), Validation (検証・評価), Feedback (フィードバック), Improvement (改善)** というサイクルを経て、最終的に**製品 (Product)** として磨き上げるプロセスに大きなやりがいを感じます 💪。 
 
-（受賞に関する詳細はこちら：[https://www.sophia.ac.jp/jpn/article/news/announcement/250106_award/]）
+大学時代には、一人で「**Sony Sensing Solution Hackathon**」に参加しました。半年間にわたり、コンセプト立案から開発、最終的な作品発表までを独立して行い、完成させることができました。その結果、私のプロジェクトは **「Sense the Wonder」Award** を受賞することができ、これは上智大学の学生としては初の快挙でした 🎉。
+
+（受賞に関する詳細はこちら：[ https://www.sophia.ac.jp/jpn/article/news/announcement/250106_award ]）
 
 この経験を通じて、革新的なアイデアを形にし、継続的に改善していくことの価値を深く学びました。
 
