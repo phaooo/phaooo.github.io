@@ -1,6 +1,7 @@
 ---
 import {comment} from '../consts'
-import {t} from '../i18n/utils'
+import {getLangFromUrl, t} from '../i18n/utils'
+const lang = getLangFromUrl(Astro.url);
 ---
 
 {
@@ -8,7 +9,7 @@ import {t} from '../i18n/utils'
     <div>
       <div class="aside-widget">
         <i class="ri-chat-1-line menu-icon" />
-      {t('sidebar.recentComments')}
+      {t('sidebar.recentComments', lang)}
       </div>
       <div id="waline-comment" />
     </div>

@@ -1,15 +1,16 @@
 ---
 import {formatDate} from "../utils/formatDate";
 import {dealLabel} from "../utils/dealLabel";
-import {t} from '../i18n/utils'
+import {getLangFromUrl, localizePath, t} from '../i18n/utils'
 const {title, date, slug, category, tags, sticky = false, draft = false} = Astro.props
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <div class="text-skin-base">
   <!-- title -->
   <div class="flex items-center">
     {sticky > 0 &&
-      <div class="post-sticky select-none">{t('home.sticky')}</div>}
+      <div class="post-sticky select-none">{t('home.sticky', lang)}</div>}
     <a class="flex text-xl underline-offset-4 cursor-pointer decoration-skin-base decoration-wavy hover:underline hover:decoration-sky-500 font-bold" href={slug}>
       {title}
     </a>
@@ -25,13 +26,13 @@ const {title, date, slug, category, tags, sticky = false, draft = false} = Astro
     <!-- draft -->
     {
       draft &&
-      <div class="mr-2"><i class="ri-git-pr-draft-line mr-1"/>{t('title.draft')}</div>
+      <div class="mr-2"><i class="ri-git-pr-draft-line mr-1"/>{t('title.draft', lang)}</div>
     }
 
     <!-- category -->
     {
       category && dealLabel(category).filter(item => item !== 'uncategorized').map((categoryName) =>
-        <a href={"/category/" + categoryName} class="text-wrap break-all hover:text-skin-active mr-2">
+        <a href={localizePath("/category/" + categoryName, lang)} class="text-wrap break-all hover:text-skin-active mr-2">
           <i class="ri-folder-3-line"/>
           {categoryName}
         </a>
@@ -41,7 +42,7 @@ const {title, date, slug, category, tags, sticky = false, draft = false} = Astro
     <!-- tag -->
     {
       tags && dealLabel(tags).map((tagName) =>
-        <a href={"/tags/" + tagName} class="text-wrap break-all hover:text-skin-active mr-2">
+        <a href={localizePath("/tags/" + tagName, lang)} class="text-wrap break-all hover:text-skin-active mr-2">
           <i class="ri-hashtag"/>{tagName}</a>
       )
     }

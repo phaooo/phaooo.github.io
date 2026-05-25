@@ -1,5 +1,5 @@
 ---
-import {t} from '../i18n/utils'
+import {getLangFromUrl, localizePath, t} from '../i18n/utils'
 let pager = []; // 实际显示的分页组件内容
 //prefixUrl : 点击页面跳转的路由地址前缀，比如/blog/1,/tags/1, /category/1等等
 const {
@@ -8,6 +8,11 @@ const {
   prefixUrl = "/blog/",
   url = { prev: "", next: "" },
 } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+let localizedPrefixUrl = localizePath(prefixUrl, lang);
+if (!localizedPrefixUrl.endsWith('/')) {
+  localizedPrefixUrl += '/';
+}
 
 if (totalPage === 1) {
   pager = [];
@@ -47,7 +52,7 @@ if (totalPage === 1) {
 <div class="flex items-center justify-center my-16 text-skin-base">
   {
     pager.length > 4 && (
-      <a href={prefixUrl + "1"} style="font-size:18px;line-height:32px;">
+      <a href={localizedPrefixUrl + "1"} style="font-size:18px;line-height:32px;">
         <i class="ri-skip-left-line"></i>
       </a>
     )
@@ -58,13 +63,13 @@ if (totalPage === 1) {
       currentPage === i ? (
         <a
           class="text-skin-active"
-          href={prefixUrl + i}
+          href={localizedPrefixUrl + i}
           style="line-height:32px;"
         >
           {i}
         </a>
       ) : (
-        <a href={prefixUrl + i} style="line-height:32px;">
+        <a href={localizedPrefixUrl + i} style="line-height:32px;">
           {i}
         </a>
       )
@@ -73,14 +78,14 @@ if (totalPage === 1) {
   {
     pager.length > 4 && (
       <a
-        href={prefixUrl + totalPage}
+        href={localizedPrefixUrl + totalPage}
         style="font-size:18px;line-height:32px;"
       >
         <i class="ri-skip-right-line"></i>
       </a>
     )
   }
-  {totalPage > 5 && t('pagination.total') + totalPage + t('pagination.unit')}
+  {totalPage > 5 && t('pagination.total', lang) + totalPage + t('pagination.unit', lang)}
 </div>
 
 <style>

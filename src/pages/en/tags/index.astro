@@ -1,0 +1,24 @@
+---
+import IndexPage from "src/layouts/IndexPage.astro";
+import {getCollectionByName} from "../../../utils/getCollectionByName";
+import getUniqueTags from "src/utils/getUniqueTags";
+import {getLangFromUrl, localizePath} from "../../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const blogs = await getCollectionByName('blog', lang)
+let tagArr = getUniqueTags(blogs);
+---
+
+<IndexPage>
+  <div class="flex flex-wrap">
+    {
+      (
+        tagArr
+        &&
+          tagArr.map((tag) =>
+            <a class="inline-block truncate m-1 border p-1 text-sm rounded hover:text-skin-active" title={tag} href={localizePath("/tags/" + tag, lang)}>{tag}</a>
+          )
+      )
+    }
+  </div>
+</IndexPage>

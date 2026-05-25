@@ -1,6 +1,7 @@
 ---
 const { label } = Astro.props;
-import {t}from '../i18n/utils'
+import {getLangFromUrl, t}from '../i18n/utils'
+const lang = getLangFromUrl(Astro.url);
 ---
 
-<div class="my-2 text-wrap break-all">{t('search.labelOne')} <span class="text-skin-active mx-1">{label ==='uncategorized' ? t('sidebar.uncategorized') : label}</span> {t('search.labelTwo')}</div>
+<div class="my-2 text-wrap break-all">{t('search.labelOne', lang)} <span class="text-skin-active mx-1">{label ==='uncategorized' ? t('sidebar.uncategorized', lang) : label}</span> {t('search.labelTwo', lang)}</div>

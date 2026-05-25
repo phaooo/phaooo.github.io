@@ -1,0 +1,13 @@
+---
+import IndexPage from "src/layouts/IndexPage.astro";
+import {Search} from '../../components/Search'
+import {getCollectionByName} from "../../utils/getCollectionByName";
+import {getLangFromUrl, t} from '../../i18n/utils'
+const lang = getLangFromUrl(Astro.url);
+const posts = await getCollectionByName("blog", lang);
+---
+
+<IndexPage>
+  <div class="text-2xl mb-4 text-skin-base">{t('search.search', lang)}</div>
+  <Search client:only="solid-js" posts={posts} lang={lang}/>
+</IndexPage>

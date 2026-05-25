@@ -1,5 +1,6 @@
 ---
-import {t} from '../i18n/utils'
+import {getLangFromUrl, t} from '../i18n/utils'
+const lang = getLangFromUrl(Astro.url);
 ---
 <div
   id="toc"
@@ -7,7 +8,7 @@ import {t} from '../i18n/utils'
 >
   <div class="aside-widget">
     <i class="ri-list-check menu-icon"/>
-    {t('blog.tableOfContent')}
+    {t('blog.tableOfContent', lang)}
   </div>
   <div class="overflow-auto">
     <div class="toc-container"/>

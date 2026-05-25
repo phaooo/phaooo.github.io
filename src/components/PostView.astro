@@ -1,12 +1,14 @@
 ---
 import PostViewTitle from '../components/PostViewTitle.astro'
+import {getLangFromUrl, localizePath} from "../i18n/utils";
 const {blog} = Astro.props;
 const {data, slug} = blog
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <div class="my-5 first:mt-0">
   <PostViewTitle
-    slug={`/blog/${slug}`}
+    slug={localizePath(`/blog/${slug}`, lang)}
     {...data}
   >
   </PostViewTitle>

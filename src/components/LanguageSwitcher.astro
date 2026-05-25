@@ -1,0 +1,23 @@
+---
+import {getLangFromUrl, languages, switchLangPath, t} from "../i18n/utils";
+
+const currentLang = getLangFromUrl(Astro.url);
+---
+
+<nav class="flex items-center border rounded text-sm overflow-hidden" aria-label={t('language.switch', currentLang)}>
+  {
+    Object.entries(languages).map(([lang, label]) => (
+      <a
+        class:list={[
+          "px-2 py-1 hover:text-skin-active",
+          lang === currentLang ? "bg-skin-card text-skin-active" : "text-skin-base",
+        ]}
+        href={switchLangPath(Astro.url, lang as keyof typeof languages)}
+        hreflang={lang}
+        aria-current={lang === currentLang ? "page" : undefined}
+      >
+        {label}
+      </a>
+    ))
+  }
+</nav>

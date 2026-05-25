@@ -1,7 +1,8 @@
 ---
 import {site, analytics} from "../consts";
-import {t} from '../i18n/utils'
+import {getLangFromUrl, t} from '../i18n/utils'
 let shouldLoadBusuanzi = analytics.enable && analytics.busuanzi
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <div class:list={[shouldLoadBusuanzi ? 'h-16' : 'h-10', 'container p-1 absolute left-0 bottom-0']}>
@@ -9,11 +10,11 @@ let shouldLoadBusuanzi = analytics.enable && analytics.busuanzi
     shouldLoadBusuanzi && (
       <div class="flex items-center justify-center text-skin-base">
     <span id="busuanzi_container_site_pv">
-      {t('footer.busuanziSitePV')}<span id="busuanzi_value_site_pv"></span>{t('footer.busuanziSitePVUnit')}
+      {t('footer.busuanziSitePV', lang)}<span id="busuanzi_value_site_pv"></span>{t('footer.busuanziSitePVUnit', lang)}
     </span>
         <div class="divider-vertical"></div>
         <span id="busuanzi_container_site_uv">
-      {t('footer.busuanziSiteUV')}<span id="busuanzi_value_site_uv"></span>{t('footer.busuanziSiteUVUnit')}
+      {t('footer.busuanziSiteUV', lang)}<span id="busuanzi_value_site_uv"></span>{t('footer.busuanziSiteUVUnit', lang)}
     </span>
       </div>
     )
@@ -32,6 +33,6 @@ let shouldLoadBusuanzi = analytics.enable && analytics.busuanzi
         </a>
       )
     }
-    <a href="/sitemap-0.xml">{t('footer.sitemap')}</a>
+    <a href="/sitemap-0.xml">{t('footer.sitemap', lang)}</a>
   </div>
 </div>

@@ -11,6 +11,7 @@
 - 内容：Markdown / MDX
 - 包管理器：pnpm
 - 部署：GitHub Actions + GitHub Pages
+- 语言：English / 中文 / 日本語
 
 ## 本地开发
 
@@ -43,7 +44,10 @@ pnpm preview
 
 - `src/content/blog/`：正式博客文章
 - `src/content/feed/`：短动态、碎片记录
-- `src/pages/about/about.md`：关于页面正文
+- `src/pages/en/`：英文页面路由
+- `src/pages/zh-cn/`：中文页面路由
+- `src/pages/ja/`：日文页面路由
+- `src/pages/{lang}/about/about.md`：关于页面正文
 - `src/consts.ts`：站点标题、头像、导航、社交链接、评论与统计配置
 - `public/`：头像、图标、二维码等静态资源
 
@@ -53,12 +57,18 @@ pnpm preview
 ---
 title: "文章标题"
 description: "文章摘要"
+lang: en
+translationKey: post-id
 date: 2026-05-25
 tags: ["tag"]
 category: "uncategorized"
 draft: false
 ---
 ```
+
+`lang` 可选值为 `en`、`zh-cn`、`ja`。`translationKey` 用来标记同一篇文章的不同语言版本，后续翻译文章时建议保持一致。
+
+如果某个语言还没有对应内容，页面会先回退显示英文内容，避免中文或日文界面出现空列表。
 
 ## 发布流程
 
@@ -70,5 +80,6 @@ draft: false
 
 - 新文章优先放在 `src/content/blog/`。
 - 如果只是日常片段或短记录，放在 `src/content/feed/`。
+- 新增或调整页面时，需要同步检查 `src/pages/en/`、`src/pages/zh-cn/`、`src/pages/ja/`。
 - 修改站点资料、导航和社交链接时，优先检查 `src/consts.ts`。
 - 部分早期文章内容存在编码遗留问题，后续可以逐篇整理和润色。
