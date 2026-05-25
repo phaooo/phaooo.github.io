@@ -48,7 +48,7 @@ export const site = {
  * memosPageSize {number} 10
  */
 export const config = {
-  lang: 'en', // en | zh-cn | ja
+  lang: 'en', // en | zh-cn | zh-Hant | cs
   codeFoldingStartLines: 16, // Need to re-run the project to take effect
 
   // memos config
@@ -67,13 +67,11 @@ export const config = {
 export const categories = [
   {
     name: "Blog",
-    nameKey: "nav.blog",
     iconClass: "ri-draft-line",
     href: "/blog/1",
   },
   {
     name: "Feed",
-    nameKey: "nav.feed",
     iconClass: "ri-lightbulb-flash-line",
     href: "/feed/1",
   },
@@ -89,14 +87,12 @@ export const categories = [
   // },
   {
     name: "Search",
-    nameKey: "nav.search",
     iconClass: "ri-search-line",
     href: "/search",
   },
  
   {
     name: 'About',
-    nameKey: "nav.about",
     iconClass: 'ri-information-line',
     href: '/about',
   },

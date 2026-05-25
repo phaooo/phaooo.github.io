@@ -1,20 +1,20 @@
 import dayjs from "dayjs";
-import 'dayjs/locale/zh-cn';
-import 'dayjs/locale/ja';
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import utc from "dayjs/plugin/utc";
-import {defaultLang, t, type Lang} from '../i18n/utils';
+import {t} from '../i18n/utils';
+import {config} from '../consts';
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 
+dayjs.locale(config.lang);
 dayjs.extend(advancedFormat)
 dayjs.extend(utc);
 dayjs.extend(localizedFormat)
 
 
-export function formatDate(date, lang: Lang = defaultLang, dateType='post.dateFormat') {
+export function formatDate(date,dateType='post.dateFormat') {
   if (date) {
-    const dateFormat = t(dateType, lang) || "YYYY-MM-DD";
-    return dayjs(date).locale(lang).utc().format(dateFormat);
+    const dateFormat = t(dateType) || "YYYY-MM-DD";
+    return dayjs(date).utc().format(dateFormat);
   } else {
     return ''
   }

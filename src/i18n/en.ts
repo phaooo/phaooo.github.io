@@ -47,10 +47,5 @@ export  const en = {
   'title.draft': 'draft',
   'title.minutes':' Minutes',
   'title.words':' Words',
-  'nav.blog': 'Blog',
-  'nav.feed': 'Feed',
-  'nav.search': 'Search',
-  'nav.about': 'About',
-  'language.switch': 'Language',
   'more': 'More',
 }

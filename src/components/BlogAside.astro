@@ -1,18 +1,16 @@
 ---
 import CommentAside from "./CommentAside.astro";
-import {comment, site} from "../consts";
+import {comment} from "../consts";
 import {getCollectionByName} from "../utils/getCollectionByName";
 import getUniqueTags from "../utils/getUniqueTags";
 import getCountByCategory from "../utils/getCountByCategory";
 import {sortPostsByDate} from "../utils/sortPostsByDate";
-import {getLangFromUrl, localizePath, t} from '../i18n/utils'
-
-const lang = getLangFromUrl(Astro.url);
-const blogs = await getCollectionByName('blog', lang)
+import {site} from '../consts'
+import {t} from '../i18n/utils'
+const blogs = await getCollectionByName('blog')
 let tagArr = getUniqueTags(blogs);
-if (site.asideTagsMaxSize > 0) {
+if(site.asideTagsMaxSize > 0)
   tagArr = tagArr.slice(0, site.asideTagsMaxSize)
-}
 let categoryCount = getCountByCategory(blogs);
 let sortPosts = await sortPostsByDate(blogs);
 let resultPosts = sortPosts.splice(0, site.recentBlogSize);
@@ -22,7 +20,7 @@ let resultPosts = sortPosts.splice(0, site.recentBlogSize);
   {
     Object.keys(categoryCount).length > 0 && (
       <div class="aside-widget">
-        <i class="ri-folder-3-line menu-icon"/>{t('sidebar.categories', lang)}
+        <i class="ri-folder-3-line menu-icon"/>{t('sidebar.categories')}
       </div>
     )
   }
@@ -31,9 +29,9 @@ let resultPosts = sortPosts.splice(0, site.recentBlogSize);
       <a
         class="my-1 truncate block hover:text-skin-active"
         title={category + " (" + categoryCount[category] + ")"}
-        href={localizePath("/category/" + category, lang)}
+        href={"/category/" + category}
       >
-        {(category === 'uncategorized' ? t('sidebar.uncategorized', lang) : category) + " (" + categoryCount[category] + ")"}
+        {(category === 'uncategorized' ? t('sidebar.uncategorized') : category) + " (" + categoryCount[category] + ")"}
       </a>
     ))
   }
@@ -43,7 +41,7 @@ let resultPosts = sortPosts.splice(0, site.recentBlogSize);
     tagArr.length > 0 && (
       <div class="aside-widget">
         <i class="ri-hashtag menu-icon"/>
-        {t('sidebar.tags', lang)}
+        {t('sidebar.tags')}
       </div>
     )
   }
@@ -51,14 +49,14 @@ let resultPosts = sortPosts.splice(0, site.recentBlogSize);
     {
       tagArr &&
       tagArr.map((tag) =>
-        <a class="inline-block truncate m-1 border p-1 text-sm rounded hover:text-skin-active" title={tag} href={localizePath("/tags/" + tag, lang)}>{tag}</a>
+        <a class="inline-block truncate m-1 border p-1 text-sm rounded hover:text-skin-active" title={tag} href={"/tags/" + tag}>{tag}</a>
       )
     }
     {
       tagArr &&
       site.asideTagsMaxSize > 0 &&
       (
-        <a class="inline-block truncate m-1 border p-1 text-sm rounded hover:text-skin-active" title={t('more', lang)} href={localizePath("/tags", lang)}>{t('more', lang)} »</a>
+        <a class="inline-block truncate m-1 border p-1 text-sm rounded hover:text-skin-active" title={t('more')} href={"/tags"}>{t('more')} »</a>
       )
     }
   </div>
@@ -66,13 +64,13 @@ let resultPosts = sortPosts.splice(0, site.recentBlogSize);
 
 <div>
   <div class="aside-widget">
-    <i class="ri-file-line menu-icon"></i> {t('sidebar.recentArticle', lang)}
+    <i class="ri-file-line menu-icon"></i> {t('sidebar.recentArticle')}
   </div>
   <div class="flex flex-col">
     {
       resultPosts.map((post) => (
         <a
-          href={localizePath("/blog/" + post.slug, lang)}
+          href={"/blog/" + post.slug}
           class="truncate cursor-pointr mt-1 hover:text-skin-active"
           title={post.data.title}
         >

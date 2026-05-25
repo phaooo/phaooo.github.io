@@ -20,13 +20,6 @@ import {remarkHtml} from "./src/plugins/remark-html.js";
 
 export default defineConfig({
   site: 'https://phaooo.github.io',
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'zh-cn', 'ja'],
-    routing: {
-      prefixDefaultLocale: true,
-    },
-  },
   integrations: [sitemap(), tailwind(), solid(), expressiveCode({
     plugins: [pluginLineNumbers(), pluginCollapsibleSections()],
     themes: ["github-dark", "github-light"],

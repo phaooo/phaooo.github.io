@@ -5,9 +5,9 @@ import Footer from '../components/Footer.astro';
 import Profile from '../components/Profile.astro'
 import Comment from '../components/Comment.astro'
 import Toc from '../components/Toc.astro'
-import {comment} from "../consts";
+import {comment, config} from "../consts";
 import ScrollToTop from '../components/ScrollToTop.astro'
-import {getLangFromUrl, t} from '../i18n/utils'
+import {t} from '../i18n/utils'
 
 const {
   frontmatter = {
@@ -18,10 +18,9 @@ const {
     mermaid: false,
   },
 } = Astro.props;
-const lang = getLangFromUrl(Astro.url);
 ---
 
-<html lang={lang}>
+<html lang={config.lang}>
 <BaseHead
   title={frontmatter.title}
   description={frontmatter.description}
@@ -37,7 +36,7 @@ const lang = getLangFromUrl(Astro.url);
     <div class="col-span-4 xl:col-span-3 space-y-4 first:space-y-2">
       <button class="flex items-center text-md cursor-pointer hover:text-skin-active outline-none" style="background-color: inherit;" onclick="history.back()">
         <i class="ri-arrow-left-line mr-2"/>
-        <span>{t('home.goBack', lang)}</span>
+        <span>{t('home.goBack')}</span>
       </button>
       <slot/>
       {

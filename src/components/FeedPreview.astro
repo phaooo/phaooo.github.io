@@ -2,8 +2,7 @@
 import FeedPostDate from "./FeedPostDate.astro";
 const {data, body, slug} = Astro.props.post;
 const {index} = Astro.props;
-import {getLangFromUrl, localizePath, t} from '../i18n/utils'
-const lang = getLangFromUrl(Astro.url);
+import {t} from '../i18n/utils'
 ---
 
 <div class="mt-2 mb-4">
@@ -16,6 +15,6 @@ const lang = getLangFromUrl(Astro.url);
   </p>
   <p class="flex items-center justify-between text-sm">
     <FeedPostDate date={data.date} index={index}/>
-    <a class="hover:text-skin-active text-sm border rounded py-1 px-2" href={localizePath(`/feed/${slug}`, lang)}>{t('home.readMore', lang)}</a>
+    <a class="hover:text-skin-active text-sm border rounded py-1 px-2" href={`/feed/${slug}`}>{t('home.readMore')}</a>
   </p>
 </div>
