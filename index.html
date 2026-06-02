@@ -62,8 +62,15 @@
 
   .flipper{ position:absolute; inset:0; transform-style:preserve-3d;
     transform:rotateY(var(--flip)); transition:transform .9s cubic-bezier(.6,.05,.2,1); }
-  .face{ position:absolute; inset:0; border-radius:16px; overflow:hidden; backface-visibility:hidden;
+  .face{ position:absolute; inset:0; border-radius:16px; overflow:hidden;
+    -webkit-backface-visibility:hidden; backface-visibility:hidden;
+    transition:opacity 0s linear .45s;
     box-shadow:0 2px 4px rgba(0,0,0,.5), 0 30px 60px -20px rgba(0,0,0,.8), inset 0 0 0 1px rgba(255,255,255,.08); }
+  /* mobile backstop: some browsers leak the turned-away face through
+     backface-visibility, so explicitly hide it (switches at the flip midpoint
+     via the .45s delay above, so the flip animation still looks correct) */
+  .card:not(.flipped) .back{ opacity:0; }
+  .card.flipped .front{ opacity:0; }
 
   /* ============ FRONT (detail page) — BLACK HOLE ============ */
   .front{ background:#1a0d18; color:#fdf3e3; }
@@ -306,6 +313,7 @@
   card.addEventListener('click', () => {
     flipped = !flipped;
     root.style.setProperty('--flip', flipped ? '180deg' : '0deg');
+    card.classList.toggle('flipped', flipped);
     updateHint();
   });
   document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
