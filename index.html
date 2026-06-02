@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holographic Postcard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Caveat:wght@500;600&family=DM+Mono:wght@400;500&family=Shippori+Mincho:wght@500;700&family=Klee+One:wght@400;600&family=Noto+Serif+SC:wght@400;600&family=Long+Cang&display=swap" rel="stylesheet">
+<style>
+  @property --glow{ syntax:'<number>'; inherits:true; initial-value:0; }
+
+  :root{
+    --bg:#070708; --ink:#e9e4d8; --ink-dim:#9a948a; --gold:#c9a35b;
+    --mx:50%; --my:50%; --rx:0deg; --ry:0deg; --flip:0deg; --glow:0;
+    --pointer-x:50%; --pointer-y:50%;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; }
+  html{ transition:--glow .55s ease; }
+
+  body{ background:var(--bg); color:var(--ink); font-family:var(--display);
+    min-height:100vh; display:grid; place-items:center; overflow:hidden; position:relative; }
+  body.lang-en{ --display:"Fraunces",Georgia,serif; --hand:"Caveat",cursive; }
+  body.lang-ja{ --display:"Shippori Mincho",serif;  --hand:"Klee One",cursive; }
+  body.lang-zh{ --display:"Noto Serif SC",serif;    --hand:"Long Cang",cursive; }
+
+  /* ---------- textured black background + drifting stars ---------- */
+  .bg-vignette{ position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:radial-gradient(120% 120% at 50% 0%, #15151a 0%, #0a0a0c 38%, #050506 72%, #020203 100%); }
+  .stars{ position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+  .star-layer{ position:absolute; top:0; left:0; width:1px; height:1px; border-radius:50%; box-shadow:var(--sh); }
+  .star-layer::after{ content:''; position:absolute; top:2400px; left:0; width:inherit; height:inherit;
+    border-radius:50%; box-shadow:var(--sh); }
+  .star-layer.l1{ animation:drift 170s linear infinite; }
+  .star-layer.l2{ width:2px; height:2px; animation:drift 240s linear infinite; }
+  .star-layer.l3{ animation:drift 115s linear infinite; }
+  @keyframes drift{ from{ transform:translateY(0);} to{ transform:translateY(-2400px);} }
+  .bg-glow{ display:none; }
+  .bg-noise{ position:fixed; inset:-50%; z-index:1; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* ---------- stage / perspective ---------- */
+  .stage{ position:relative; z-index:2; perspective:1600px; perspective-origin:center; }
+
+  /* ---------- tilt wrapper : LANDSCAPE on desktop ---------- */
+  .card{ width:520px; height:340px; position:relative; transform-style:preserve-3d;
+    transform:rotateX(var(--rx)) rotateY(var(--ry));
+    transition:transform .35s cubic-bezier(.2,.7,.2,1); cursor:pointer; }
+  .card.snapping{ transition:transform .8s cubic-bezier(.2,.9,.2,1); }
+  .card::before{ display:none; }
+
+  .flipper{ position:absolute; inset:0; transform-style:preserve-3d;
+    transform:rotateY(var(--flip)); transition:transform .9s cubic-bezier(.6,.05,.2,1); }
+  .face{ position:absolute; inset:0; border-radius:16px; overflow:hidden; backface-visibility:hidden;
+    box-shadow:0 2px 4px rgba(0,0,0,.5), 0 30px 60px -20px rgba(0,0,0,.8), inset 0 0 0 1px rgba(255,255,255,.08); }
+
+  /* ============ FRONT (detail page) — BLACK HOLE ============ */
+  .front{ background:#1a0d18; color:#fdf3e3; }
+  /* ---- fully static "warm gold sunset" background ----
+     no animation at all — painted once, costs nothing to keep on screen.
+     Dusk sky up top melting into a warm amber horizon at the bottom. */
+  .front__scene{ position:absolute; inset:0; overflow:hidden;
+    background:
+      /* bright golden sun-glow sitting on the horizon */
+      radial-gradient(58% 40% at 50% 86%, rgba(255,214,138,.70), transparent 60%),
+      /* amber band spreading out from the horizon */
+      radial-gradient(95% 55% at 50% 100%, rgba(255,150,68,.55), transparent 66%),
+      /* warm haze lifting into the sky */
+      radial-gradient(100% 70% at 50% 78%, rgba(214,88,72,.34), transparent 72%),
+      /* dusk sky : plum → rose → amber */
+      linear-gradient(178deg, #20102f 0%, #3a1740 24%, #6e2c3c 48%, #ad4a30 72%, #e88a3c 100%); }
+  /* halo removed — the pure gradient stands on its own */
+  .bh{ display:none; }
+  .front__scene::before{ content:""; position:absolute; inset:0; /* faint background stars */
+    background-image:
+      radial-gradient(1px 1px at 18% 28%, rgba(255,255,255,.55), transparent),
+      radial-gradient(1px 1px at 72% 18%, rgba(200,235,255,.5), transparent),
+      radial-gradient(1px 1px at 86% 58%, rgba(255,255,255,.5), transparent),
+      radial-gradient(1px 1px at 33% 70%, rgba(200,235,255,.4), transparent),
+      radial-gradient(1px 1px at 58% 38%, rgba(255,255,255,.35), transparent),
+      radial-gradient(1px 1px at 8% 64%, rgba(255,255,255,.4), transparent),
+      radial-gradient(1px 1px at 92% 32%, rgba(200,235,255,.45), transparent); }
+
+  .front__plate{ position:absolute; left:0; right:0; bottom:0; padding:26px 28px; z-index:2;
+    background:linear-gradient(180deg, rgba(3,8,14,0), rgba(3,8,14,.9) 55%); }
+  .front__eyebrow{ font-family:"DM Mono", var(--display), monospace; font-size:10px; letter-spacing:.32em;
+    text-transform:uppercase; color:#ffce8a; margin-bottom:8px; }
+  .front__name{ font-family:var(--display); font-size:36px; font-weight:600; line-height:1; letter-spacing:-.01em; }
+  .front__role{ margin-top:9px; font-size:14px; font-style:italic; color:#f0d6b4; font-weight:300; }
+
+  /* ---------- SOFT-LIGHT holographic layers ---------- */
+  .holo{ position:absolute; inset:0; pointer-events:none; border-radius:16px; }
+  .holo--rainbow{ background-image:repeating-linear-gradient(110deg,
+      #ff9aa2 0%, #ffd6a5 13%, #fdffb6 26%, #caffbf 39%, #9bf6ff 52%, #a0c4ff 65%, #bdb2ff 78%, #ffc6ff 91%, #ff9aa2 100%);
+    background-size:300% 300%; background-position:var(--mx) var(--my);
+    mix-blend-mode:soft-light; filter:saturate(1.05) blur(.4px); opacity:calc(.30 + var(--glow) * .6); }
+  .holo--rainbow2{ background-image:repeating-linear-gradient(-40deg,
+      rgba(255,180,200,.5) 0%, rgba(180,220,255,.5) 25%, rgba(210,255,210,.5) 50%, rgba(255,235,180,.5) 75%, rgba(255,180,200,.5) 100%);
+    background-size:220% 220%; background-position:calc(100% - var(--mx)) calc(100% - var(--my));
+    mix-blend-mode:soft-light; opacity:calc(var(--glow) * .4); }
+  .holo--glare{ display:none; }
+  .holo--noise{ opacity:.10; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* ============ BACK (postcard back) ============ */
+  .back{ transform:rotateY(180deg); background:linear-gradient(160deg, #f6eedb 0%, #ece0c6 100%); color:#3a3326;
+    padding:22px 24px; display:grid; grid-template-columns:0.78fr 1px 1.22fr; grid-template-rows:1fr; gap:20px; }
+  .back::before{ content:""; position:absolute; inset:0; pointer-events:none; opacity:.5; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"); }
+  .back__divider{ background:rgba(120,100,70,.3); }
+
+  /* ---- left column : avatar + motto ---- */
+  .back__left{ position:relative; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; gap:16px; text-align:center; }
+  .back__avatar{ width:98px; height:98px; border-radius:50%; position:relative; overflow:hidden;
+    background:linear-gradient(150deg, #caa35b, #7e5f33);
+    box-shadow:inset 0 0 0 3px rgba(246,238,219,.92), 0 4px 12px rgba(90,70,40,.28); }
+  .back__avatar img{ position:relative; z-index:1; width:100%; height:100%; object-fit:cover; display:block; }
+  .back__avatar::after{ content:"PH"; position:absolute; inset:0; z-index:0; display:grid; place-items:center;
+    font-family:var(--display); font-weight:600; font-size:30px; color:rgba(246,238,219,.95); letter-spacing:.04em; }
+  .back__motto{ font-family:var(--hand); font-size:21px; line-height:1.45; color:#5a4a30; }
+
+  /* ---- right column : keyword sections + mail ---- */
+  .back__right{ display:flex; flex-direction:column; justify-content:center; gap:13px; }
+  .back__label{ font-family:"DM Mono", var(--display); font-size:9px; letter-spacing:.2em; text-transform:uppercase;
+    color:rgba(90,70,40,.62); margin-bottom:7px; }
+  .tags{ display:flex; flex-wrap:wrap; gap:6px; }
+  .tags span{ font-family:"DM Mono", var(--display), monospace; font-size:10px; letter-spacing:.02em;
+    padding:3px 9px; border-radius:999px; color:#4a3d26;
+    background:rgba(201,163,91,.18); border:1px solid rgba(120,100,70,.3); }
+  .back__mail a{ font-family:"DM Mono", monospace; font-size:12px; color:#6e5526; text-decoration:none;
+    border-bottom:1px solid rgba(120,100,70,.4); transition:color .2s ease; }
+  .back__mail a:hover{ color:#3a2c12; }
+
+  /* ============ MOBILE : PORTRAIT ============ */
+  @media (max-width:640px){
+    .card{ width:min(84vw, 330px); height:min(126vw, 486px); }
+    .front__name{ font-size:32px; }
+    .back{ grid-template-columns:1fr; grid-template-rows:1fr 1px 0.82fr; }
+    .back__divider{ height:1px; width:100%; }
+  }
+
+  /* ---------- bottom controls ---------- */
+  .controls{ position:fixed; bottom:50px; left:0; right:0; z-index:4;
+    display:flex; gap:8px; justify-content:center; align-items:center; flex-wrap:wrap; }
+  .lang-btn, .motion-btn{ font-family:"DM Mono","Noto Serif SC","Shippori Mincho",monospace; font-size:11px;
+    letter-spacing:.08em; padding:7px 15px; border-radius:999px; cursor:pointer; color:var(--ink-dim);
+    background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12);
+    -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); transition:all .25s ease; }
+  .lang-btn:hover, .motion-btn:hover{ color:var(--ink); border-color:rgba(255,255,255,.28); }
+  .lang-btn.active{ color:#2a1608; border-color:transparent;
+    background:linear-gradient(120deg, #e8923c 0%, #f7cf81 100%);
+    box-shadow:0 0 14px rgba(240,170,90,.45); }
+  .motion-btn{ color:#7fe3ff; border-color:rgba(127,227,255,.4); }
+  .motion-btn:hover{ color:#cdf4ff; border-color:rgba(127,227,255,.7); }
+  .hint{ position:fixed; bottom:20px; left:0; right:0; text-align:center; z-index:3;
+    font-family:"DM Mono","Noto Serif SC",monospace; font-size:11px; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--ink-dim); pointer-events:none; }
+  body.lang-ja .hint, body.lang-zh .hint{ letter-spacing:.12em; text-transform:none; }
+</style>
+</head>
+<body class="lang-en">
+  <div class="bg-vignette"></div>
+  <div class="stars">
+    <div class="star-layer l1" data-n="90"  data-min="0.20" data-max="0.50"></div>
+    <div class="star-layer l2" data-n="45"  data-min="0.25" data-max="0.55"></div>
+    <div class="star-layer l3" data-n="120" data-min="0.12" data-max="0.38"></div>
+  </div>
+  <div class="bg-glow"></div>
+  <div class="bg-noise"></div>
+
+  <div class="stage">
+    <div class="card" id="card">
+      <div class="flipper">
+
+        <!-- FRONT : detail page (black hole) -->
+        <div class="face front">
+          <div class="front__scene">
+            <div class="bh">
+              <div class="bh__glow"></div>
+              <div class="bh__disk"></div>
+              <div class="bh__beam"></div>
+              <div class="bh__halo"></div>
+              <div class="bh__core"></div>
+            </div>
+          </div>
+          <div class="front__plate">
+            <div class="front__eyebrow" data-i="eyebrow">Deep Thinking...</div>
+            <div class="front__name" data-i="name">PENG HAO</div>
+            <div class="front__role" data-i="role">M1 Kuroyama Lab - University of Tokyo</div>
+          </div>
+          <div class="holo holo--rainbow"></div>
+          <div class="holo holo--rainbow2"></div>
+          <div class="holo holo--glare"></div>
+          <div class="holo holo--noise"></div>
+        </div>
+
+        <!-- BACK : profile card -->
+        <div class="face back">
+          <!-- left : avatar + motto -->
+          <div class="back__left">
+            <div class="back__avatar">
+              <img src="photo.jpg" alt="" onerror="this.style.display='none'">
+            </div>
+            <div class="back__motto">“Powered by curiosity, caffeine, and occasional deep thinking.”</div>
+          </div>
+
+          <div class="back__divider"></div>
+
+          <!-- right : keyword sections + mail -->
+          <div class="back__right">
+            <div class="back__section">
+              <div class="back__label">Interests</div>
+              <div class="tags">
+                <span>Technology</span><span>Coffee</span><span>Motorcycles</span><span>Gaming</span><span>Fitness</span>
+              </div>
+            </div>
+            <div class="back__section">
+              <div class="back__label">Research</div>
+              <div class="tags">
+                <span>Laser Diode</span><span>THz</span><span>Ultrastrong Coupling</span><span>2DEG</span><span>Magnetoplasmon</span>
+              </div>
+            </div>
+            <div class="back__mail">
+              <div class="back__label">Mail</div>
+              <a href="mailto:phaooo678@gmail.com">phaooo678@gmail.com</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="motion-btn" id="motionBtn" data-i="motion" hidden>Enable motion</button>
+  </div>
+  <div class="hint" id="hint"></div>
+
+<script>
+  const card  = document.getElementById('card');
+  const stage = document.querySelector('.stage');
+  const hint  = document.getElementById('hint');
+  const root  = document.documentElement;
+  const motionBtn = document.getElementById('motionBtn');
+  let flipped = false, lang = 'en', raf = null;
+  let motionOn = false, baseBeta = null, baseGamma = null, oraf = null;
+  const MAX_TILT = 13;
+
+  const texts = {
+    en:{ eyebrow:'Deep Thinking...', name:'PENG HAO',
+         role:'M1 Kuroyama Lab - University of Tokyo', hello:'Greetings —',
+         message:'Wish you were here. Tap the card to flip it back to the front. Replace this with a short note to your visitors.',
+         label:'Send to', motion:'Enable motion',
+         hintFront:'Move to tilt · Click to flip', hintBack:'Click to return',
+         hintTiltFront:'Tilt your phone · Tap to flip', hintTiltBack:'Tap to return' }
+  };
+
+  function updateHint(){
+    const t = texts[lang];
+    if (motionOn) hint.textContent = flipped ? t.hintTiltBack : t.hintTiltFront;
+    else          hint.textContent = flipped ? t.hintBack     : t.hintFront;
+  }
+  function setLang(l){
+    lang = l; document.body.className = 'lang-' + l;
+    const t = texts[l];
+    document.querySelectorAll('[data-i]').forEach(el => { el.textContent = t[el.dataset.i]; });
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+    updateHint();
+  }
+
+  /* ---------- desktop : mouse tilt ---------- */
+  function onMove(e){
+    const r = card.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top)  / r.height;
+    if (raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      card.classList.remove('snapping');
+      root.style.setProperty('--ry', ((px - .5) *  MAX_TILT * 2) + 'deg');
+      root.style.setProperty('--rx', ((py - .5) * -MAX_TILT * 2) + 'deg');
+      root.style.setProperty('--mx', (px * 100) + '%');
+      root.style.setProperty('--my', (py * 100) + '%');
+    });
+  }
+  function reset(){
+    card.classList.add('snapping');
+    root.style.setProperty('--rx','0deg'); root.style.setProperty('--ry','0deg');
+    root.style.setProperty('--mx','50%');  root.style.setProperty('--my','50%');
+    root.style.setProperty('--glow','0');
+  }
+  stage.addEventListener('mousemove', onMove);
+  stage.addEventListener('mouseleave', reset);
+
+  card.addEventListener('click', () => {
+    flipped = !flipped;
+    root.style.setProperty('--flip', flipped ? '180deg' : '0deg');
+    updateHint();
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+
+  /* ---------- mobile : gyroscope tilt ---------- */
+  function handleOrient(e){
+    if (e.gamma == null || e.beta == null) return;
+    if (baseBeta == null){ baseBeta = e.beta; baseGamma = e.gamma; }
+    const beta = e.beta, gamma = e.gamma;
+    if (oraf) cancelAnimationFrame(oraf);
+    oraf = requestAnimationFrame(() => {
+      const cG = Math.max(-28, Math.min(28, gamma - baseGamma));   // left-right
+      const cB = Math.max(-28, Math.min(28, beta  - baseBeta));    // front-back
+      root.style.setProperty('--ry', ( (cG/28) * 16) + 'deg');
+      root.style.setProperty('--rx', (-(cB/28) * 16) + 'deg');
+      root.style.setProperty('--mx', (50 + (cG/28) * 45) + '%');
+      root.style.setProperty('--my', (50 + (cB/28) * 45) + '%');
+      root.style.setProperty('--glow', '1');
+    });
+  }
+  function enableMotion(){
+    const start = () => {
+      window.addEventListener('deviceorientation', handleOrient);
+      motionOn = true; motionBtn.hidden = true;
+      baseBeta = null; baseGamma = null; updateHint();
+    };
+    if (typeof DeviceOrientationEvent !== 'undefined' &&
+        typeof DeviceOrientationEvent.requestPermission === 'function'){
+      DeviceOrientationEvent.requestPermission().then(s => { if (s === 'granted') start(); }).catch(()=>{});
+    } else { start(); }
+  }
+  const isTouch = window.matchMedia('(pointer: coarse)').matches || ('ontouchstart' in window);
+  if (isTouch && typeof DeviceOrientationEvent !== 'undefined'){
+    motionBtn.hidden = false;
+    motionBtn.addEventListener('click', (e) => { e.stopPropagation(); enableMotion(); });
+  }
+
+  /* ---------- build starfield ---------- */
+  (function(){
+    const H = 2400;
+    const w = Math.max(window.innerWidth, 900);
+    function field(n, minA, maxA){
+      const a = [];
+      for (let i=0;i<n;i++){
+        const x = Math.floor(Math.random()*w);
+        const y = Math.floor(Math.random()*H);
+        const op = (minA + Math.random()*(maxA-minA)).toFixed(2);
+        a.push(x + 'px ' + y + 'px rgba(255,255,255,' + op + ')');
+      }
+      return a.join(',');
+    }
+    document.querySelectorAll('.star-layer').forEach(layer => {
+      layer.style.setProperty('--sh', field(+layer.dataset.n, +layer.dataset.min, +layer.dataset.max));
+    });
+  })();
+
+  setLang('en');
+</script>
+</body>
+</html>
