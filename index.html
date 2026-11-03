@@ -57,6 +57,7 @@
   --au:#86600C;
   --au-fill:#CF9F38;
   --au-tint:rgba(207,159,56,.20);
+  --on-au:#21170A;
   --mp:#0E6C7B;
   --mp-fill:#2C96A6;
   --mp-tint:rgba(44,150,166,.14);
@@ -90,7 +91,7 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --paper:#0F1826;--panel:#142134;--plate:#E8ECF0;--ink:#E6EBF0;--ink-2:#A9B4C0;--ink-3:#7A899B;--line:#26364B;--ink-tint:rgba(230,235,240,.06);
-    --au:#E2B457;--au-fill:#C99A36;--au-tint:rgba(226,180,87,.16);
+    --au:#E2B457;--au-fill:#C99A36;--au-tint:rgba(226,180,87,.16);--on-au:#21170A;
     --mp:#63C6D4;--mp-fill:#3AA6B6;--mp-tint:rgba(99,198,212,.13);
     --band:#16263B;--band-ink:#E6EBF0;--band-ink-2:#A9B4C0;--band-line:rgba(230,235,240,.13);
     --focus:#63C6D4;
@@ -102,7 +103,7 @@
 }
 :root[data-theme="dark"]{
   --paper:#0F1826;--panel:#142134;--plate:#E8ECF0;--ink:#E6EBF0;--ink-2:#A9B4C0;--ink-3:#7A899B;--line:#26364B;--ink-tint:rgba(230,235,240,.06);
-  --au:#E2B457;--au-fill:#C99A36;--au-tint:rgba(226,180,87,.16);
+  --au:#E2B457;--au-fill:#C99A36;--au-tint:rgba(226,180,87,.16);--on-au:#21170A;
   --mp:#63C6D4;--mp-fill:#3AA6B6;--mp-tint:rgba(99,198,212,.13);
   --band:#16263B;--band-ink:#E6EBF0;--band-ink-2:#A9B4C0;--band-line:rgba(230,235,240,.13);
   --focus:#63C6D4;
@@ -229,30 +230,28 @@ figcaption{max-width:72ch;margin-top:12px;color:var(--ink-2);font-size:var(--fs-
 .plate{padding:8px;background:var(--plate);border:1px solid var(--line);border-radius:4px}
 .plate img{filter:var(--plate-filter)}
 
-/* device layout (Fig. 2) */
-.device{display:block;width:100%;height:auto}
-.grid-dot{fill:var(--ink-3);opacity:.35}
-.au-fill{fill:var(--au-tint);stroke:var(--au-fill);stroke-width:1.6;stroke-linejoin:round}
-.hatch-au{stroke:var(--au-fill);stroke-width:1.2}
-.mesa-fill{fill:var(--mp-tint);stroke:var(--mp-fill);stroke-width:1.5}
-.hatch-mesa{stroke:var(--mp-fill);stroke-width:1}
-.ohm-fill{fill:var(--ink-tint);stroke:var(--ink-3);stroke-width:1.4}
-.hatch-ohm{fill:none;stroke:var(--ink-3);stroke-width:.8}
-.leader,.scale,.arrow{fill:none;stroke:var(--ink-2);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
-.dev-label{fill:var(--ink-2);font-family:var(--font-body);font-size:12px;font-weight:500}
-.dev-small{font-size:10px}
-.layer{transition:opacity .3s ease}
-.layer.is-off{opacity:.06}
-.layers{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.layer-btn{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 11px;border:1px solid var(--line);border-radius:var(--radius);background:transparent;color:var(--ink);font:inherit;font-size:.84rem;cursor:pointer}
-.layer-btn:hover{border-color:var(--ink-3)}
-.layer-btn[aria-pressed="false"]{color:var(--ink-3)}
-.layer-btn[aria-pressed="false"] .lb-text{text-decoration:line-through}
-.sw{width:18px;height:12px;flex:none;border:1.5px solid var(--c);background:repeating-linear-gradient(45deg,var(--c) 0 1.3px,transparent 1.3px 4px)}
-.layer-btn[aria-pressed="false"] .sw{background:none}
-.sw-au,[data-tech="eb"]{--c:var(--au-fill)}
-.sw-mesa,[data-tech="laser"]{--c:var(--mp-fill)}
-.sw-ohm,[data-tech="other"]{--c:var(--ink-3)}
+/* concept sketch (Fig. 2) */
+.concept{display:block;width:100%;height:auto}
+.c-wave{fill:none;stroke:var(--mp-fill);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.c-chip{fill:var(--ink-tint);stroke:var(--line);stroke-width:1.2}
+.c-mesa{fill:var(--mp-tint);stroke:var(--mp-fill);stroke-width:1.2}
+.c-ohm{fill:var(--panel);stroke:var(--ink-3);stroke-width:1.2}
+.c-srr{fill:none;stroke:var(--au-fill);stroke-width:7;stroke-linejoin:miter}
+.c-qpc{fill:var(--ink-2)}
+.c-wire{fill:none;stroke:var(--ink-3);stroke-width:1.3;stroke-linejoin:round}
+.c-meter{fill:var(--panel);stroke:var(--ink);stroke-width:1.5}
+.c-axis{fill:none;stroke:var(--ink-3);stroke-width:1.1}
+.c-spec{fill:none;stroke:var(--au-fill);stroke-width:2;stroke-linejoin:round}
+.c-b{fill:none;stroke:var(--ink-2);stroke-width:1.3}
+.c-bdot{fill:var(--ink-2)}
+.c-label{fill:var(--ink-2);font-family:var(--font-body);font-size:12.5px;font-weight:500}
+.c-small{fill:var(--ink-3);font-family:var(--font-body);font-size:11px}
+.c-sym{fill:var(--ink);font-family:var(--font-display);font-size:15px;font-style:italic}
+.c-num circle{fill:var(--au-fill)}
+.c-num text{fill:var(--on-au);font-family:var(--font-body);font-size:11px;font-weight:600}
+.c-steps{display:grid;gap:8px;margin:14px 0 0;padding:12px 0 0;border-top:1px solid var(--line);list-style:none;counter-reset:cstep}
+.c-steps li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;color:var(--ink-2);font-size:.9rem;line-height:1.5}
+.c-steps li::before{counter-increment:cstep;content:counter(cstep);display:grid;place-items:center;width:20px;height:20px;margin-top:1px;border-radius:50%;background:var(--au-fill);color:var(--on-au);font-size:.72rem;font-weight:600}
 
 /* ---------- sections ---------- */
 .section{padding-block:clamp(64px,9vw,120px);border-top:1px solid var(--line)}
@@ -393,76 +392,6 @@ figcaption{max-width:72ch;margin-top:12px;color:var(--ink-2);font-size:var(--fs-
 .goal{margin-top:32px}
 .goal h4{margin:0 0 4px;font-family:var(--font-display);font-size:1.15rem;font-weight:500}
 .goal > p{margin:0;max-width:64ch;color:var(--ink-2)}
-.io{display:grid;gap:8px;grid-template-columns:minmax(0,1fr);align-items:stretch;margin-top:18px}
-@media (min-width:820px){.io{grid-template-columns:minmax(0,1fr) 40px minmax(0,1.15fr) 40px minmax(0,1fr)}}
-.io-col{min-width:0;padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-radius:4px}
-.io-model{display:flex;flex-direction:column;justify-content:center;background:var(--ink);border-color:var(--ink);color:var(--paper)}
-.io-k{margin:0 0 8px;color:var(--ink-3);font-size:var(--fs-xs)}
-.io-model .io-k{color:inherit;opacity:.72}
-.io-mname{margin:0;font-family:var(--font-display);font-size:1.15rem;line-height:1.35}
-.io ul{display:grid;gap:6px;margin:0;padding:0;list-style:none}
-.io-syms li{display:flex;align-items:baseline;gap:10px}
-.io-syms .sym{min-width:1.7em;color:var(--au);font-family:var(--font-display);font-size:1.45rem;font-style:italic;line-height:1.1}
-.io-syms .sym sub{font-style:normal}
-.io-syms span:last-child{color:var(--ink-2);font-size:.9rem}
-.io-arrow{display:grid;place-items:center;color:var(--ink-3)}
-.io-arrow svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transform:rotate(90deg)}
-@media (min-width:820px){.io-arrow svg{transform:none}}
-
-/* research cycle */
-.pipeline{display:grid;margin:0;padding:0;list-style:none}
-.pl-item{position:relative;display:grid;grid-template-columns:30px minmax(0,1fr);align-content:start;gap:14px;padding-bottom:26px;min-width:0}
-.pl-item:last-child{padding-bottom:0}
-.pl-item::before{content:"";position:absolute;left:14px;top:30px;bottom:0;width:2px;background:var(--line)}
-.pl-item[data-status="done"]::before{background:var(--ink)}
-.pl-item:last-child::before{display:none}
-.pl-node{position:relative;z-index:1;display:grid;place-items:center;width:30px;height:30px;border:2px solid var(--ink-3);border-radius:50%;background:var(--paper)}
-.pl-item[data-status="done"] .pl-node{border-color:var(--ink);background:var(--ink)}
-.pl-node svg{width:14px;height:14px;fill:none;stroke:var(--paper);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.pl-item[data-status="now"] .pl-node{border-color:var(--au-fill);background:var(--au-fill)}
-.pl-item[data-status="now"] .pl-node::after{content:"";position:absolute;inset:-5px;border:2px solid var(--au-fill);border-radius:50%;animation:pulse 2.2s ease-out infinite}
-.pl-item[data-status="next"] .pl-node{border-style:dashed}
-.pl-body{min-width:0;padding-top:2px}
-.pl-name{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:0 0 4px;font-family:var(--font-display);font-size:1.18rem;font-weight:500;line-height:1.3}
-.pl-status{padding:1px 8px;border:1px solid var(--line);border-radius:999px;color:var(--ink-2);font-family:var(--font-body);font-size:.72rem;font-weight:500}
-.pl-item[data-status="done"] .pl-status{background:var(--ink-tint);border-color:transparent}
-.pl-item[data-status="now"] .pl-status{background:var(--au-tint);border-color:transparent;color:var(--au)}
-.pl-desc{margin:0;color:var(--ink-2);font-size:.93rem}
-@keyframes pulse{0%{transform:scale(1);opacity:.85}100%{transform:scale(1.6);opacity:0}}
-.loop-back{display:none}
-@media (min-width:1180px){
-  .pipeline{grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
-  .pl-item{grid-template-columns:minmax(0,1fr);gap:14px;padding-bottom:0}
-  .pl-item::before{left:30px;right:-20px;top:14px;bottom:auto;width:auto;height:2px}
-  .loop-back{display:block;position:relative;width:calc(80% + 16px);height:26px;margin:18px 0 0 14px;border:1px solid var(--ink-3);border-top:0;border-radius:0 0 8px 8px}
-  .loop-back::before{content:"";position:absolute;top:-7px;left:-5px;width:0;height:0;border-left:4.5px solid transparent;border-right:4.5px solid transparent;border-bottom:7px solid var(--ink-3)}
-  .loop-back span{position:absolute;left:50%;bottom:-.72em;transform:translateX(-50%);padding:0 10px;background:var(--paper);color:var(--ink-3);font-size:var(--fs-xs);line-height:1.4;white-space:nowrap}
-}
-
-/* fabrication */
-.fab-intro{display:grid;gap:24px;align-items:start}
-@media (min-width:1100px){.fab-intro{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px}}
-.fab-intro .block-head{margin-bottom:0}
-.fab-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:6px 0 0;padding:0;list-style:none;color:var(--ink-2);font-size:var(--fs-sm)}
-.fab-legend li{display:inline-flex;align-items:center;gap:8px}
-.fab-sw{display:inline-block;width:20px;height:14px;flex:none;border:1.5px solid var(--c);background:repeating-linear-gradient(45deg,var(--c) 0 1.3px,transparent 1.3px 4px)}
-.fab-photos{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr));margin:0}
-.fab-photos figure{margin:0;min-width:0}
-.fab-photos img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:4px;background:var(--ink-tint)}
-.fab-photos figcaption{margin-top:6px;font-size:.8rem}
-.fab-scroll{margin-top:28px}
-.fab{display:grid;gap:10px;grid-template-columns:minmax(0,1fr);margin:0;padding:0;list-style:none}
-.fab > li{min-width:0;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:4px}
-.fab-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.fab-no{color:var(--ink-3);font-family:var(--font-display);font-size:1.3rem;line-height:1;font-variant-numeric:tabular-nums}
-.fab h4{margin:8px 0 6px;font-size:.95rem;font-weight:600;line-height:1.35}
-.fab ul{display:grid;gap:2px;margin:0;padding:0;list-style:none;color:var(--ink-2);font-size:.8rem;line-height:1.45}
-@media (min-width:620px) and (max-width:1179px){
-  .fab-scroll{overflow-x:auto;padding-bottom:10px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
-  .fab{grid-auto-flow:column;grid-auto-columns:170px;grid-template-columns:none}
-  .fab > li{scroll-snap-align:start}
-}
-@media (min-width:1180px){.fab{grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}.fab > li{padding:12px 10px}}
 
 /* undergraduate work */
 .ug-meta{display:grid;gap:2px;margin:10px 0 0;color:var(--ink-2);font-size:var(--fs-sm)}
@@ -531,7 +460,7 @@ figcaption{max-width:72ch;margin-top:12px;color:var(--ink-2);font-size:var(--fs-
 
 /* projects: other */
 .projects{display:grid;gap:48px 28px;grid-template-columns:minmax(0,1fr);margin-top:24px}
-@media (min-width:640px){.projects{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:760px){.projects{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .proj{display:flex;flex-direction:column;min-width:0}
 .proj-art{position:relative;height:clamp(176px,17vw,220px);overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:4px}
 .proj-art svg{position:absolute;inset:0;width:100%;height:100%}
@@ -546,11 +475,6 @@ figcaption{max-width:72ch;margin-top:12px;color:var(--ink-2);font-size:var(--fs-
 .proj-tags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0;padding:0;list-style:none}
 .tag{padding:1px 7px;border:1px solid var(--line);border-radius:2px;color:var(--ink-2);font-size:.75rem}
 .proj-link{align-self:flex-start;margin-top:12px;font-size:var(--fs-sm);font-weight:500}
-.a-gate{fill:var(--ink-tint);stroke:var(--ink-3);stroke-width:1.2}
-.a-gate-h{stroke:var(--ink-3);stroke-width:1}
-.a-axis{fill:none;stroke:var(--line);stroke-width:1.2}
-.a-dash{stroke-dasharray:4 4}
-.a-prof{fill:none;stroke:var(--mp-fill);stroke-width:1.7;stroke-linejoin:round}
 .a-wave{fill:none;stroke:var(--mp-fill);stroke-width:1.2}
 .a-hot{fill:var(--au-tint)}
 .a-srr{fill:none;stroke:var(--au-fill);stroke-width:10;stroke-linejoin:miter}
@@ -759,8 +683,6 @@ figcaption{max-width:72ch;margin-top:12px;color:var(--ink-2);font-size:var(--fs-
           <a href="#r-modes" data-t="sn.modes"></a>
           <a href="#r-regimes" data-t="sn.regimes"></a>
           <a href="#r-question" data-t="sn.question"></a>
-          <a href="#r-cycle" data-t="sn.cycle"></a>
-          <a href="#r-fab" data-t="sn.fab"></a>
           <a href="#earlier" data-t="sn.ug"></a>
         </nav>
       </div>
@@ -770,46 +692,43 @@ figcaption{max-width:72ch;margin-top:12px;color:var(--ink-2);font-size:var(--fs-
             <h3 class="lede" data-t="research.heading"></h3>
             <div class="prose"><p data-t="research.p1"></p></div>
           </div>
-          <figure class="fig fig-device" id="fig2">
+          <figure class="fig fig-concept" id="fig2">
             <div class="fig-panel">
-              <svg class="device" id="device" viewBox="0 0 480 300" role="img" aria-labelledby="devTitle">
-                <title id="devTitle" data-t="fig2.aria"></title>
-                <defs>
-                  <pattern id="gridDots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r=".9" class="grid-dot"/></pattern>
-                  <pattern id="hatchAu" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" class="hatch-au"/></pattern>
-                  <pattern id="hatchMesa" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="6" class="hatch-mesa"/></pattern>
-                  <pattern id="hatchOhm" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 3H6M3 0V6" class="hatch-ohm"/></pattern>
-                </defs>
-                <rect x="0" y="0" width="480" height="300" fill="url(#gridDots)"/>
-                <g class="layer" data-layer="mesa">
-                  <rect x="34" y="138" width="412" height="24" class="mesa-fill"/>
-                  <rect x="34" y="138" width="412" height="24" fill="url(#hatchMesa)"/>
-                </g>
-                <g class="layer" data-layer="ohmic">
-                  <rect x="14" y="116" width="52" height="68" class="ohm-fill"/>
-                  <rect x="14" y="116" width="52" height="68" fill="url(#hatchOhm)"/>
-                  <rect x="414" y="116" width="52" height="68" class="ohm-fill"/>
-                  <rect x="414" y="116" width="52" height="68" fill="url(#hatchOhm)"/>
-                </g>
-                <g class="layer" data-layer="au">
-                  <polygon points="150,10 330,10 246,120 244,145 236,145 234,120" class="au-fill"/>
-                  <polygon points="150,10 330,10 246,120 244,145 236,145 234,120" fill="url(#hatchAu)"/>
-                  <polygon points="150,290 330,290 246,180 244,155 236,155 234,180" class="au-fill"/>
-                  <polygon points="150,290 330,290 246,180 244,155 236,155 234,180" fill="url(#hatchAu)"/>
-                </g>
-                <path class="leader" d="M247 150 300 110H326"/>
-                <text class="dev-label" x="331" y="114">QPC</text>
-                <path class="scale" d="M30 274H124M30 269V279M124 269V279"/>
-                <text class="dev-label" x="77" y="262" text-anchor="middle">20 μm</text>
-                <path class="arrow" d="M440 22V92M435 30 440 22 445 30M435 84 440 92 445 84"/>
-                <text class="dev-label" x="451" y="56">E</text>
-                <text class="dev-label dev-small" x="451" y="70">THz</text>
+              <svg class="concept" viewBox="0 0 480 250" role="img" aria-labelledby="c2Title">
+                <title id="c2Title" data-t="fig2.aria"></title>
+                <path class="c-wave" d="M14 118q8-15 16 0t16 0t16 0t16 0t16 0t16 0"/>
+                <path class="c-wave" d="M104 111 114 118 104 125"/>
+                <text class="c-label" x="18" y="94">THz</text>
+                <rect class="c-chip" x="132" y="30" width="204" height="184" rx="6"/>
+                <text class="c-small" x="142" y="47">0.3 K</text>
+                <circle class="c-b" cx="314" cy="46" r="8"/><circle class="c-bdot" cx="314" cy="46" r="2.2"/>
+                <text class="c-sym" x="300" y="51" text-anchor="end">B</text>
+                <text class="c-small" x="234" y="42" text-anchor="middle" data-t="c2.res"></text>
+                <rect class="c-mesa" x="142" y="128" width="184" height="22"/>
+                <rect class="c-ohm" x="142" y="124" width="16" height="30"/>
+                <rect class="c-ohm" x="310" y="124" width="16" height="30"/>
+                <path class="c-srr" d="M228 120H199V50H269V120H240"/>
+                <path class="c-qpc" d="M228 128H240L234 136ZM228 150H240L234 142Z"/>
+                <path class="c-wire" d="M238 147 262 180"/>
+                <text class="c-label" x="264" y="194">QPC</text>
+                <text class="c-small" x="164" y="168">2DEG</text>
+                <path class="c-wire" d="M326 139H386M150 154V232H440V139H414"/>
+                <circle class="c-meter" cx="400" cy="139" r="14"/>
+                <text class="c-sym" x="400" y="144" text-anchor="middle">I</text>
+                <text class="c-small" x="400" y="174" text-anchor="middle" data-t="c2.pc"></text>
+                <path class="c-axis" d="M372 24V96H472"/>
+                <path class="c-spec" d="M376 92C392 92 396 46 406 46C416 46 418 84 422 84C426 84 430 54 440 54C450 54 454 92 470 92"/>
+                <text class="c-small" x="472" y="110" text-anchor="end">f</text>
+                <text class="c-small" x="366" y="32" text-anchor="end">I</text>
+                <g class="c-num"><circle cx="60" cy="146" r="9"/><text x="60" y="150" text-anchor="middle">1</text></g>
+                <g class="c-num"><circle cx="300" cy="108" r="9"/><text x="300" y="112" text-anchor="middle">2</text></g>
+                <g class="c-num"><circle cx="400" cy="198" r="9"/><text x="400" y="202" text-anchor="middle">3</text></g>
               </svg>
-              <div class="layers" role="group" data-ta="fig2.layers">
-                <button type="button" class="layer-btn" data-layer="au" aria-pressed="true"><span class="sw sw-au" aria-hidden="true"></span><span class="lb-text" data-t="fig2.au"></span></button>
-                <button type="button" class="layer-btn" data-layer="mesa" aria-pressed="true"><span class="sw sw-mesa" aria-hidden="true"></span><span class="lb-text" data-t="fig2.mesa"></span></button>
-                <button type="button" class="layer-btn" data-layer="ohmic" aria-pressed="true"><span class="sw sw-ohm" aria-hidden="true"></span><span class="lb-text" data-t="fig2.ohmic"></span></button>
-              </div>
+              <ol class="c-steps">
+                <li data-t="c2.s1"></li>
+                <li data-t="c2.s2"></li>
+                <li data-t="c2.s3"></li>
+              </ol>
             </div>
             <figcaption><span class="fig-no">Fig. 2 |</span> <span class="fig-title" data-t="fig2.title"></span> <span data-t="fig2.caption"></span></figcaption>
           </figure>
@@ -929,50 +848,7 @@ figcaption{max-width:72ch;margin-top:12px;color:var(--ink-2);font-size:var(--fs-
           <div class="goal">
             <h4 data-t="goal.title"></h4>
             <p data-t="goal.text"></p>
-            <div class="io">
-              <div class="io-col io-in"><p class="io-k" data-t="io.in"></p><ul><li data-t="io.in1"></li><li data-t="io.in2"></li><li data-t="io.in3"></li></ul></div>
-              <div class="io-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
-              <div class="io-col io-model"><p class="io-k" data-t="io.model"></p><p class="io-mname" data-t="io.modelV"></p></div>
-              <div class="io-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
-              <div class="io-col io-out"><p class="io-k" data-t="io.out"></p>
-                <ul class="io-syms">
-                  <li><span class="sym">g</span><span data-t="io.g"></span></li>
-                  <li><span class="sym">f<sub>p</sub></span><span data-t="io.fp"></span></li>
-                  <li><span class="sym">q</span><span data-t="io.q"></span></li>
-                </ul>
-              </div>
-            </div>
           </div>
-        </div>
-
-        <!-- research cycle -->
-        <div class="block" id="r-cycle" data-sub>
-          <div class="block-head"><h3 class="sub-h" data-t="cyc.title"></h3><p data-t="cyc.text"></p></div>
-          <ol class="pipeline" id="pipeline"></ol>
-          <div class="loop-back" aria-hidden="true"><span data-t="cyc.back"></span></div>
-        </div>
-
-        <!-- fabrication -->
-        <div class="block" id="r-fab" data-sub>
-          <div class="fab-intro">
-            <div class="block-head">
-              <h3 class="sub-h" data-t="fab.title"></h3>
-              <p data-t="fab.text"></p>
-              <ul class="fab-legend">
-                <li><span class="fab-sw" data-tech="eb" aria-hidden="true"></span><span data-t="fab.eb"></span></li>
-                <li><span class="fab-sw" data-tech="laser" aria-hidden="true"></span><span data-t="fab.laser"></span></li>
-                <li><span class="fab-sw" data-tech="other" aria-hidden="true"></span><span data-t="fab.other"></span></li>
-              </ul>
-            </div>
-            <figure class="fig">
-              <div class="fab-photos">
-                <figure><img src="img/mesa.webp" width="960" height="891" loading="lazy" decoding="async" data-alt="alt.mesa" alt=""><figcaption data-t="fab.a"></figcaption></figure>
-                <figure><img src="img/ohmic.webp" width="960" height="954" loading="lazy" decoding="async" data-alt="alt.ohmic" alt=""><figcaption data-t="fab.b"></figcaption></figure>
-              </div>
-              <figcaption><span class="fig-no">Fig. 4 |</span> <span class="fig-title" data-t="fig4.title"></span></figcaption>
-            </figure>
-          </div>
-          <div class="fab-scroll"><ol class="fab" id="fabList"></ol></div>
         </div>
 
         <!-- undergraduate work -->
@@ -1011,7 +887,7 @@ figcaption{max-width:72ch;margin-top:12px;color:var(--ink-2);font-size:var(--fs-
                   <figcaption data-t="ug.fd"></figcaption>
                 </figure>
               </div>
-              <figcaption><span class="fig-no">Fig. 5 |</span> <span class="fig-title" data-t="fig5.title"></span></figcaption>
+              <figcaption><span class="fig-no">Fig. 4 |</span> <span class="fig-title" data-t="fig5.title"></span></figcaption>
             </figure>
           </div>
         </div>
@@ -1165,7 +1041,7 @@ const T = {
   "hero.cta1":   { en: "See the research", ja: "研究を見る", zh: "了解研究" },
   "hero.cta2":   { en: "Get in touch", ja: "連絡する", zh: "联系我" },
 
-  "fig1.aria":   { en: "Simulated absorption map in which two branches avoid each other near 1.06 tesla and 0.89 terahertz.", ja: "1.06 T、0.89 THz付近で2本の分枝が反交差する吸収マップ（計算）。", zh: "两条分支在 1.06 T、0.89 THz 附近发生反交叉的吸收图（计算）。" },
+  "fig1.aria":   { en: "Simulated absorption map in which two branches avoid each other where the magnetoplasmon and the second cyclotron resonance cross.", ja: "マグネトプラズモンと二次サイクロトロン共鳴が交わる磁場で、2本の分枝が反交差する吸収マップ（計算）。", zh: "磁等离激元与二次回旋共振交叉处两条分支发生反交叉的吸收图（计算）。" },
   "fig1.slider": { en: "Coupling", ja: "結合の強さ", zh: "耦合强度" },
   "fig1.r0":     { en: "Uncoupled", ja: "結合なし", zh: "无耦合" },
   "fig1.r1":     { en: "Strong coupling", ja: "強結合", zh: "强耦合" },
@@ -1173,12 +1049,12 @@ const T = {
   "fig1.field":  { en: "Field", ja: "磁場", zh: "磁场" },
   "fig1.upper":  { en: "Upper branch <i>f</i><sub>+</sub>", ja: "上側分枝 <i>f</i><sub>+</sub>", zh: "上支 <i>f</i><sub>+</sub>" },
   "fig1.lower":  { en: "Lower branch <i>f</i><sub>−</sub>", ja: "下側分枝 <i>f</i><sub>−</sub>", zh: "下支 <i>f</i><sub>−</sub>" },
-  "fig1.split":  { en: "Splitting at 1.06 T", ja: "1.06 Tでの分裂幅", zh: "1.06 T 处的劈裂宽度" },
+  "fig1.split":  { en: "Splitting at the crossing", ja: "交差点での分裂幅", zh: "交叉点处的劈裂宽度" },
   "fig1.title":  { en: "Avoided crossing between a magnetoplasmon (MP) and the second cyclotron resonance (2CR).", ja: "マグネトプラズモン（MP）と二次サイクロトロン共鳴（2CR）の反交差。", zh: "磁等离激元（MP）与二次回旋共振（2CR）的反交叉。" },
   "fig1.caption":{
-    en: "Absorption of a GaAs two-dimensional electron gas versus magnetic field and frequency, calculated with a two-mode model (arbitrary units). Drag the slider to change the coupling and move across the plot to read off both branches. Above <i>g</i>/<i>ω</i><sub>0</sub> = 0.1 the modes are ultrastrongly coupled.",
-    ja: "2モードモデルで計算したGaAs二次元電子系の吸収（任意単位）を、磁場と周波数の関数として示しています。スライダーで結合の強さを変え、グラフ上をなぞると2本の分枝の値を読み取れます。<i>g</i>/<i>ω</i><sub>0</sub> が0.1を超えると超強結合領域です。",
-    zh: "用双模模型计算的 GaAs 二维电子气吸收谱（任意单位），横轴为磁场，纵轴为频率。拖动滑块改变耦合强度，在图上移动即可读出两条分支的数值。<i>g</i>/<i>ω</i><sub>0</sub> 超过 0.1 即进入超强耦合区。"
+    en: "Absorption of a GaAs two-dimensional electron gas versus magnetic field and frequency, calculated with a two-mode model and illustrative parameters (arbitrary units). Drag the slider to change the coupling and move across the plot to read off both branches. Above <i>g</i>/<i>ω</i><sub>0</sub> = 0.1 the modes are ultrastrongly coupled.",
+    ja: "2モードモデルと例示用のパラメータで計算したGaAs二次元電子系の吸収（任意単位）を、磁場と周波数の関数として示しています。スライダーで結合の強さを変え、グラフ上をなぞると2本の分枝の値を読み取れます。<i>g</i>/<i>ω</i><sub>0</sub> が0.1を超えると超強結合領域です。",
+    zh: "用双模模型和示意参数计算的 GaAs 二维电子气吸收谱（任意单位），横轴为磁场，纵轴为频率。拖动滑块改变耦合强度，在图上移动即可读出两条分支的数值。<i>g</i>/<i>ω</i><sub>0</sub> 超过 0.1 即进入超强耦合区。"
   },
   "fig1.xaxis":  { en: "Magnetic field B (T)", ja: "磁場 B (T)", zh: "磁场 B (T)" },
   "fig1.yaxis":  { en: "Frequency (THz)", ja: "周波数 (THz)", zh: "频率 (THz)" },
@@ -1188,7 +1064,7 @@ const T = {
   "hl.lede":   { en: "Three projects, each carried from design to working hardware.", ja: "設計から作製・実装まで一貫して取り組んだ3つのプロジェクトです。", zh: "三个从设计一直做到实物的项目。" },
   "hl1.kind":  { en: "Master’s research", ja: "修士研究", zh: "硕士研究" },
   "hl1.title": { en: "Controlling ultrastrong coupling at terahertz frequencies", ja: "テラヘルツ帯の超強結合を制御する", zh: "调控太赫兹频段的超强耦合" },
-  "hl1.text":  { en: "Gate electrostatics and nonlocal EM models, device design and cleanroom fabrication.", ja: "ゲート静電計算と非局所電磁界モデル、素子設計、クリーンルームでの作製。", zh: "栅极静电计算与非局域电磁模型、器件设计、洁净室加工。" },
+  "hl1.text":  { en: "Ultrastrong coupling between two collective electron modes at terahertz frequencies, explored through simulation, nanofabrication and measurement at 0.3 K.", ja: "テラヘルツ帯で起こる2つの電子集団運動の超強結合を、シミュレーション、微細加工、0.3 Kでの測定から探究しています。", zh: "通过仿真、微纳加工和 0.3 K 低温测量，研究太赫兹频段两种电子集体运动之间的超强耦合。" },
   "hl1.aria":  { en: "Calculated absorption map with an avoided crossing", ja: "反交差を示す吸収マップ（計算）", zh: "显示反交叉的吸收图（计算）" },
   "hl2.kind":  { en: "Undergraduate research", ja: "学部研究", zh: "本科研究" },
   "hl2.title": { en: "Cooler InP lasers with silver-nanoparticle bonding", ja: "銀ナノ粒子ボンディングでInPレーザの放熱を改善", zh: "用银纳米颗粒键合改善 InP 激光器散热" },
@@ -1227,8 +1103,6 @@ const T = {
   "hb.coffee":   { en: "Brewing coffee", ja: "コーヒーを淹れること", zh: "冲咖啡" },
 
   /* image descriptions */
-  "alt.mesa":   { en: "Optical micrograph of an X-shaped GaAs mesa after wet etching", ja: "ウェットエッチング後のX字型GaAsメサの光学顕微鏡像", zh: "湿法刻蚀后 X 形 GaAs 台面的光学显微镜照片" },
-  "alt.ohmic":  { en: "Optical micrograph of the ohmic contact pattern after exposure and development", ja: "露光・現像後のオーミック電極パターンの光学顕微鏡像", zh: "曝光显影后欧姆接触图形的光学显微镜照片" },
   "alt.sem":    { en: "SEM image of a high-mesa InP laser device", ja: "ハイメサInPレーザ素子のSEM像", zh: "高台面 InP 激光器件的 SEM 图像" },
   "alt.il":     { en: "Optical output versus current density before and after bonding at 10, 20 and 30 °C", ja: "10・20・30 °Cにおけるボンディング前後のI-L特性", zh: "10、20、30 °C 下键合前后的光输出与电流密度曲线" },
   "alt.comsol": { en: "COMSOL temperature map of the bonded laser", ja: "接合したレーザのCOMSOL温度分布", zh: "键合激光器的 COMSOL 温度分布图" },
@@ -1249,21 +1123,20 @@ const T = {
   "sn.modes":    { en: "Two modes", ja: "2つの励起", zh: "两种激发" },
   "sn.regimes":  { en: "Coupling regimes", ja: "結合の領域", zh: "耦合区间" },
   "sn.question": { en: "Open question", ja: "未解明の課題", zh: "待解问题" },
-  "sn.cycle":    { en: "Research cycle", ja: "研究の進め方", zh: "研究流程" },
-  "sn.fab":      { en: "Fabrication", ja: "素子作製", zh: "器件加工" },
   "sn.ug":       { en: "Undergraduate work", ja: "学部研究", zh: "本科研究" },
 
-  "fig2.aria":    { en: "Schematic layout of a gold bowtie antenna over a 2DEG channel, with a quantum point contact at the centre.", ja: "2DEGチャネル上の金ボウタイアンテナと、中央の量子ポイントコンタクトを示すレイアウト模式図。", zh: "二维电子沟道上方的金蝶形天线及中心量子点接触的版图示意图。" },
-  "fig2.title":   { en: "A bowtie device cell (schematic).", ja: "ボウタイ型デバイスセル（模式図）。", zh: "蝶形天线器件单元（示意图）。" },
+  "fig2.aria":    { en: "Concept sketch: terahertz light hits a resonator on a GaAs chip, and a quantum point contact turns the absorption into a photocurrent with two split peaks.", ja: "概念図：テラヘルツ光がGaAsチップ上の共振器に当たり、量子ポイントコンタクトが吸収を、分裂した2つのピークをもつ光電流に変換する様子。", zh: "概念图：太赫兹光照射 GaAs 芯片上的谐振器，量子点接触把吸收转换为带有两个劈裂峰的光电流。" },
+  "fig2.title":   { en: "How the coupling is detected (concept sketch).", ja: "結合の検出方法（概念図）。", zh: "耦合的检测方式（概念图）。" },
+  "c2.res":       { en: "resonator", ja: "共振器", zh: "谐振器" },
+  "c2.pc":        { en: "photocurrent", ja: "光電流", zh: "光电流" },
+  "c2.s1":        { en: "Terahertz light hits the resonator, which squeezes the field into a tiny gap.", ja: "テラヘルツ光が共振器に当たり、電場が微小なギャップに集中します。", zh: "太赫兹光照射到谐振器上，电场被集中到微小的间隙中。" },
+  "c2.s2":        { en: "At 0.3 K in a magnetic field B, the MP and the 2CR in the 2DEG absorb the light and couple.", ja: "0.3 K・磁場 B の中で、2DEG中のMPと2CRが光を吸収し、互いに結合します。", zh: "在 0.3 K 和磁场 B 中，二维电子气里的 MP 与 2CR 吸收光并相互耦合。" },
+  "c2.s3":        { en: "The quantum point contact turns the absorption into a photocurrent I, where the coupling appears as two split peaks.", ja: "量子ポイントコンタクトが吸収を光電流 I に変換し、結合は分裂した2つのピークとして現れます。", zh: "量子点接触把吸收转换为光电流 I，耦合表现为劈裂的两个峰。" },
   "fig2.caption": {
-    en: "The gold bowtie focuses terahertz fields onto the 2DEG channel. Its tips double as split gates that form a quantum point contact, which turns absorption into a photocurrent. Tap a layer to hide it.",
-    ja: "金のボウタイアンテナがテラヘルツ電場を2DEGチャネルに集めます。アンテナの先端はスプリットゲートを兼ねて量子ポイントコンタクトを形成し、吸収を光電流として取り出します。レイヤーをタップすると表示を切り替えられます。",
-    zh: "金蝶形天线把太赫兹电场汇聚到二维电子沟道上。天线尖端同时充当分裂栅，形成量子点接触，把吸收转换为光电流。点击图层可切换显示。"
+    en: "The principle behind our lab’s published SRR–QPC devices, drawn schematically and not to scale.",
+    ja: "研究室の既発表のSRR–QPC素子と同じ原理を示した模式図で、寸法は実際とは異なります。",
+    zh: "示意研究室已发表的 SRR–QPC 器件的工作原理，尺寸并非实际比例。"
   },
-  "fig2.layers":  { en: "Layers", ja: "レイヤー", zh: "图层" },
-  "fig2.au":      { en: "Antenna and gates (Au)", ja: "アンテナ・ゲート（Au）", zh: "天线与栅极（Au）" },
-  "fig2.mesa":    { en: "2DEG mesa", ja: "2DEGメサ", zh: "2DEG 台面" },
-  "fig2.ohmic":   { en: "Ohmic contacts", ja: "オーミック電極", zh: "欧姆接触" },
 
   "modes.title": { en: "Two modes, one coupling", ja: "2つの励起と、その結合", zh: "两种激发与它们的耦合" },
   "modes.text":  { en: "The project studies how two excitations of the same electron gas couple, and how to set the coupling strength g.", ja: "同じ二次元電子系に生じる2つの励起、MPと2CRの結合を調べ、結合強度 g の制御を目指しています。", zh: "研究同一二维电子气中两种激发（MP 与 2CR）之间的耦合，并尝试调控耦合强度 g。" },
@@ -1307,33 +1180,9 @@ const T = {
     zh: "栅压为何会改变 <i>g</i>，目前还没有定量的解释。有效质量的差异表明 MP 位于谐振器间隙、2CR 出现在 QPC 附近，两者在空间上分离，但仍缺乏预测和设计耦合强度的方法。"
   },
   "goal.title": { en: "My goal", ja: "研究の目的", zh: "研究目标" },
-  "goal.text":  { en: "Predict the coupling without assumed values, then use the model to design better devices.", ja: "仮定値に頼らずに結合強度を予測し、その予測を素子設計に活かすこと。", zh: "不依赖假设值预测耦合强度，并用这个模型设计更好的器件。" },
-  "io.in":      { en: "Inputs", ja: "入力", zh: "输入" },
-  "io.in1":     { en: "Wafer parameters", ja: "ウエハ条件", zh: "晶圆参数" },
-  "io.in2":     { en: "Device geometry", ja: "素子形状", zh: "器件几何" },
-  "io.in3":     { en: "Gate voltages", ja: "ゲート電圧", zh: "栅压" },
-  "io.model":   { en: "Model", ja: "モデル", zh: "模型" },
-  "io.modelV":  { en: "Gate electrostatics + nonlocal electromagnetics", ja: "ゲート静電計算 ＋ 非局所電磁界計算", zh: "栅极静电计算 ＋ 非局域电磁计算" },
-  "io.out":     { en: "Outputs", ja: "出力", zh: "输出" },
-  "io.g":       { en: "coupling strength", ja: "結合強度", zh: "耦合强度" },
-  "io.fp":      { en: "plasma frequency", ja: "プラズマ周波数", zh: "等离子体频率" },
-  "io.q":       { en: "field wavenumber", ja: "電場の波数", zh: "电场波数" },
+  "goal.text":  { en: "Find out what sets the coupling strength and how to tune it electrically, so that devices can be designed for a target coupling.", ja: "結合強度を決める要因と、それを電気的に調整する方法を明らかにし、狙った結合強度をもつ素子を設計できるようにすることです。", zh: "弄清决定耦合强度的因素以及用电学方式调节它的方法，从而能够按目标耦合强度设计器件。" },
 
-  "cyc.title": { en: "Research cycle", ja: "研究の進め方", zh: "研究流程" },
-  "cyc.text":  { en: "Each round goes from model to measurement and feeds the results back. The comparison chip for this round is being fabricated now.", ja: "モデル化から測定までを1つのサイクルとして回し、結果をモデルに戻します。現在は比較用チップを作製している段階です。", zh: "每一轮从建模走到测量，再把结果反馈给模型。目前正在加工用于对比的芯片。" },
-  "cyc.back":  { en: "update the model and repeat", ja: "モデルを更新して次のサイクルへ", zh: "更新模型，进入下一轮" },
-  "st.done":   { en: "Done", ja: "完了", zh: "已完成" },
-  "st.now":    { en: "Now", ja: "進行中", zh: "进行中" },
-  "st.next":   { en: "Next", ja: "今後", zh: "下一步" },
 
-  "fab.title": { en: "Fabrication in the cleanroom", ja: "クリーンルームでの素子作製", zh: "洁净室中的器件加工" },
-  "fab.text":  { en: "Fine markers, gates and resonators are written by electron-beam lithography; the mesa, contacts and pads by laser writing. I do the exposure, development, etching, deposition and lift-off myself.", ja: "微細なマーカー・ゲート・共振器はEB露光、メサ・電極・パッドはレーザ描画でパターニングします。露光・現像・エッチング・蒸着・リフトオフの各工程を自ら行っています。", zh: "精细的标记、栅极和谐振器用电子束光刻，台面、电极和焊盘用激光直写。曝光、显影、刻蚀、蒸镀、剥离各工序均由我亲手完成。" },
-  "fab.eb":    { en: "Electron-beam lithography (fine patterns)", ja: "EB露光（微細パターン）", zh: "电子束光刻（精细图形）" },
-  "fab.laser": { en: "Laser writing (photolithography)", ja: "レーザ描画（フォトリソグラフィ）", zh: "激光直写（光刻）" },
-  "fab.other": { en: "Other", ja: "その他", zh: "其他" },
-  "fab.a":     { en: "(a) Mesa after wet etching", ja: "(a) メサ（ウェットエッチング後）", zh: "(a) 台面（湿法刻蚀后）" },
-  "fab.b":     { en: "(b) Ohmic contact pattern after exposure and development", ja: "(b) オーミック電極（露光・現像後）", zh: "(b) 欧姆接触图形（曝光显影后）" },
-  "fig4.title":{ en: "Steps from the current fabrication run (optical micrographs).", ja: "作製中の素子（光学顕微鏡像）。", zh: "本轮加工中的器件（光学显微镜照片）。" },
 
   "ug.label":  { en: "Undergraduate research", ja: "学部研究", zh: "本科研究" },
   "ug.title":  { en: "Better heat dissipation in InP lasers with silver-nanoparticle bonding", ja: "銀ナノ粒子ボンディングによるInP系半導体レーザの放熱改善", zh: "用银纳米颗粒键合改善 InP 系半导体激光器的散热" },
@@ -1412,43 +1261,7 @@ const T = {
 
 const FACTS = [["about.k1", "about.v1"], ["about.k2", "about.v2"], ["about.k3", "about.v3"], ["about.k4", "about.v4"]];
 
-const PIPELINE = [
-  { status: "done", name: { en: "Model", ja: "モデル化", zh: "建模" },
-    text: { en: "Gate electrostatics and nonlocal electromagnetic calculation", ja: "ゲート静電計算・非局所電磁界計算", zh: "栅极静电与非局域电磁计算" } },
-  { status: "done", name: { en: "Design", ja: "設計", zh: "设计" },
-    text: { en: "A comparison chip with three coupling structures and several QPC positions", ja: "3種の結合構造とQPC配置を比較するチップ", zh: "用于对比三种耦合结构和不同 QPC 位置的芯片" } },
-  { status: "now", name: { en: "Fabricate", ja: "作製", zh: "加工" },
-    text: { en: "Seven process steps in the cleanroom", ja: "クリーンルームで全7工程", zh: "洁净室中共 7 道工序" } },
-  { status: "next", name: { en: "Measure", ja: "測定", zh: "测量" },
-    text: { en: "THz photocurrent at 0.3 K in a magnetic field", ja: "0.3 K・磁場中のTHz光電流", zh: "0.3 K、磁场中的太赫兹光电流测量" } },
-  { status: "next", name: { en: "Compare and update", ja: "照合・更新", zh: "比对与更新" },
-    text: { en: "Check the model against the data and refine it", ja: "実測とモデルを比較して改良", zh: "将模型与实测对比并改进" } }
-];
-
-const FAB = [
-  { tech: "eb", name: { en: "EB markers", ja: "EBマーカー", zh: "EB 标记" },
-    steps: { en: ["EB lithography", "Ti/Au deposition", "Lift-off"], ja: ["EB露光", "Ti/Au蒸着", "リフトオフ"], zh: ["电子束光刻", "Ti/Au 蒸镀", "剥离"] } },
-  { tech: "laser", name: { en: "Mesa", ja: "メサ", zh: "台面" },
-    steps: { en: ["Laser writing", "Wet etching"], ja: ["レーザ描画", "ウェットエッチング"], zh: ["激光直写", "湿法刻蚀"] } },
-  { tech: "laser", name: { en: "Ohmic contacts", ja: "オーミック電極", zh: "欧姆接触" },
-    steps: { en: ["Laser writing", "AuGeNi/Au deposition", "Lift-off and anneal"], ja: ["レーザ描画", "AuGeNi/Au蒸着", "リフトオフ・アニール"], zh: ["激光直写", "AuGeNi/Au 蒸镀", "剥离与退火"] } },
-  { tech: "eb", name: { en: "QPC gates", ja: "ゲート（QPC）", zh: "栅极（QPC）" },
-    steps: { en: ["Fine EB lithography on thin PMMA", "Gate metal"], ja: ["薄膜PMMAで微細EB露光", "ゲート金属"], zh: ["薄层 PMMA 精细电子束光刻", "栅极金属"] } },
-  { tech: "eb", name: { en: "SRR", ja: "SRR", zh: "SRR" },
-    steps: { en: ["EB lithography", "Ti/Au deposition", "Lift-off"], ja: ["EB露光", "Ti/Au蒸着", "リフトオフ"], zh: ["电子束光刻", "Ti/Au 蒸镀", "剥离"] } },
-  { tech: "laser", name: { en: "Pads", ja: "パッド", zh: "焊盘" },
-    steps: { en: ["Laser writing", "Deposition", "Lift-off"], ja: ["レーザ描画", "蒸着", "リフトオフ"], zh: ["激光直写", "蒸镀", "剥离"] } },
-  { tech: "other", name: { en: "Scribe", ja: "スクライブ", zh: "划片" },
-    steps: { en: ["Protective resist", "Cleaving"], ja: ["保護レジスト", "劈開"], zh: ["保护胶", "解理"] } }
-];
-
 const PROJECTS = [
-  { art: "contours", year: "2026", link: "",
-    title: { en: "qfield", ja: "qfield", zh: "qfield" },
-    text: { en: "A simulator for gate-defined 2DEG devices. Draw gate electrodes, set the heterostructure and the gate voltages, and get the depleted electron-density map and its gradient field. The engine also runs headless from scripts.",
-            ja: "ゲート定義型の2DEGデバイス向けシミュレータ。ゲート電極を描き、ヘテロ構造とゲート電圧を設定すると、空乏化した電子密度分布とその勾配場を計算します。エンジンはGUIなしでスクリプトからも呼び出せます。",
-            zh: "面向栅控二维电子气器件的仿真工具。绘制栅电极、设定异质结参数和栅压，即可得到耗尽后的电子密度分布及其梯度场。计算引擎也可以脱离图形界面，直接由脚本调用。" },
-    tags: ["Python", "PyQt6", { en: "Electrostatics", ja: "静電解析", zh: "静电计算" }] },
   { art: "srr", year: "2026", link: "",
     title: { en: "Split-ring resonator in Meep", ja: "MeepによるSRR解析", zh: "Meep 开口谐振环仿真" },
     text: { en: "A finite-difference time-domain model of a split-ring resonator, packaged as a Colab notebook that runs in the browser.",
@@ -1490,7 +1303,7 @@ const TIMELINE = [
 
 const TOOLBOX = [
   { group: { en: "Simulation", ja: "シミュレーション", zh: "仿真" },
-    items: [{ en: "COMSOL Multiphysics (nonlocal weak-form and thermal models)", ja: "COMSOL Multiphysics（非局所弱形式・熱解析）", zh: "COMSOL Multiphysics（非局域弱形式与热仿真）" }, "Meep (FDTD)", { en: "Python solvers for gate electrostatics", ja: "Pythonによるゲート静電計算", zh: "Python 栅极静电求解器" }] },
+    items: [{ en: "COMSOL Multiphysics (electromagnetic and thermal)", ja: "COMSOL Multiphysics（電磁界・熱解析）", zh: "COMSOL Multiphysics（电磁与热仿真）" }, "Meep (FDTD)", { en: "Python numerical tools", ja: "Pythonによる数値計算", zh: "Python 数值计算" }] },
   { group: { en: "Fabrication", ja: "作製", zh: "工艺" },
     items: [{ en: "Electron-beam lithography", ja: "EB露光", zh: "电子束光刻" }, { en: "Laser writing (photolithography)", ja: "レーザ描画（フォトリソグラフィ）", zh: "激光直写（光刻）" }, { en: "Metal deposition and lift-off", ja: "金属蒸着・リフトオフ", zh: "金属蒸镀与剥离" }, { en: "Wet etching", ja: "ウェットエッチング", zh: "湿法刻蚀" }, { en: "Silver-nanoparticle die bonding", ja: "銀ナノ粒子ダイボンディング", zh: "银纳米颗粒芯片键合" }] },
   { group: { en: "Measurement", ja: "測定", zh: "测量" },
@@ -1520,9 +1333,9 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;",
 const reduceMotion = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
 
 /* ---------- shared physics: MP and 2CR as two coupled oscillators ---------- */
-// GaAs: cyclotron slope 0.4178 THz/T (m* = 0.067 m0); strip plasma frequency 0.77 THz
-const PHYS = { S: 0.4178, FP: 0.77, BMAX: 2.0, FMAX: 1.8 };
-PHYS.BX = PHYS.FP / (Math.sqrt(3) * PHYS.S);          // field where MP and 2CR cross (~1.06 T)
+// GaAs: cyclotron slope 0.4178 THz/T (m* = 0.067 m0); illustrative plasma frequency 0.80 THz
+const PHYS = { S: 0.4178, FP: 0.80, BMAX: 2.0, FMAX: 1.8 };
+PHYS.BX = PHYS.FP / (Math.sqrt(3) * PHYS.S);          // field where MP and 2CR cross
 function modes(B, e) {
   const fc = PHYS.S * B, a = Math.sqrt(PHYS.FP * PHYS.FP + fc * fc), b = 2 * fc;
   const a2 = a * a, b2 = b * b, k = 2 * e * a * b;
@@ -1554,24 +1367,6 @@ function makeLUT() {            // colour map built from the --map-0 … --map-4
 
 /* ---------- artwork for project cards (drawn from code, themed by CSS) ---------- */
 const ART = {
-  contours() {
-    const sig = z => 1 / (1 + Math.exp(-z));
-    const y0 = 262, y1 = 118, x0 = 20, x1 = 380;
-    let s = `<defs><pattern id="qfHatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" class="a-gate-h"/></pattern></defs>`;
-    s += `<rect class="a-gate" x="20" y="44" width="140" height="34"/><rect x="20" y="44" width="140" height="34" fill="url(#qfHatch)"/>`;
-    s += `<rect class="a-gate" x="240" y="44" width="140" height="34"/><rect x="240" y="44" width="140" height="34" fill="url(#qfHatch)"/>`;
-    s += `<path class="a-axis" d="M${x0} ${y0}H${x1}"/><path class="a-axis a-dash" d="M${x0} ${y1}H${x1}"/>`;
-    [0.35, 0.65, 0.95, 1.25, 1.55, 1.85].forEach((V, k) => {
-      let d = "";
-      for (let x = x0; x <= x1; x += 4) {
-        const g = sig((168 - x) / 13) + sig((x - 232) / 13);
-        const n = Math.max(0, 1 - V * g);
-        d += (x === x0 ? "M" : "L") + x + " " + (y0 - n * (y0 - y1)).toFixed(1);
-      }
-      s += `<path class="a-prof" style="opacity:${(0.28 + k * 0.144).toFixed(2)}" d="${d}"/>`;
-    });
-    return { vb: "0 0 400 300", body: s };
-  },
   srr() {
     let s = "";
     for (let i = 1; i <= 7; i++) s += `<circle class="a-wave" cx="200" cy="150" r="${28 + i * 26}" style="opacity:${(0.85 - i * 0.1).toFixed(2)}"/>`;
@@ -1612,24 +1407,10 @@ const ART = {
     return { vb: "0 0 400 300", body: s };
   }
 };
-const CHECK = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5 6.5 11.5 12.5 4.5"/></svg>';
 
 /* ---------- renderers ---------- */
 function renderFacts() {
   $("#facts").innerHTML = FACTS.map(([k, v]) => `<div><dt>${esc(t(k))}</dt><dd>${esc(t(v))}</dd></div>`).join("");
-}
-function renderPipeline() {
-  $("#pipeline").innerHTML = PIPELINE.map(s => `<li class="pl-item" data-status="${s.status}">
-      <span class="pl-node" aria-hidden="true">${s.status === "done" ? CHECK : ""}</span>
-      <div class="pl-body"><h4 class="pl-name">${esc(L(s.name))} <span class="pl-status">${esc(t("st." + s.status))}</span></h4><p class="pl-desc">${esc(L(s.text))}</p></div>
-    </li>`).join("");
-}
-function renderFab() {
-  $("#fabList").innerHTML = FAB.map((s, i) => `<li>
-      <div class="fab-top"><span class="fab-no">${String(i + 1).padStart(2, "0")}</span><span class="fab-sw" data-tech="${s.tech}" aria-hidden="true"></span></div>
-      <h4>${esc(L(s.name))}<span class="sr"> (${esc(t("fab." + s.tech))})</span></h4>
-      <ul>${L(s.steps).map(x => `<li>${esc(x)}</li>`).join("")}</ul>
-    </li>`).join("");
 }
 function renderProjects() {
   $("#projectList").innerHTML = PROJECTS.map(p => {
@@ -1980,14 +1761,6 @@ function updateRegime() {
 }
 Plot.onChange = updateRegime;
 
-/* ---------- Fig. 2: layer toggles ---------- */
-$$(".layer-btn").forEach(btn => btn.addEventListener("click", () => {
-  const on = btn.getAttribute("aria-pressed") !== "true";
-  btn.setAttribute("aria-pressed", String(on));
-  const g = $(`#device [data-layer="${btn.dataset.layer}"]`);
-  if (g) g.classList.toggle("is-off", !on);
-}));
-
 /* ---------- theme ---------- */
 const themeBtn = $("#themeBtn");
 const mqDark = window.matchMedia ? matchMedia("(prefers-color-scheme: dark)") : { matches: false };
@@ -2065,7 +1838,7 @@ function applyLang(next) {
   $$("[data-ta]").forEach(el => { el.setAttribute("aria-label", t(el.dataset.ta)); });
   $$("[data-alt]").forEach(el => { el.setAttribute("alt", t(el.dataset.alt)); });
   $$(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
-  renderFacts(); renderPipeline(); renderFab(); renderProjects(); renderTimeline(); renderToolbox(); renderLinks();
+  renderFacts(); renderProjects(); renderTimeline(); renderToolbox(); renderLinks();
   updateThemeLabel(); updateRegime(); updateClock();
   Plot.redraw();
 }
