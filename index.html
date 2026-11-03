@@ -1,378 +1,2082 @@
-<!DOCTYPE html>
-<html lang="zh">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phaooo</title>
-<link rel="icon" type="image/jpeg" href="photo.jpg">
-<link rel="apple-touch-icon" href="photo.jpg">
-<!-- social share thumbnail -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Phaooo">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Peng Hao</title>
+<meta name="description" content="Peng Hao (彭浩) is a master’s student at the University of Tokyo working on ultrastrong coupling of terahertz modes in two-dimensional electron gases.">
+<meta name="author" content="Peng Hao">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Peng Hao">
+<meta property="og:description" content="Terahertz device physics at the University of Tokyo: modelling, device design, cleanroom fabrication and cryogenic measurement.">
+<meta name="twitter:card" content="summary">
 <meta property="og:url" content="https://phaooo.github.io/">
 <meta property="og:image" content="https://phaooo.github.io/photo.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Phaooo">
 <meta name="twitter:image" content="https://phaooo.github.io/photo.jpg">
+<link rel="apple-touch-icon" href="photo.jpg">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F2F4F5">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0F1826">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M3 21Q11 12.5 21 12.5' stroke='%232C96A6'/%3E%3Cpath d='M3 11.5Q13 11.5 21 3' stroke='%23CF9F38'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Caveat:wght@500;600&family=DM+Mono:wght@400;500&family=Shippori+Mincho:wght@500;700&family=Klee+One:wght@400;600&family=Noto+Serif+SC:wght@400;600&family=Long+Cang&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+JP:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@500;600&family=Shippori+Mincho:wght@500;600&family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Peng Hao","alternateName":"彭浩","jobTitle":"Master's student","affiliation":{"@type":"CollegeOrUniversity","name":"The University of Tokyo"},"alumniOf":{"@type":"CollegeOrUniversity","name":"Sophia University"},"knowsLanguage":["zh","ja","en"],"knowsAbout":["Terahertz physics","Ultrastrong coupling","Two-dimensional electron gas","Semiconductor device fabrication"]}</script>
+<script>
+/* Apply the saved theme and language before first paint */
+(function () {
+  var root = document.documentElement;
+  try { var th = localStorage.getItem("ph-theme"); if (th === "light" || th === "dark") root.setAttribute("data-theme", th); } catch (e) {}
+  var l = null;
+  try { l = localStorage.getItem("ph-lang"); } catch (e) {}
+  if (l !== "en" && l !== "ja" && l !== "zh") {
+    l = "en";
+    var list = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || "en"];
+    for (var i = 0; i < list.length; i++) {
+      var s = String(list[i]).toLowerCase();
+      if (s.indexOf("zh") === 0) { l = "zh"; break; }
+      if (s.indexOf("ja") === 0) { l = "ja"; break; }
+      if (s.indexOf("en") === 0) { l = "en"; break; }
+    }
+  }
+  root.lang = l === "zh" ? "zh-CN" : l;
+  window.__phLang = l;
+})();
+</script>
 <style>
-  @property --glow{ syntax:'<number>'; inherits:true; initial-value:0; }
-
-  :root{
-    --bg:#070708; --ink:#e9e4d8; --ink-dim:#9a948a; --gold:#c9a35b;
-    --mx:50%; --my:50%; --rx:0deg; --ry:0deg; --flip:0deg; --glow:0;
-    --pointer-x:50%; --pointer-y:50%;
+/* Layout: a lab-notebook spread. Section names sit in a sticky left margin beside one wide content column; the hero pairs the name with a live absorption spectrum, and the research reads as a sequence of annotated figures. */
+:root{
+  /* Color: GaAs-wafer neutrals, Au metallization, magnetoplasmon teal */
+  --paper:#F2F4F5;
+  --panel:#FFFFFF;
+  --plate:#FFFFFF;
+  --ink:#152130;
+  --ink-2:#4A5767;
+  --ink-3:#626E7B;
+  --line:#D3DAE0;
+  --ink-tint:rgba(21,33,48,.06);
+  --au:#86600C;
+  --au-fill:#CF9F38;
+  --au-tint:rgba(207,159,56,.20);
+  --mp:#0E6C7B;
+  --mp-fill:#2C96A6;
+  --mp-tint:rgba(44,150,166,.14);
+  --band:#152130;
+  --band-ink:#EDF1F4;
+  --band-ink-2:#A3B0BD;
+  --band-line:rgba(237,241,244,.16);
+  --focus:#2C96A6;
+  --map-0:#FFFFFF;--map-1:#F3E6C4;--map-2:#86BDC5;--map-3:#236B7D;--map-4:#152130;
+  --plate-filter:none;
+  --show-moon:inline;--show-sun:none;
+  /* Type: Spectral for display, IBM Plex Sans for text, a Mincho/Song face for the CJK name */
+  --font-display:"Spectral","Shippori Mincho","Noto Serif SC",Georgia,"Times New Roman",serif;
+  --font-body:"IBM Plex Sans","IBM Plex Sans JP","Noto Sans SC",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-cjk:"Shippori Mincho","Noto Serif SC","Hiragino Mincho ProN","Yu Mincho","Songti SC",serif;
+  --fs-xs:.78rem;--fs-sm:.875rem;--fs-md:1rem;--fs-lg:1.25rem;--fs-xl:1.5625rem;
+  --gutter:clamp(16px,4vw,44px);
+  --radius:3px;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root:lang(ja){
+  --font-display:"Spectral","Shippori Mincho",Georgia,serif;
+  --font-body:"IBM Plex Sans","IBM Plex Sans JP",system-ui,-apple-system,"Hiragino Sans","Yu Gothic",sans-serif;
+}
+:root:lang(zh){
+  --font-display:"Spectral","Noto Serif SC","Songti SC",Georgia,serif;
+  --font-body:"IBM Plex Sans","Noto Sans SC",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  --font-cjk:"Noto Serif SC","Songti SC","Shippori Mincho",serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1826;--panel:#142134;--plate:#E8ECF0;--ink:#E6EBF0;--ink-2:#A9B4C0;--ink-3:#7A899B;--line:#26364B;--ink-tint:rgba(230,235,240,.06);
+    --au:#E2B457;--au-fill:#C99A36;--au-tint:rgba(226,180,87,.16);
+    --mp:#63C6D4;--mp-fill:#3AA6B6;--mp-tint:rgba(99,198,212,.13);
+    --band:#16263B;--band-ink:#E6EBF0;--band-ink-2:#A9B4C0;--band-line:rgba(230,235,240,.13);
+    --focus:#63C6D4;
+    --map-0:#142134;--map-1:#183A51;--map-2:#2C8C9B;--map-3:#E2B457;--map-4:#FFF5DA;
+    --plate-filter:brightness(.91);
+    --show-moon:none;--show-sun:inline;
+    color-scheme:dark;
   }
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  html,body{ height:100%; }
-  html{ transition:--glow .55s ease; }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1826;--panel:#142134;--plate:#E8ECF0;--ink:#E6EBF0;--ink-2:#A9B4C0;--ink-3:#7A899B;--line:#26364B;--ink-tint:rgba(230,235,240,.06);
+  --au:#E2B457;--au-fill:#C99A36;--au-tint:rgba(226,180,87,.16);
+  --mp:#63C6D4;--mp-fill:#3AA6B6;--mp-tint:rgba(99,198,212,.13);
+  --band:#16263B;--band-ink:#E6EBF0;--band-ink-2:#A9B4C0;--band-line:rgba(230,235,240,.13);
+  --focus:#63C6D4;
+  --map-0:#142134;--map-1:#183A51;--map-2:#2C8C9B;--map-3:#E2B457;--map-4:#FFF5DA;
+  --plate-filter:brightness(.91);
+  --show-moon:none;--show-sun:inline;
+  color-scheme:dark;
+}
 
-  body{ background:var(--bg); color:var(--ink); font-family:var(--display);
-    min-height:100vh; display:grid; place-items:center; overflow:hidden; position:relative; }
-  body.lang-en{ --display:"Fraunces",Georgia,serif; --hand:"Caveat",cursive; }
-  body.lang-ja{ --display:"Shippori Mincho",serif;  --hand:"Klee One",cursive; }
-  body.lang-zh{ --display:"Noto Serif SC",serif;    --hand:"Long Cang",cursive; }
+/* ---------- base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-md);line-height:1.62;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;overflow-x:clip}
+:root:lang(ja) body,:root:lang(zh) body{line-height:1.8;letter-spacing:.01em}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
+img,svg,canvas{max-width:100%}
+img{height:auto}
+[hidden]{display:none!important}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:.22em}
+a:hover{color:var(--au)}
+sub{font-size:.72em;line-height:0;vertical-align:-.22em}
+sup{font-size:.7em;line-height:0;vertical-align:.45em}
+::selection{background:var(--au-tint)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:2px}
+h1,h2,h3,h4{text-wrap:balance}
+p{text-wrap:pretty}
+:root:lang(ja) :is(h1,h2,h3,h4,.lede,.thesis,.contact-heading){word-break:auto-phrase}
+:root:lang(ja) :is(h2,h3,h4,.lede,.thesis,.contact-heading){font-feature-settings:"palt"}
+.sr{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.wrap{max-width:1240px;margin-inline:auto;padding-left:max(var(--gutter),env(safe-area-inset-left,0px));padding-right:max(var(--gutter),env(safe-area-inset-right,0px))}
+.skip{position:absolute;left:max(16px,env(safe-area-inset-left,0px));top:-80px;z-index:100;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:var(--radius);text-decoration:none}
+.skip:focus{top:calc(env(safe-area-inset-top,0px) + 8px);color:var(--paper)}
+.noscript{padding-block:24px}
 
-  /* ---------- textured black background + drifting stars ---------- */
-  .bg-vignette{ position:fixed; inset:0; z-index:0; pointer-events:none;
-    background:radial-gradient(120% 120% at 50% 0%, #15151a 0%, #0a0a0c 38%, #050506 72%, #020203 100%); }
-  .stars{ position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
-  .star-layer{ position:absolute; top:0; left:0; width:1px; height:1px; border-radius:50%; box-shadow:var(--sh); }
-  .star-layer::after{ content:''; position:absolute; top:2400px; left:0; width:inherit; height:inherit;
-    border-radius:50%; box-shadow:var(--sh); }
-  .star-layer.l1{ animation:drift 170s linear infinite; }
-  .star-layer.l2{ width:2px; height:2px; animation:drift 240s linear infinite; }
-  .star-layer.l3{ animation:drift 115s linear infinite; }
-  @keyframes drift{ from{ transform:translateY(0);} to{ transform:translateY(-2400px);} }
-  .bg-glow{ display:none; }
-  .bg-noise{ position:fixed; inset:-50%; z-index:1; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+/* ---------- header ---------- */
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--paper);border-bottom:1px solid transparent;transition:border-color .25s ease}
+.site-header.is-scrolled{border-bottom-color:var(--line)}
+.header-inner{display:flex;align-items:center;gap:14px;min-height:60px}
+.brand{display:inline-flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none;white-space:nowrap}
+.brand:hover{color:var(--ink)}
+.brand-name{font-family:var(--font-display);font-size:1.22rem;font-weight:500;letter-spacing:.05em}
+.brand-sub{padding-left:10px;border-left:1px solid var(--line);color:var(--ink-3);font-size:.84rem;line-height:1.2}
+.brand:hover .brand-sub{color:var(--ink-2)}
+.brand-mark{width:26px;height:26px;flex:none}
+.brand-mark path{fill:none;stroke-width:2.3;stroke-linecap:round}
+.bm-up{stroke:var(--au-fill)}
+.bm-lo{stroke:var(--mp-fill)}
+.nav{display:none;gap:2px}
+.nav a{padding:8px 10px;color:var(--ink-2);text-decoration:none;font-size:.92rem;border-radius:var(--radius)}
+.nav a:hover{color:var(--ink)}
+.nav a.is-active{color:var(--ink);box-shadow:inset 0 -2px 0 var(--au-fill)}
+.controls{display:flex;align-items:center;gap:8px}
+.lang{display:inline-flex;padding:2px;border:1px solid var(--line);border-radius:var(--radius)}
+.lang button{appearance:none;-webkit-appearance:none;min-width:34px;min-height:32px;padding:0 9px;border:0;border-radius:2px;background:transparent;color:var(--ink-2);font:inherit;font-size:.82rem;line-height:1;cursor:pointer}
+.lang button:hover{color:var(--ink)}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.lang .s{display:none}
+.icon-btn{appearance:none;-webkit-appearance:none;display:inline-grid;place-items:center;width:38px;height:38px;padding:0;border:1px solid var(--line);border-radius:var(--radius);background:transparent;color:var(--ink);cursor:pointer}
+.icon-btn:hover{border-color:var(--ink-3)}
+.icon-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.theme-btn .i-moon{display:var(--show-moon)}
+.theme-btn .i-sun{display:var(--show-sun)}
+.menu-btn .i-close,.menu-btn[aria-expanded="true"] .i-open{display:none}
+.menu-btn[aria-expanded="true"] .i-close{display:inline}
+.mobile-nav{border-top:1px solid var(--line);background:var(--paper)}
+.mobile-nav ul{list-style:none;margin:0 auto;padding-block:6px 18px;display:grid}
+.mobile-nav a{display:block;padding:12px 0;border-bottom:1px solid var(--line);font-family:var(--font-display);font-size:1.3rem;text-decoration:none}
+@media (min-width:1000px){.nav{display:flex}.menu-btn{display:none}}
+@media (max-width:520px){.lang .l{display:none}.lang .s{display:inline}.brand-sub{display:none}}
 
-  /* ---------- stage / perspective ---------- */
-  .stage{ position:relative; z-index:2; perspective:1600px; perspective-origin:center; }
+/* ---------- hero ---------- */
+.hero{padding-block:clamp(28px,5vw,64px) clamp(60px,8vw,104px)}
+.hero-grid{display:grid;gap:clamp(36px,5vw,64px);align-items:center}
+@media (min-width:1040px){.hero-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}}
+.hero-text{min-width:0}
+.name{margin:0 0 .32em;font-family:var(--font-display);font-size:clamp(3rem,7.4vw,5.6rem);font-weight:300;line-height:1.05;letter-spacing:-.02em;color:var(--ink)}
+:root:lang(zh) .name{font-family:var(--font-cjk);font-weight:500;letter-spacing:.08em}
+:root:lang(ja) .name{line-height:1.3}
+.name ruby{ruby-align:center}
+.name rt{color:var(--ink-2);font-family:var(--font-body);font-size:.21em;font-weight:500;letter-spacing:.08em;ruby-align:center}
+.nw{white-space:nowrap}
+.thesis{margin:0 0 22px;max-width:30em;font-family:var(--font-display);font-weight:400;font-size:clamp(1.2rem,2vw,1.55rem);line-height:1.42;color:var(--ink)}
+:root:lang(ja) .thesis,:root:lang(zh) .thesis{font-weight:500;font-size:clamp(1.06rem,1.6vw,1.28rem);line-height:1.8}
+.affil{margin:0 0 28px;display:grid;gap:2px;color:var(--ink-2);font-size:var(--fs-sm)}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1px solid var(--ink);border-radius:var(--radius);color:var(--ink);font-size:.95rem;font-weight:500;text-decoration:none;transition:background-color .2s ease,color .2s ease}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn-solid{background:var(--ink);color:var(--paper)}
+.btn-solid:hover{background:transparent;color:var(--ink)}
 
-  /* ---------- tilt wrapper : LANDSCAPE on desktop ---------- */
-  .card{ width:520px; height:340px; position:relative; transform-style:preserve-3d;
-    transform:rotateX(var(--rx)) rotateY(var(--ry));
-    transition:transform .35s cubic-bezier(.2,.7,.2,1); cursor:pointer; }
-  .card.snapping{ transition:transform .8s cubic-bezier(.2,.9,.2,1); }
-  .card::before{ display:none; }
+/* ---------- figures ---------- */
+.fig{margin:0;min-width:0}
+.fig-panel{padding:clamp(10px,1.6vw,18px);background:var(--panel);border:1px solid var(--line);border-radius:4px}
+.plot{position:relative;width:100%;max-width:100%;aspect-ratio:10/7}
+.plot canvas{position:absolute;inset:0;display:block;width:100%;height:100%;border-radius:2px;cursor:crosshair;touch-action:pan-y}
+.controls-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;margin-top:14px}
+.ctl-label{display:flex;align-items:baseline;gap:8px;color:var(--ink-2);font-size:var(--fs-sm);white-space:nowrap}
+.ctl-value{color:var(--ink);font-variant-numeric:tabular-nums}
+.slider{position:relative;flex:1 1 200px;min-width:140px;padding-bottom:16px}
+.slider input{display:block;width:100%;height:28px;margin:0;background:transparent;-webkit-appearance:none;appearance:none;cursor:pointer}
+.slider input::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--au-fill) 0 var(--pct,0%),var(--line) var(--pct,0%) 100%)}
+.slider input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;margin-top:-8px;border-radius:50%;background:var(--panel);border:2px solid var(--au);box-shadow:0 1px 3px var(--ink-tint)}
+.slider input::-moz-range-track{height:4px;border-radius:2px;background:var(--line)}
+.slider input::-moz-range-progress{height:4px;border-radius:2px;background:var(--au-fill)}
+.slider input::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--panel);border:2px solid var(--au)}
+.slider input:focus-visible{outline-offset:4px}
+.usc-tick{position:absolute;top:30px;left:calc(10px + (100% - 20px) / 3);transform:translateX(-50%);color:var(--ink-3);font-size:.7rem;line-height:1;font-variant-numeric:tabular-nums}
+.usc-tick::before{content:"";position:absolute;left:50%;top:-7px;width:1px;height:5px;background:var(--ink-3)}
+.regime{min-width:10.5rem;padding:.25em .7em;border:1px solid var(--line);border-radius:999px;color:var(--ink-2);font-size:.8rem;text-align:center;white-space:nowrap;transition:color .2s,background-color .2s,border-color .2s}
+.regime[data-level="r1"]{border-color:var(--mp);color:var(--mp)}
+.regime[data-level="r2"]{border-color:var(--au);background:var(--au-tint);color:var(--au)}
+.readout{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px 14px;margin:12px 0 0;padding-top:12px;border-top:1px solid var(--line)}
+.readout div{min-width:0}
+.readout dt{color:var(--ink-3);font-size:.74rem;line-height:1.35}
+.readout dd{margin:3px 0 0;font-size:.98rem;font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
+figcaption{max-width:72ch;margin-top:12px;color:var(--ink-2);font-size:var(--fs-sm);line-height:1.55}
+.fig-no,.fig-title{color:var(--ink);font-weight:600}
+@media (max-width:600px){
+  .plot{aspect-ratio:1/1}
+  .slider{order:3;flex-basis:100%}
+  .regime{margin-left:auto;min-width:0}
+  .readout{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.plate{padding:8px;background:var(--plate);border:1px solid var(--line);border-radius:4px}
+.plate img{filter:var(--plate-filter)}
 
-  .flipper{ position:absolute; inset:0; transform-style:preserve-3d;
-    transform:rotateY(var(--flip)); transition:transform .9s cubic-bezier(.6,.05,.2,1); }
-  .face{ position:absolute; inset:0; border-radius:16px; overflow:hidden;
-    -webkit-backface-visibility:hidden; backface-visibility:hidden;
-    transition:opacity 0s linear .45s;
-    box-shadow:0 2px 4px rgba(0,0,0,.5), 0 30px 60px -20px rgba(0,0,0,.8), inset 0 0 0 1px rgba(255,255,255,.08); }
-  /* mobile backstop: some browsers leak the turned-away face through
-     backface-visibility, so explicitly hide it (switches at the flip midpoint
-     via the .45s delay above, so the flip animation still looks correct) */
-  .card:not(.flipped) .back{ opacity:0; }
-  .card.flipped .front{ opacity:0; }
+/* device layout (Fig. 2) */
+.device{display:block;width:100%;height:auto}
+.grid-dot{fill:var(--ink-3);opacity:.35}
+.au-fill{fill:var(--au-tint);stroke:var(--au-fill);stroke-width:1.6;stroke-linejoin:round}
+.hatch-au{stroke:var(--au-fill);stroke-width:1.2}
+.mesa-fill{fill:var(--mp-tint);stroke:var(--mp-fill);stroke-width:1.5}
+.hatch-mesa{stroke:var(--mp-fill);stroke-width:1}
+.ohm-fill{fill:var(--ink-tint);stroke:var(--ink-3);stroke-width:1.4}
+.hatch-ohm{fill:none;stroke:var(--ink-3);stroke-width:.8}
+.leader,.scale,.arrow{fill:none;stroke:var(--ink-2);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.dev-label{fill:var(--ink-2);font-family:var(--font-body);font-size:12px;font-weight:500}
+.dev-small{font-size:10px}
+.layer{transition:opacity .3s ease}
+.layer.is-off{opacity:.06}
+.layers{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.layer-btn{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 11px;border:1px solid var(--line);border-radius:var(--radius);background:transparent;color:var(--ink);font:inherit;font-size:.84rem;cursor:pointer}
+.layer-btn:hover{border-color:var(--ink-3)}
+.layer-btn[aria-pressed="false"]{color:var(--ink-3)}
+.layer-btn[aria-pressed="false"] .lb-text{text-decoration:line-through}
+.sw{width:18px;height:12px;flex:none;border:1.5px solid var(--c);background:repeating-linear-gradient(45deg,var(--c) 0 1.3px,transparent 1.3px 4px)}
+.layer-btn[aria-pressed="false"] .sw{background:none}
+.sw-au,[data-tech="eb"]{--c:var(--au-fill)}
+.sw-mesa,[data-tech="laser"]{--c:var(--mp-fill)}
+.sw-ohm,[data-tech="other"]{--c:var(--ink-3)}
 
-  /* ============ FRONT (detail page) — BLACK HOLE ============ */
-  .front{ background:#1a0d18; color:#fdf3e3; }
-  /* ---- fully static "warm gold sunset" background ----
-     no animation at all — painted once, costs nothing to keep on screen.
-     Dusk sky up top melting into a warm amber horizon at the bottom. */
-  .front__scene{ position:absolute; inset:0; overflow:hidden;
-    background:
-      /* bright golden sun-glow sitting on the horizon */
-      radial-gradient(58% 40% at 50% 86%, rgba(255,214,138,.70), transparent 60%),
-      /* amber band spreading out from the horizon */
-      radial-gradient(95% 55% at 50% 100%, rgba(255,150,68,.55), transparent 66%),
-      /* warm haze lifting into the sky */
-      radial-gradient(100% 70% at 50% 78%, rgba(214,88,72,.34), transparent 72%),
-      /* dusk sky : plum → rose → amber */
-      linear-gradient(178deg, #20102f 0%, #3a1740 24%, #6e2c3c 48%, #ad4a30 72%, #e88a3c 100%); }
-  /* halo removed — the pure gradient stands on its own */
-  .bh{ display:none; }
-  .front__scene::before{ content:""; position:absolute; inset:0; /* faint background stars */
-    background-image:
-      radial-gradient(1px 1px at 18% 28%, rgba(255,255,255,.55), transparent),
-      radial-gradient(1px 1px at 72% 18%, rgba(200,235,255,.5), transparent),
-      radial-gradient(1px 1px at 86% 58%, rgba(255,255,255,.5), transparent),
-      radial-gradient(1px 1px at 33% 70%, rgba(200,235,255,.4), transparent),
-      radial-gradient(1px 1px at 58% 38%, rgba(255,255,255,.35), transparent),
-      radial-gradient(1px 1px at 8% 64%, rgba(255,255,255,.4), transparent),
-      radial-gradient(1px 1px at 92% 32%, rgba(200,235,255,.45), transparent); }
+/* ---------- sections ---------- */
+.section{padding-block:clamp(64px,9vw,120px);border-top:1px solid var(--line)}
+.section.compact{padding-block:clamp(48px,6vw,84px)}
+.section-grid{display:grid;gap:clamp(20px,3vw,32px)}
+.section-side{min-width:0}
+.section-title{margin:0;font-family:var(--font-display);font-size:var(--fs-xl);font-weight:400;line-height:1.2;letter-spacing:-.01em}
+.section-body{min-width:0}
+.subnav{display:none}
+@media (min-width:1000px){
+  .section-grid{grid-template-columns:190px minmax(0,1fr);gap:56px}
+  .section-side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 92px);align-self:start}
+  .subnav{display:grid;gap:1px;margin-top:20px;padding-left:14px;border-left:1px solid var(--line)}
+  .subnav a{position:relative;padding:4px 0;color:var(--ink-3);font-size:.84rem;line-height:1.35;text-decoration:none}
+  .subnav a:hover{color:var(--ink)}
+  .subnav a.is-active{color:var(--ink)}
+  .subnav a.is-active::before{content:"";position:absolute;left:-15px;top:6px;bottom:6px;width:2px;background:var(--au-fill)}
+}
+.lede{margin:0 0 .75em;max-width:26em;font-family:var(--font-display);font-size:clamp(1.35rem,2.4vw,1.85rem);font-weight:400;line-height:1.34;letter-spacing:-.005em}
+:root:lang(ja) .lede,:root:lang(zh) .lede{font-weight:500;font-size:clamp(1.2rem,2vw,1.5rem);line-height:1.6;letter-spacing:0}
+.prose p{max-width:64ch;margin:0 0 1em}
+.prose p:last-child{margin-bottom:0}
+.block{margin-top:clamp(72px,9vw,112px)}
+.block-head{display:grid;gap:10px;max-width:66ch;margin-bottom:26px}
+.block-head p{margin:0;color:var(--ink-2)}
+.block-label{margin:0;color:var(--ink-3);font-size:var(--fs-sm)}
+.sub-h{margin:0;font-family:var(--font-display);font-size:var(--fs-xl);font-weight:400;line-height:1.25}
+:root:lang(ja) .sub-h,:root:lang(zh) .sub-h{font-weight:500;font-size:1.4rem}
 
-  .front__plate{ position:absolute; left:0; right:0; bottom:0; padding:26px 28px; z-index:2;
-    background:linear-gradient(180deg, rgba(3,8,14,0), rgba(3,8,14,.9) 55%); }
-  .front__eyebrow{ font-family:"DM Mono", var(--display), monospace; font-size:10px; letter-spacing:.32em;
-    text-transform:uppercase; color:#ffce8a; margin-bottom:8px; }
-  .front__name{ font-family:var(--display); font-size:36px; font-weight:600; line-height:1; letter-spacing:-.01em; }
-  .front__role{ margin-top:9px; font-size:14px; font-style:italic; color:#f0d6b4; font-weight:300; }
+/* highlights */
+.hl-grid{display:grid;gap:18px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:760px){.hl-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}}
+.hl-card{display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;align-items:start;color:inherit;text-decoration:none}
+@media (min-width:760px){.hl-card{grid-template-columns:minmax(0,1fr);gap:12px}}
+.hl-img{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:4px}
+@media (min-width:760px){.hl-img{aspect-ratio:4/3}}
+.hl-img img,.hl-img canvas{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.hl-card:hover .hl-img img,.hl-card:hover .hl-img canvas{transform:scale(1.035)}
+.hl-kind{color:var(--ink-3);font-size:var(--fs-xs)}
+.hl-card h3{margin:2px 0 4px;font-family:var(--font-display);font-size:1.2rem;font-weight:500;line-height:1.3}
+.hl-card:hover h3{color:var(--au)}
+.hl-card p{margin:0;color:var(--ink-2);font-size:.92rem}
 
-  /* ---------- SOFT-LIGHT holographic layers ---------- */
-  .holo{ position:absolute; inset:0; pointer-events:none; border-radius:16px; }
-  .holo--rainbow{ background-image:repeating-linear-gradient(110deg,
-      #ff9aa2 0%, #ffd6a5 13%, #fdffb6 26%, #caffbf 39%, #9bf6ff 52%, #a0c4ff 65%, #bdb2ff 78%, #ffc6ff 91%, #ff9aa2 100%);
-    background-size:300% 300%; background-position:var(--mx) var(--my);
-    mix-blend-mode:soft-light; filter:saturate(1.05) blur(.4px); opacity:calc(.30 + var(--glow) * .6); }
-  .holo--rainbow2{ background-image:repeating-linear-gradient(-40deg,
-      rgba(255,180,200,.5) 0%, rgba(180,220,255,.5) 25%, rgba(210,255,210,.5) 50%, rgba(255,235,180,.5) 75%, rgba(255,180,200,.5) 100%);
-    background-size:220% 220%; background-position:calc(100% - var(--mx)) calc(100% - var(--my));
-    mix-blend-mode:soft-light; opacity:calc(var(--glow) * .4); }
-  .holo--glare{ display:none; }
-  .holo--noise{ opacity:.10; mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+/* about */
+.about-grid{display:grid;gap:40px}
+@media (min-width:1180px){.about-grid{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:56px}}
+.about-main{min-width:0}
+.facts{margin:0;border-top:1px solid var(--line);align-self:start}
+.facts div{display:grid;grid-template-columns:minmax(6.5rem,8rem) minmax(0,1fr);gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+.facts dt{padding-top:.1em;color:var(--ink-3);font-size:var(--fs-sm)}
+.facts dd{margin:0}
+.offclock{margin-top:44px}
+.offclock h3{margin:0 0 14px;font-family:var(--font-display);font-size:1.15rem;font-style:italic;font-weight:400}
+:root:lang(ja) .offclock h3,:root:lang(zh) .offclock h3{font-style:normal;font-weight:500}
+.hobby-photos{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr));margin:0;padding:0;list-style:none}
+.hp-wide{grid-column:span 2}
+@media (min-width:760px){.hobby-photos{grid-template-columns:2fr 1fr 1fr;gap:16px}.hp-wide{grid-column:auto}}
+.hobby-photos figure{margin:0}
+.hobby-photos img{display:block;width:100%;height:clamp(160px,24vw,280px);object-fit:cover;border-radius:4px;background:var(--ink-tint)}
+.hobby-photos figcaption{margin-top:8px;color:var(--ink-2);font-size:var(--fs-sm)}
 
-  /* ============ BACK (postcard back) ============ */
-  .back{ transform:rotateY(180deg); background:linear-gradient(160deg, #f6eedb 0%, #ece0c6 100%); color:#3a3326;
-    padding:22px 24px; display:grid; grid-template-columns:0.78fr 1px 1.22fr; grid-template-rows:1fr; gap:20px; }
-  .back::before{ content:""; position:absolute; inset:0; pointer-events:none; opacity:.5; mix-blend-mode:multiply;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"); }
-  .back__divider{ background:rgba(120,100,70,.3); }
+/* research: top */
+.research-top{display:grid;gap:36px;align-items:start}
+@media (min-width:1180px){.research-top{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:48px}}
 
-  /* ---- left column : avatar + motto ---- */
-  .back__left{ position:relative; display:flex; flex-direction:column; align-items:center;
-    justify-content:center; gap:16px; text-align:center; }
-  .back__avatar{ width:98px; height:98px; border-radius:50%; position:relative; overflow:hidden;
-    background:linear-gradient(150deg, #caa35b, #7e5f33);
-    box-shadow:inset 0 0 0 3px rgba(246,238,219,.92), 0 4px 12px rgba(90,70,40,.28); }
-  .back__avatar img{ position:relative; z-index:1; width:100%; height:100%; object-fit:cover; display:block; }
-  .back__avatar::after{ content:"PH"; position:absolute; inset:0; z-index:0; display:grid; place-items:center;
-    font-family:var(--display); font-weight:600; font-size:30px; color:rgba(246,238,219,.95); letter-spacing:.04em; }
-  .back__motto{ font-family:var(--hand); font-size:21px; line-height:1.45; color:#5a4a30; }
+/* two modes (Fig. 3) */
+.modes{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:900px){.modes{grid-template-columns:repeat(3,minmax(0,1fr));gap:44px}}
+.mode{position:relative;min-width:0}
+.mode-fig{padding:6px;background:var(--panel);border:1px solid var(--line);border-radius:4px}
+.mode-fig svg{display:block;width:100%;height:auto}
+.mode-name{margin:14px 0 4px;font-family:var(--font-display);font-size:1.15rem;font-weight:500;line-height:1.3}
+.mode .eq{margin:0 0 8px;color:var(--mp);font-family:var(--font-display);font-size:1.06rem}
+.mode p{margin:0;color:var(--ink-2);font-size:.93rem}
+.mode .try{display:inline-block;margin-top:8px;font-size:var(--fs-sm);font-weight:500}
+.mode[data-op]::after{content:attr(data-op);display:block;padding:10px 0 0;color:var(--au);font-family:var(--font-display);font-size:1.8rem;line-height:1;text-align:center}
+@media (min-width:900px){.mode[data-op]::after{position:absolute;top:22%;right:-33px;padding:0}}
+.ex-plane{fill:var(--mp-tint);stroke:var(--mp-fill);stroke-width:1}
+.ex-e{fill:var(--ink)}
+.ex-arc{fill:none;stroke:var(--ink-3);stroke-width:1.1}
+.ex-head{fill:var(--ink-3)}
+.ex-plus{fill:var(--au);font-family:var(--font-body);font-size:13px;font-weight:600}
+.ex-minus{fill:var(--mp);font-family:var(--font-body);font-size:14px;font-weight:600}
+.ex-label{fill:var(--ink-2);font-family:var(--font-body);font-size:12.5px}
+.ex-title{fill:var(--ink);font-family:var(--font-display);font-size:16px;font-weight:500}
+.ex-b{fill:none;stroke:var(--ink-2);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.ex-blabel{fill:var(--ink-2);font-family:var(--font-display);font-size:14px;font-style:italic}
+.ex-orbit{fill:none;stroke:var(--ink);stroke-width:1.6}
+.ex-ghost{fill:none;stroke:var(--ink-3);stroke-width:1;stroke-dasharray:3 3}
+.ex-el{fill:var(--au-fill)}
+.ex-c{fill:var(--ink-2)}
+.ex-field{fill:none;stroke:var(--mp-fill);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ex-div{stroke:var(--line);stroke-width:1}
+.ex-axis{fill:none;stroke:var(--ink-3);stroke-width:1.1}
+.ex-bare{fill:none;stroke-width:1.2;stroke-dasharray:4 4}
+.ex-bare-mp{stroke:var(--mp-fill)}
+.ex-bare-cr{stroke:var(--au-fill)}
+.ex-branch{fill:none;stroke-width:2.6;stroke-linecap:round}
+.ex-br{fill:none;stroke:var(--ink);stroke-width:1.2}
+.ex-glabel{fill:var(--ink);font-family:var(--font-display);font-size:14px;font-style:italic;paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+.ex-ml{font-family:var(--font-body);font-size:10.5px;font-weight:600}
+.ex-ml.mp{fill:var(--mp)}
+.ex-ml.cr{fill:var(--au)}
+.st-mp{stop-color:var(--mp-fill)}
+.st-au{stop-color:var(--au-fill)}
 
-  /* ---- right column : keyword sections + mail ---- */
-  .back__right{ display:flex; flex-direction:column; justify-content:center; gap:13px; }
-  .back__label{ font-family:"DM Mono", var(--display); font-size:9px; letter-spacing:.2em; text-transform:uppercase;
-    color:rgba(90,70,40,.62); margin-bottom:7px; }
-  .tags{ display:flex; flex-wrap:wrap; gap:6px; }
-  .tags span{ font-family:"DM Mono", var(--display), monospace; font-size:10px; letter-spacing:.02em;
-    padding:3px 9px; border-radius:999px; color:#4a3d26;
-    background:rgba(201,163,91,.18); border:1px solid rgba(120,100,70,.3); }
-  .back__mail a{ font-family:"DM Mono", monospace; font-size:12px; color:#6e5526; text-decoration:none;
-    border-bottom:1px solid rgba(120,100,70,.4); transition:color .2s ease; }
-  .back__mail a:hover{ color:#3a2c12; }
+/* coupling regime ruler */
+.ruler{max-width:860px}
+.rr-row{position:relative;height:34px}
+.rr-mark{position:absolute;bottom:0;display:flex;flex-direction:column;align-items:center;transform:translateX(-50%);color:var(--au);font-size:.78rem;line-height:1.3;white-space:nowrap}
+.rr-mark::after{content:"";width:0;height:0;margin-top:3px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid currentColor}
+.rr-bottom .rr-mark{top:0;bottom:auto;flex-direction:column-reverse;color:var(--mp);transition:left .12s linear}
+.rr-bottom .rr-mark::after{margin:0 0 3px;border-top:0;border-bottom:7px solid currentColor}
+.rr-mark[data-align="start"]{align-items:flex-start;transform:translateX(-5px)}
+.rr-mark[data-align="end"]{align-items:flex-end;transform:translateX(calc(-100% + 5px))}
+.rr-track{display:flex;height:46px}
+.rr-zone{display:flex;align-items:center;justify-content:center;min-width:0;padding:0 8px;color:var(--ink-2);font-size:.78rem;line-height:1.2;text-align:center}
+.rr-zone.z1{background:var(--ink-tint);border-radius:3px 0 0 3px}
+.rr-zone.z2{background:var(--au-tint);color:var(--au);font-weight:600}
+.rr-zone.z3{background:var(--mp-tint);color:var(--mp);border-radius:0 3px 3px 0}
+.rr-ticks{position:relative;height:20px;color:var(--ink-3);font-size:.75rem;font-variant-numeric:tabular-nums}
+.rr-ticks span{position:absolute;top:0;transform:translateX(-50%)}
+.rr-ticks span:first-child{transform:none}
+.rr-ticks span:last-child{transform:translateX(-100%)}
+.rr-axis{margin:4px 0 0;color:var(--ink-2);font-size:.82rem}
 
-  /* ============ MOBILE : PORTRAIT ============ */
-  @media (max-width:640px){
-    .card{ width:min(84vw, 330px); height:min(126vw, 486px); }
-    .front__name{ font-size:32px; }
-    .back{ grid-template-columns:1fr; grid-template-rows:1fr 1px 0.82fr; }
-    .back__divider{ height:1px; width:100%; }
-  }
+/* open question + goal */
+.qa{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:760px){.qa{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.qa-card{padding:18px 20px;background:var(--panel);border:1px solid var(--line);border-radius:4px}
+.qa-card.open{background:var(--au-tint);border-color:transparent}
+.qa-k{display:flex;align-items:center;gap:8px;margin:0 0 8px;font-size:var(--fs-sm);font-weight:600}
+.qa-k svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.qa-card.known .qa-k{color:var(--mp)}
+.qa-card.open .qa-k{color:var(--au)}
+.qa-card p{margin:0;color:var(--ink-2);font-size:.95rem}
+.qa-cite{display:inline-block;margin-top:10px;font-size:var(--fs-sm)}
+.goal{margin-top:32px}
+.goal h4{margin:0 0 4px;font-family:var(--font-display);font-size:1.15rem;font-weight:500}
+.goal > p{margin:0;max-width:64ch;color:var(--ink-2)}
+.io{display:grid;gap:8px;grid-template-columns:minmax(0,1fr);align-items:stretch;margin-top:18px}
+@media (min-width:820px){.io{grid-template-columns:minmax(0,1fr) 40px minmax(0,1.15fr) 40px minmax(0,1fr)}}
+.io-col{min-width:0;padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-radius:4px}
+.io-model{display:flex;flex-direction:column;justify-content:center;background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.io-k{margin:0 0 8px;color:var(--ink-3);font-size:var(--fs-xs)}
+.io-model .io-k{color:inherit;opacity:.72}
+.io-mname{margin:0;font-family:var(--font-display);font-size:1.15rem;line-height:1.35}
+.io ul{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.io-syms li{display:flex;align-items:baseline;gap:10px}
+.io-syms .sym{min-width:1.7em;color:var(--au);font-family:var(--font-display);font-size:1.45rem;font-style:italic;line-height:1.1}
+.io-syms .sym sub{font-style:normal}
+.io-syms span:last-child{color:var(--ink-2);font-size:.9rem}
+.io-arrow{display:grid;place-items:center;color:var(--ink-3)}
+.io-arrow svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transform:rotate(90deg)}
+@media (min-width:820px){.io-arrow svg{transform:none}}
 
-  /* ---------- bottom controls ---------- */
-  .controls{ position:fixed; bottom:50px; left:0; right:0; z-index:4;
-    display:flex; gap:8px; justify-content:center; align-items:center; flex-wrap:wrap; }
-  .lang-btn, .motion-btn{ font-family:"DM Mono","Noto Serif SC","Shippori Mincho",monospace; font-size:11px;
-    letter-spacing:.08em; padding:7px 15px; border-radius:999px; cursor:pointer; color:var(--ink-dim);
-    background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12);
-    -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); transition:all .25s ease; }
-  .lang-btn:hover, .motion-btn:hover{ color:var(--ink); border-color:rgba(255,255,255,.28); }
-  .lang-btn.active{ color:#2a1608; border-color:transparent;
-    background:linear-gradient(120deg, #e8923c 0%, #f7cf81 100%);
-    box-shadow:0 0 14px rgba(240,170,90,.45); }
-  .motion-btn{ color:#7fe3ff; border-color:rgba(127,227,255,.4); }
-  .motion-btn:hover{ color:#cdf4ff; border-color:rgba(127,227,255,.7); }
-  .hint{ position:fixed; bottom:20px; left:0; right:0; text-align:center; z-index:3;
-    font-family:"DM Mono","Noto Serif SC",monospace; font-size:11px; letter-spacing:.22em;
-    text-transform:uppercase; color:var(--ink-dim); pointer-events:none; }
-  body.lang-ja .hint, body.lang-zh .hint{ letter-spacing:.12em; text-transform:none; }
+/* research cycle */
+.pipeline{display:grid;margin:0;padding:0;list-style:none}
+.pl-item{position:relative;display:grid;grid-template-columns:30px minmax(0,1fr);align-content:start;gap:14px;padding-bottom:26px;min-width:0}
+.pl-item:last-child{padding-bottom:0}
+.pl-item::before{content:"";position:absolute;left:14px;top:30px;bottom:0;width:2px;background:var(--line)}
+.pl-item[data-status="done"]::before{background:var(--ink)}
+.pl-item:last-child::before{display:none}
+.pl-node{position:relative;z-index:1;display:grid;place-items:center;width:30px;height:30px;border:2px solid var(--ink-3);border-radius:50%;background:var(--paper)}
+.pl-item[data-status="done"] .pl-node{border-color:var(--ink);background:var(--ink)}
+.pl-node svg{width:14px;height:14px;fill:none;stroke:var(--paper);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.pl-item[data-status="now"] .pl-node{border-color:var(--au-fill);background:var(--au-fill)}
+.pl-item[data-status="now"] .pl-node::after{content:"";position:absolute;inset:-5px;border:2px solid var(--au-fill);border-radius:50%;animation:pulse 2.2s ease-out infinite}
+.pl-item[data-status="next"] .pl-node{border-style:dashed}
+.pl-body{min-width:0;padding-top:2px}
+.pl-name{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:0 0 4px;font-family:var(--font-display);font-size:1.18rem;font-weight:500;line-height:1.3}
+.pl-status{padding:1px 8px;border:1px solid var(--line);border-radius:999px;color:var(--ink-2);font-family:var(--font-body);font-size:.72rem;font-weight:500}
+.pl-item[data-status="done"] .pl-status{background:var(--ink-tint);border-color:transparent}
+.pl-item[data-status="now"] .pl-status{background:var(--au-tint);border-color:transparent;color:var(--au)}
+.pl-desc{margin:0;color:var(--ink-2);font-size:.93rem}
+@keyframes pulse{0%{transform:scale(1);opacity:.85}100%{transform:scale(1.6);opacity:0}}
+.loop-back{display:none}
+@media (min-width:1180px){
+  .pipeline{grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
+  .pl-item{grid-template-columns:minmax(0,1fr);gap:14px;padding-bottom:0}
+  .pl-item::before{left:30px;right:-20px;top:14px;bottom:auto;width:auto;height:2px}
+  .loop-back{display:block;position:relative;width:calc(80% + 16px);height:26px;margin:18px 0 0 14px;border:1px solid var(--ink-3);border-top:0;border-radius:0 0 8px 8px}
+  .loop-back::before{content:"";position:absolute;top:-7px;left:-5px;width:0;height:0;border-left:4.5px solid transparent;border-right:4.5px solid transparent;border-bottom:7px solid var(--ink-3)}
+  .loop-back span{position:absolute;left:50%;bottom:-.72em;transform:translateX(-50%);padding:0 10px;background:var(--paper);color:var(--ink-3);font-size:var(--fs-xs);line-height:1.4;white-space:nowrap}
+}
+
+/* fabrication */
+.fab-intro{display:grid;gap:24px;align-items:start}
+@media (min-width:1100px){.fab-intro{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px}}
+.fab-intro .block-head{margin-bottom:0}
+.fab-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:6px 0 0;padding:0;list-style:none;color:var(--ink-2);font-size:var(--fs-sm)}
+.fab-legend li{display:inline-flex;align-items:center;gap:8px}
+.fab-sw{display:inline-block;width:20px;height:14px;flex:none;border:1.5px solid var(--c);background:repeating-linear-gradient(45deg,var(--c) 0 1.3px,transparent 1.3px 4px)}
+.fab-photos{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr));margin:0}
+.fab-photos figure{margin:0;min-width:0}
+.fab-photos img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:4px;background:var(--ink-tint)}
+.fab-photos figcaption{margin-top:6px;font-size:.8rem}
+.fab-scroll{margin-top:28px}
+.fab{display:grid;gap:10px;grid-template-columns:minmax(0,1fr);margin:0;padding:0;list-style:none}
+.fab > li{min-width:0;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:4px}
+.fab-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.fab-no{color:var(--ink-3);font-family:var(--font-display);font-size:1.3rem;line-height:1;font-variant-numeric:tabular-nums}
+.fab h4{margin:8px 0 6px;font-size:.95rem;font-weight:600;line-height:1.35}
+.fab ul{display:grid;gap:2px;margin:0;padding:0;list-style:none;color:var(--ink-2);font-size:.8rem;line-height:1.45}
+@media (min-width:620px) and (max-width:1179px){
+  .fab-scroll{overflow-x:auto;padding-bottom:10px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+  .fab{grid-auto-flow:column;grid-auto-columns:170px;grid-template-columns:none}
+  .fab > li{scroll-snap-align:start}
+}
+@media (min-width:1180px){.fab{grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}.fab > li{padding:12px 10px}}
+
+/* undergraduate work */
+.ug-meta{display:grid;gap:2px;margin:10px 0 0;color:var(--ink-2);font-size:var(--fs-sm)}
+.ug-grid{display:grid;gap:32px;margin-top:28px}
+@media (min-width:1100px){.ug-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:44px}}
+.ug-points{display:grid;gap:16px;margin:0}
+.ug-points div{display:grid;gap:3px}
+.ug-points dt{font-size:var(--fs-sm);font-weight:600}
+.ug-points dd{margin:0;color:var(--ink-2);font-size:.95rem}
+.stats{display:grid;gap:18px;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:26px}
+.stat{padding-top:12px;border-top:1.5px solid var(--ink)}
+.stat-v{color:var(--ink);font-family:var(--font-display);font-size:clamp(2rem,4vw,2.7rem);font-weight:300;line-height:1;font-variant-numeric:tabular-nums}
+.stat-k{margin-top:6px;color:var(--ink-2);font-size:var(--fs-sm)}
+.ug-figs{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.ug-figs figure{margin:0;min-width:0}
+.ug-figs .box{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:4px}
+.ug-figs .box img{position:absolute;inset:0;display:block;width:100%;height:100%}
+.ug-figs .photo img{object-fit:cover}
+.ug-figs .plate img{inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);object-fit:contain}
+.ug-figs figcaption{margin-top:6px;font-size:.8rem;line-height:1.45}
+.stack{display:grid;grid-template-rows:repeat(8,1fr);gap:2px;height:100%;padding:8px;background:var(--panel);border:1px solid var(--line);border-radius:4px}
+.ly{display:flex;align-items:center;justify-content:center;min-height:0;border-radius:2px;color:var(--ink);font-size:.72rem;line-height:1.1;text-align:center}
+.ly-c{background:var(--au-tint)}
+.ly-p{background:var(--mp-tint)}
+.ly-a{background:repeating-linear-gradient(0deg,var(--au-tint) 0 3px,var(--au-fill) 3px 4px);font-weight:600}
+.ly-n{background:var(--mp-tint);box-shadow:inset 0 0 0 100px var(--mp-tint)}
+.ly-s{background:var(--ink-tint)}
+
+/* projects: CycleSafe case study */
+.case{margin-bottom:clamp(64px,8vw,96px)}
+.case-title{margin:0;font-family:var(--font-display);font-size:clamp(1.8rem,3.4vw,2.4rem);font-weight:400;letter-spacing:-.01em}
+.case-sub{max-width:56ch;margin:6px 0 12px;color:var(--ink-2);font-size:1.02rem}
+.case-award{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;color:var(--ink-2);font-size:var(--fs-sm)}
+.case-media{display:grid;gap:12px;grid-template-columns:minmax(0,1fr);align-items:start;margin-top:22px}
+@media (min-width:820px){.case-media{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:16px}}
+.case-media figure{margin:0;min-width:0}
+.case-main img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;background:var(--ink-tint)}
+.case-parts{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr));margin:0;padding:0;list-style:none}
+.case-parts img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;background:var(--ink-tint)}
+.case-parts figcaption{margin-top:6px;font-size:.8rem}
+.case-points{display:grid;gap:20px;grid-template-columns:minmax(0,1fr);margin:30px 0 0}
+@media (min-width:820px){.case-points{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}}
+.case-points div{padding-top:12px;border-top:1px solid var(--line)}
+.case-points dt{margin-bottom:6px;font-size:var(--fs-sm);font-weight:600}
+.case-points dd{margin:0;color:var(--ink-2);font-size:.95rem}
+.case-foot{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline;margin-top:18px;color:var(--ink-3);font-size:var(--fs-sm)}
+.case-foot p{max-width:72ch;margin:0}
+.sysdia{margin-top:28px;padding:18px;background:var(--panel);border:1px solid var(--line);border-radius:4px}
+.sd-title{margin:0 0 14px;font-size:var(--fs-sm);font-weight:600}
+.sd-flow{display:grid;gap:10px;grid-template-columns:minmax(0,1fr);align-items:center}
+.sd-box{display:grid;gap:2px;padding:12px 14px;background:var(--paper);border:1px solid var(--line);border-radius:4px}
+.sd-box b{font-size:.92rem;font-weight:600}
+.sd-box span{color:var(--ink-2);font-size:.8rem}
+.sd-core{border:1.5px solid var(--ink)}
+.sd-mid,.sd-outs{display:grid;gap:10px}
+.sd-power{border-style:dashed}
+.sd-link{position:relative;justify-self:center;width:2px;height:36px;background:var(--ink-3)}
+.sd-link::after{content:"";position:absolute;left:50%;bottom:-1px;transform:translateX(-50%);border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--ink-3)}
+.sd-link span{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:.72rem;white-space:nowrap}
+@media (min-width:820px){
+  .sd-flow{grid-template-columns:minmax(0,1fr) 76px minmax(0,1.15fr) 76px minmax(0,1fr)}
+  .sd-link{justify-self:stretch;width:auto;height:2px}
+  .sd-link::after{left:auto;right:-1px;top:50%;bottom:auto;transform:translateY(-50%);border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid var(--ink-3);border-right:0}
+  .sd-link span{left:50%;top:auto;bottom:7px;transform:translateX(-50%)}
+}
+
+/* projects: other */
+.projects{display:grid;gap:48px 28px;grid-template-columns:minmax(0,1fr);margin-top:24px}
+@media (min-width:640px){.projects{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.proj{display:flex;flex-direction:column;min-width:0}
+.proj-art{position:relative;height:clamp(176px,17vw,220px);overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:4px}
+.proj-art svg{position:absolute;inset:0;width:100%;height:100%}
+.proj-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:16px}
+.proj h3{margin:0;font-family:var(--font-display);font-size:1.35rem;font-weight:500;line-height:1.25}
+.proj-year{color:var(--ink-3);font-size:var(--fs-sm);font-variant-numeric:tabular-nums;white-space:nowrap}
+.badge{align-self:flex-start;padding:2px 9px;border-radius:999px;font-size:.76rem;font-weight:500}
+.proj .badge{margin-top:8px}
+.badge-award{background:var(--au-tint);color:var(--au)}
+.badge-wip{background:var(--mp-tint);color:var(--mp)}
+.proj p{max-width:62ch;margin:8px 0 0;color:var(--ink-2);font-size:.95rem}
+.proj-tags{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0;padding:0;list-style:none}
+.tag{padding:1px 7px;border:1px solid var(--line);border-radius:2px;color:var(--ink-2);font-size:.75rem}
+.proj-link{align-self:flex-start;margin-top:12px;font-size:var(--fs-sm);font-weight:500}
+.a-gate{fill:var(--ink-tint);stroke:var(--ink-3);stroke-width:1.2}
+.a-gate-h{stroke:var(--ink-3);stroke-width:1}
+.a-axis{fill:none;stroke:var(--line);stroke-width:1.2}
+.a-dash{stroke-dasharray:4 4}
+.a-prof{fill:none;stroke:var(--mp-fill);stroke-width:1.7;stroke-linejoin:round}
+.a-wave{fill:none;stroke:var(--mp-fill);stroke-width:1.2}
+.a-hot{fill:var(--au-tint)}
+.a-srr{fill:none;stroke:var(--au-fill);stroke-width:10;stroke-linejoin:miter}
+.a-screen{fill:var(--panel);stroke:var(--ink-3);stroke-width:2}
+.a-grate{fill:var(--ink-2)}
+.a-crop{fill:none;stroke:var(--au-fill);stroke-width:3;stroke-linecap:square}
+.moire-b{transition:opacity .7s ease}
+.proj:hover .moire-b{opacity:0}
+.s-sky1{stop-color:var(--au-tint)}
+.s-sky2{stop-color:var(--panel)}
+.a-mtn{fill:var(--mp-tint);stroke:var(--mp-fill);stroke-width:1.5;stroke-linejoin:round}
+.a-snow{fill:var(--panel);stroke:var(--mp-fill);stroke-width:1;stroke-linejoin:round}
+.a-mapbg{fill:var(--panel)}
+.a-road{fill:none;stroke:var(--line);stroke-width:2}
+.a-road-main{fill:none;stroke:var(--ink-3);stroke-width:3;stroke-linecap:round}
+.a-route{fill:none;stroke:var(--mp-fill);stroke-width:2.6;stroke-dasharray:7 6;stroke-linecap:round}
+.a-pin{fill:var(--au-fill)}
+.a-pin-hole{fill:var(--panel)}
+.a-text{fill:var(--ink-2);font-family:var(--font-body);font-size:13px;font-weight:500}
+
+/* timeline */
+.timeline{margin:0;padding:0;list-style:none;border-bottom:1px solid var(--line)}
+.tl-item{display:grid;grid-template-columns:9.5rem minmax(0,1fr);gap:4px 24px;padding-block:20px;border-top:1px solid var(--line)}
+.tl-date{padding-top:.15em;color:var(--ink-2);font-size:.9rem;font-variant-numeric:tabular-nums}
+.tl-body{min-width:0}
+.tl-type{display:inline-flex;align-items:center;gap:7px;color:var(--ink-2);font-size:var(--fs-xs)}
+.tl-type::before{content:"";width:9px;height:9px;flex:none;background:var(--ink-2)}
+.tl-type[data-type="edu"]::before{background:var(--mp-fill);border-radius:50%}
+.tl-type[data-type="conf"]::before{clip-path:polygon(50% 0,100% 100%,0 100%)}
+.tl-type[data-type="award"]::before{background:var(--au-fill);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.tl-title{margin:4px 0 2px;font-family:var(--font-display);font-size:1.22rem;font-weight:500;line-height:1.3}
+.tl-org{margin:0}
+.tl-detail{max-width:64ch;margin:4px 0 0;color:var(--ink-2);font-size:.93rem}
+@media (max-width:600px){.tl-item{grid-template-columns:minmax(0,1fr)}}
+
+/* toolbox */
+.toolbox{display:grid;gap:32px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:560px){.toolbox{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1180px){.toolbox{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.tool-group{min-width:0;padding-top:12px;border-top:1px solid var(--line)}
+.tool-group h3{margin:0 0 8px;font-family:var(--font-display);font-size:1.15rem;font-style:italic;font-weight:400}
+:root:lang(ja) .tool-group h3,:root:lang(zh) .tool-group h3{font-style:normal;font-weight:500}
+.tool-group ul{display:grid;gap:3px;margin:0;padding:0;list-style:none;color:var(--ink-2);font-size:.95rem}
+
+/* contact band */
+.band{background:var(--band);color:var(--band-ink)}
+.band a:hover{color:var(--au-fill)}
+.contact{padding-block:clamp(72px,10vw,132px) clamp(44px,6vw,72px)}
+.contact .section-title{color:var(--band-ink)}
+.contact-heading{max-width:21ch;margin:0 0 40px;font-family:var(--font-display);font-size:clamp(1.75rem,4vw,3rem);font-weight:300;line-height:1.18;letter-spacing:-.015em}
+:root:lang(ja) .contact-heading,:root:lang(zh) .contact-heading{max-width:24em;font-weight:500;font-size:clamp(1.3rem,2.8vw,2.1rem);line-height:1.55;letter-spacing:0}
+.meta-k{margin:0 0 6px;color:var(--band-ink-2);font-size:var(--fs-xs)}
+.meta-v{margin:0}
+.email-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px}
+.email{color:var(--band-ink);font-family:var(--font-display);font-size:clamp(1.35rem,3.6vw,2.3rem);text-decoration:underline;text-decoration-color:var(--au-fill);text-decoration-thickness:1px;text-underline-offset:.2em;overflow-wrap:anywhere}
+.copy-btn{appearance:none;-webkit-appearance:none;min-height:40px;padding:0 14px;border:1px solid var(--band-line);border-radius:var(--radius);background:transparent;color:var(--band-ink);font:inherit;font-size:var(--fs-sm);cursor:pointer}
+.copy-btn:hover{border-color:var(--band-ink-2)}
+.copy-status{color:var(--band-ink-2);font-size:var(--fs-sm)}
+.contact-meta{display:grid;gap:28px;margin-top:56px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.clock{font-family:var(--font-display);font-size:1.7rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.tz{color:var(--band-ink-2);font-size:var(--fs-sm)}
+.links{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0;padding:0;list-style:none}
+.links a{color:var(--band-ink);text-decoration-color:var(--band-line)}
+.site-footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-block:22px;border-top:1px solid var(--band-line);color:var(--band-ink-2);font-size:var(--fs-sm)}
+.site-footer a{color:var(--band-ink-2)}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
 </style>
 </head>
-<body class="lang-en">
-  <div class="bg-vignette"></div>
-  <div class="stars">
-    <div class="star-layer l1" data-n="90"  data-min="0.20" data-max="0.50"></div>
-    <div class="star-layer l2" data-n="45"  data-min="0.25" data-max="0.55"></div>
-    <div class="star-layer l3" data-n="120" data-min="0.12" data-max="0.38"></div>
-  </div>
-  <div class="bg-glow"></div>
-  <div class="bg-noise"></div>
+<body>
+<a class="skip" href="#main" data-t="skip">Skip to content</a>
+<noscript><div class="wrap noscript"><p><strong>Peng Hao (彭浩)</strong>, master’s student at the University of Tokyo, terahertz device physics.</p><p>Email: phaooo678 [at] gmail [dot] com</p><p>This page needs JavaScript for its full content and language switch.</p></div></noscript>
 
-  <div class="stage">
-    <div class="card" id="card">
-      <div class="flipper">
-
-        <!-- FRONT : detail page (black hole) -->
-        <div class="face front">
-          <div class="front__scene">
-            <div class="bh">
-              <div class="bh__glow"></div>
-              <div class="bh__disk"></div>
-              <div class="bh__beam"></div>
-              <div class="bh__halo"></div>
-              <div class="bh__core"></div>
-            </div>
-          </div>
-          <div class="front__plate">
-            <div class="front__eyebrow" data-i="eyebrow">Deep Thinking...</div>
-            <div class="front__name" data-i="name">PENG HAO</div>
-            <div class="front__role" data-i="role">M1 Kuroyama Lab - University of Tokyo</div>
-          </div>
-          <div class="holo holo--rainbow"></div>
-          <div class="holo holo--rainbow2"></div>
-          <div class="holo holo--glare"></div>
-          <div class="holo holo--noise"></div>
-        </div>
-
-        <!-- BACK : profile card -->
-        <div class="face back">
-          <!-- left : avatar + motto -->
-          <div class="back__left">
-            <div class="back__avatar">
-              <img src="photo.jpg" alt="" onerror="this.style.display='none'">
-            </div>
-            <div class="back__motto">“Powered by curiosity, caffeine, and occasional deep thinking.”</div>
-          </div>
-
-          <div class="back__divider"></div>
-
-          <!-- right : keyword sections + mail -->
-          <div class="back__right">
-            <div class="back__section">
-              <div class="back__label">Interests</div>
-              <div class="tags">
-                <span>Technology</span><span>Coffee</span><span>Motorcycles</span><span>Gaming</span><span>Fitness</span>
-              </div>
-            </div>
-            <div class="back__section">
-              <div class="back__label">Research</div>
-              <div class="tags">
-                <span>Laser Diode</span><span>THz</span><span>Ultrastrong Coupling</span><span>2DEG</span><span>Magnetoplasmon</span>
-              </div>
-            </div>
-            <div class="back__mail">
-              <div class="back__label">Mail</div>
-              <a href="mailto:phaooo678@gmail.com">phaooo678@gmail.com</a>
-            </div>
-          </div>
-        </div>
-
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" data-ta="ui.home">
+      <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="bm-lo" d="M3 21Q11 12.5 21 12.5"/><path class="bm-up" d="M3 11.5Q13 11.5 21 3"/></svg>
+      <span class="brand-name">PH</span><span class="brand-sub" data-t="ui.brand">Lab notebook</span>
+    </a>
+    <nav class="nav" data-ta="nav.label">
+      <a href="#about" data-t="nav.about">About</a>
+      <a href="#research" data-t="nav.research">Research</a>
+      <a href="#projects" data-t="nav.projects">Projects</a>
+      <a href="#timeline" data-t="nav.timeline">Timeline</a>
+      <a href="#toolbox" data-t="nav.toolbox">Toolbox</a>
+      <a href="#contact" data-t="nav.contact">Contact</a>
+    </nav>
+    <div class="controls">
+      <div class="lang" role="group" data-ta="ui.lang">
+        <button type="button" data-lang="en" lang="en" aria-pressed="false"><span class="l">EN</span><span class="s">EN</span></button>
+        <button type="button" data-lang="ja" lang="ja" aria-pressed="false"><span class="l">日本語</span><span class="s">日</span></button>
+        <button type="button" data-lang="zh" lang="zh-CN" aria-pressed="false"><span class="l">中文</span><span class="s">中</span></button>
       </div>
+      <button type="button" class="icon-btn theme-btn" id="themeBtn">
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg>
+      </button>
+      <button type="button" class="icon-btn menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav" data-ta="ui.menu">
+        <svg class="i-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="i-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
     </div>
   </div>
+  <nav class="mobile-nav" id="mobileNav" hidden data-ta="nav.label">
+    <ul class="wrap">
+      <li><a href="#about" data-t="nav.about">About</a></li>
+      <li><a href="#research" data-t="nav.research">Research</a></li>
+      <li><a href="#projects" data-t="nav.projects">Projects</a></li>
+      <li><a href="#timeline" data-t="nav.timeline">Timeline</a></li>
+      <li><a href="#toolbox" data-t="nav.toolbox">Toolbox</a></li>
+      <li><a href="#contact" data-t="nav.contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <div class="controls">
-    <button class="motion-btn" id="motionBtn" data-i="motion" hidden>Enable motion</button>
+<main id="main">
+  <!-- ============ hero ============ -->
+  <section class="hero" id="top" aria-labelledby="heroName">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <h1 class="name" id="heroName" data-th="hero.name">Peng Hao</h1>
+        <p class="thesis" data-t="hero.thesis"></p>
+        <p class="affil"><span data-th="hero.role"></span><span data-t="hero.lab"></span></p>
+        <div class="actions">
+          <a class="btn btn-solid" href="#research" data-t="hero.cta1"></a>
+          <a class="btn" href="#contact" data-t="hero.cta2"></a>
+        </div>
+      </div>
+      <figure class="fig fig-hero" id="fig1">
+        <div class="fig-panel">
+          <div class="plot" id="plot"><canvas id="plotCanvas" tabindex="0" role="img" data-ta="fig1.aria"></canvas></div>
+          <div class="controls-row">
+            <span class="ctl-label"><span data-t="fig1.slider"></span><span class="ctl-value"><i>g</i>/<i>ω</i><sub>0</sub> = <span id="etaNum">0.00</span></span></span>
+            <div class="slider"><input type="range" id="coupling" min="0" max="0.3" step="0.005" value="0" data-ta="fig1.slider"><span class="usc-tick" aria-hidden="true">0.1</span></div>
+            <span class="regime" id="regime" data-level="r0"></span>
+          </div>
+          <dl class="readout">
+            <div><dt data-t="fig1.field"></dt><dd id="roB">–</dd></div>
+            <div><dt data-th="fig1.upper"></dt><dd id="roUp">–</dd></div>
+            <div><dt data-th="fig1.lower"></dt><dd id="roLo">–</dd></div>
+            <div><dt data-t="fig1.split"></dt><dd id="roSp">–</dd></div>
+          </dl>
+        </div>
+        <figcaption><span class="fig-no">Fig. 1 |</span> <span class="fig-title" data-t="fig1.title"></span> <span data-th="fig1.caption"></span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ highlights ============ -->
+  <section class="section compact" id="highlights" aria-labelledby="hHighlights">
+    <div class="wrap section-grid">
+      <div class="section-side"><h2 class="section-title" id="hHighlights" data-t="hl.title"></h2></div>
+      <div class="section-body">
+        <p class="lede" data-t="hl.lede"></p>
+        <div class="hl-grid">
+          <a class="hl-card" href="#research">
+            <div class="hl-img"><canvas id="hlCanvas" role="img" data-ta="hl1.aria"></canvas></div>
+            <div><span class="hl-kind" data-t="hl1.kind"></span><h3 data-t="hl1.title"></h3><p data-t="hl1.text"></p></div>
+          </a>
+          <a class="hl-card" href="#earlier">
+            <div class="hl-img"><img src="img/sem.webp" width="721" height="541" decoding="async" data-alt="alt.sem" alt=""></div>
+            <div><span class="hl-kind" data-t="hl2.kind"></span><h3 data-t="hl2.title"></h3><p data-t="hl2.text"></p></div>
+          </a>
+          <a class="hl-card" href="#cyclesafe">
+            <div class="hl-img"><img src="img/cyclesafe.webp" width="889" height="666" decoding="async" data-alt="alt.cs" alt=""></div>
+            <div><span class="hl-kind" data-t="hl3.kind"></span><h3>CycleSafe</h3><p data-t="hl3.text"></p></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ about ============ -->
+  <section class="section" id="about" aria-labelledby="hAbout">
+    <div class="wrap section-grid">
+      <div class="section-side"><h2 class="section-title" id="hAbout" data-t="about.title"></h2></div>
+      <div class="section-body">
+        <div class="about-grid">
+          <div class="about-main">
+            <p class="lede" data-t="about.lede"></p>
+            <div class="prose"><p data-t="about.p1"></p><p data-t="about.p2"></p></div>
+          </div>
+          <dl class="facts" id="facts"></dl>
+        </div>
+        <div class="offclock">
+          <h3 data-t="about.off"></h3>
+          <ul class="hobby-photos">
+            <li class="hp-wide"><figure><img src="img/moto.webp" width="1200" height="900" loading="lazy" decoding="async" style="object-position:50% 62%" data-alt="alt.moto" alt=""><figcaption data-t="hb.moto"></figcaption></figure></li>
+            <li><figure><img src="img/climb.webp" width="700" height="1241" loading="lazy" decoding="async" style="object-position:50% 48%" data-alt="alt.climb" alt=""><figcaption data-t="hb.climb"></figcaption></figure></li>
+            <li><figure><img src="img/coffee.webp" width="700" height="934" loading="lazy" decoding="async" style="object-position:50% 45%" data-alt="alt.coffee" alt=""><figcaption data-t="hb.coffee"></figcaption></figure></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ research ============ -->
+  <section class="section" id="research" aria-labelledby="hResearch">
+    <div class="wrap section-grid">
+      <div class="section-side">
+        <h2 class="section-title" id="hResearch" data-t="research.title"></h2>
+        <nav class="subnav" data-ta="sn.label">
+          <a href="#r-modes" data-t="sn.modes"></a>
+          <a href="#r-regimes" data-t="sn.regimes"></a>
+          <a href="#r-question" data-t="sn.question"></a>
+          <a href="#r-cycle" data-t="sn.cycle"></a>
+          <a href="#r-fab" data-t="sn.fab"></a>
+          <a href="#earlier" data-t="sn.ug"></a>
+        </nav>
+      </div>
+      <div class="section-body">
+        <div class="research-top">
+          <div>
+            <h3 class="lede" data-t="research.heading"></h3>
+            <div class="prose"><p data-t="research.p1"></p></div>
+          </div>
+          <figure class="fig fig-device" id="fig2">
+            <div class="fig-panel">
+              <svg class="device" id="device" viewBox="0 0 480 300" role="img" aria-labelledby="devTitle">
+                <title id="devTitle" data-t="fig2.aria"></title>
+                <defs>
+                  <pattern id="gridDots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r=".9" class="grid-dot"/></pattern>
+                  <pattern id="hatchAu" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" class="hatch-au"/></pattern>
+                  <pattern id="hatchMesa" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="6" class="hatch-mesa"/></pattern>
+                  <pattern id="hatchOhm" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 3H6M3 0V6" class="hatch-ohm"/></pattern>
+                </defs>
+                <rect x="0" y="0" width="480" height="300" fill="url(#gridDots)"/>
+                <g class="layer" data-layer="mesa">
+                  <rect x="34" y="138" width="412" height="24" class="mesa-fill"/>
+                  <rect x="34" y="138" width="412" height="24" fill="url(#hatchMesa)"/>
+                </g>
+                <g class="layer" data-layer="ohmic">
+                  <rect x="14" y="116" width="52" height="68" class="ohm-fill"/>
+                  <rect x="14" y="116" width="52" height="68" fill="url(#hatchOhm)"/>
+                  <rect x="414" y="116" width="52" height="68" class="ohm-fill"/>
+                  <rect x="414" y="116" width="52" height="68" fill="url(#hatchOhm)"/>
+                </g>
+                <g class="layer" data-layer="au">
+                  <polygon points="150,10 330,10 246,120 244,145 236,145 234,120" class="au-fill"/>
+                  <polygon points="150,10 330,10 246,120 244,145 236,145 234,120" fill="url(#hatchAu)"/>
+                  <polygon points="150,290 330,290 246,180 244,155 236,155 234,180" class="au-fill"/>
+                  <polygon points="150,290 330,290 246,180 244,155 236,155 234,180" fill="url(#hatchAu)"/>
+                </g>
+                <path class="leader" d="M247 150 300 110H326"/>
+                <text class="dev-label" x="331" y="114">QPC</text>
+                <path class="scale" d="M30 274H124M30 269V279M124 269V279"/>
+                <text class="dev-label" x="77" y="262" text-anchor="middle">20 μm</text>
+                <path class="arrow" d="M440 22V92M435 30 440 22 445 30M435 84 440 92 445 84"/>
+                <text class="dev-label" x="451" y="56">E</text>
+                <text class="dev-label dev-small" x="451" y="70">THz</text>
+              </svg>
+              <div class="layers" role="group" data-ta="fig2.layers">
+                <button type="button" class="layer-btn" data-layer="au" aria-pressed="true"><span class="sw sw-au" aria-hidden="true"></span><span class="lb-text" data-t="fig2.au"></span></button>
+                <button type="button" class="layer-btn" data-layer="mesa" aria-pressed="true"><span class="sw sw-mesa" aria-hidden="true"></span><span class="lb-text" data-t="fig2.mesa"></span></button>
+                <button type="button" class="layer-btn" data-layer="ohmic" aria-pressed="true"><span class="sw sw-ohm" aria-hidden="true"></span><span class="lb-text" data-t="fig2.ohmic"></span></button>
+              </div>
+            </div>
+            <figcaption><span class="fig-no">Fig. 2 |</span> <span class="fig-title" data-t="fig2.title"></span> <span data-t="fig2.caption"></span></figcaption>
+          </figure>
+        </div>
+
+        <!-- two modes -->
+        <div class="block" id="r-modes" data-sub>
+          <div class="block-head"><h3 class="sub-h" data-t="modes.title"></h3><p data-t="modes.text"></p></div>
+          <figure class="fig">
+            <div class="modes" id="modes">
+              <div class="mode" data-op="×">
+                <div class="mode-fig">
+                  <svg id="exMP" viewBox="0 0 320 180" role="img" aria-labelledby="exMPt">
+                    <title id="exMPt" data-t="mp.aria"></title>
+                    <defs><clipPath id="exClip"><rect x="8" y="0" width="304" height="180"/></clipPath></defs>
+                    <path class="ex-b" d="M300 72V28M295 36 300 28 305 36"/>
+                    <text class="ex-blabel" x="290" y="38" text-anchor="end">B</text>
+                    <g clip-path="url(#exClip)"><g id="exArcs"></g><g id="exPlus"></g><g id="exMinus"></g></g>
+                    <rect class="ex-plane" x="8" y="118" width="304" height="10" rx="2"/>
+                    <g clip-path="url(#exClip)" id="exDots"></g>
+                    <text class="ex-label" x="10" y="146">2DEG</text>
+                    <text class="ex-label" x="160" y="170" text-anchor="middle" data-t="ex.wave"></text>
+                  </svg>
+                </div>
+                <h4 class="mode-name" data-t="mp.name"></h4>
+                <p class="eq"><i>ω</i><sub>MP</sub> = √(<i>ω</i><sub>p</sub><sup>2</sup> + <i>ω</i><sub>c</sub><sup>2</sup>)</p>
+                <p data-t="mp.text"></p>
+              </div>
+              <div class="mode" data-op="→">
+                <div class="mode-fig">
+                  <svg id="exCR" viewBox="0 0 320 180" role="img" aria-labelledby="exCRt">
+                    <title id="exCRt" data-t="cr.aria"></title>
+                    <line class="ex-div" x1="160" y1="12" x2="160" y2="172"/>
+                    <text class="ex-title" x="80" y="25" text-anchor="middle">CR</text>
+                    <text class="ex-title" x="240" y="25" text-anchor="middle">2CR</text>
+                    <text class="ex-label" x="80" y="41" text-anchor="middle" data-t="ex.centre"></text>
+                    <text class="ex-label" x="240" y="41" text-anchor="middle" data-t="ex.shape"></text>
+                    <circle class="ex-ghost" cx="80" cy="88" r="28"/>
+                    <circle class="ex-orbit" id="crOrbit" cx="80" cy="88" r="28"/>
+                    <circle class="ex-c" id="crC" cx="80" cy="88" r="2"/>
+                    <circle class="ex-el" id="crEl" cx="108" cy="88" r="4"/>
+                    <circle class="ex-ghost" cx="240" cy="88" r="28"/>
+                    <ellipse class="ex-orbit" id="crEll" cx="240" cy="88" rx="28" ry="28"/>
+                    <circle class="ex-c" cx="240" cy="88" r="2"/>
+                    <circle class="ex-el" id="crEl2" cx="268" cy="88" r="4"/>
+                    <path class="ex-field" id="crFieldL"/>
+                    <path class="ex-field" id="crFieldR"/>
+                    <text class="ex-label" x="80" y="168" text-anchor="middle" data-t="ex.uniform"></text>
+                    <text class="ex-label" x="240" y="168" text-anchor="middle" data-t="ex.nonuniform"></text>
+                  </svg>
+                </div>
+                <h4 class="mode-name" data-t="cr.name"></h4>
+                <p class="eq"><i>ω</i><sub>2CR</sub> = 2<i>ω</i><sub>c</sub></p>
+                <p data-t="cr.text"></p>
+              </div>
+              <div class="mode">
+                <div class="mode-fig">
+                  <svg id="exMX" viewBox="0 0 320 180" role="img" aria-labelledby="exMXt">
+                    <title id="exMXt" data-t="mx.aria"></title>
+                    <defs>
+                      <linearGradient id="mxGU" gradientUnits="userSpaceOnUse" x1="34" y1="0" x2="286" y2="0"><stop id="mxU1" offset=".47" class="st-mp"/><stop id="mxU2" offset=".6" class="st-au"/></linearGradient>
+                      <linearGradient id="mxGL" gradientUnits="userSpaceOnUse" x1="34" y1="0" x2="286" y2="0"><stop id="mxL1" offset=".47" class="st-au"/><stop id="mxL2" offset=".6" class="st-mp"/></linearGradient>
+                    </defs>
+                    <path class="ex-axis" d="M34 16V150H290"/>
+                    <text class="ex-label" x="290" y="166" text-anchor="end">B</text>
+                    <text class="ex-label" x="27" y="24" text-anchor="end">f</text>
+                    <path class="ex-bare ex-bare-mp" id="mxMP"/>
+                    <path class="ex-bare ex-bare-cr" id="mx2CR"/>
+                    <path class="ex-branch" id="mxUp" stroke="url(#mxGU)"/>
+                    <path class="ex-branch" id="mxLo" stroke="url(#mxGL)"/>
+                    <path class="ex-br" id="mxBr"/>
+                    <text class="ex-glabel" id="mx2g">2g</text>
+                    <text class="ex-ml mp" id="mxLabMP">MP</text>
+                    <text class="ex-ml cr" id="mxLab2CR">2CR</text>
+                  </svg>
+                </div>
+                <h4 class="mode-name" data-t="mx.name"></h4>
+                <p class="eq"><i>ω</i><sub>MP</sub> ≈ 2<i>ω</i><sub>c</sub></p>
+                <p data-th="mx.text"></p>
+                <a class="try" href="#fig1" data-t="mx.try"></a>
+              </div>
+            </div>
+            <figcaption><span class="fig-no">Fig. 3 |</span> <span class="fig-title" data-t="fig3.title"></span></figcaption>
+          </figure>
+        </div>
+
+        <!-- coupling regimes -->
+        <div class="block" id="r-regimes" data-sub>
+          <div class="block-head"><h3 class="sub-h" data-t="rr.title"></h3><p data-t="rr.text"></p></div>
+          <div class="ruler">
+            <div class="rr-row rr-top"><div class="rr-mark" style="left:40.37%"><span data-th="rr.prior"></span></div></div>
+            <div class="rr-track">
+              <div class="rr-zone z1" style="flex:0 0 40.37%"><span data-t="rr.z1"></span></div>
+              <div class="rr-zone z2" style="flex:0 0 40.37%"><span data-t="rr.z2"></span></div>
+              <div class="rr-zone z3" style="flex:0 0 19.26%"><span data-t="rr.z3"></span></div>
+            </div>
+            <div class="rr-row rr-bottom"><div class="rr-mark" id="rrYou" style="left:0"><span id="rrYouLabel"></span></div></div>
+            <div class="rr-ticks"><span style="left:0">0.01</span><span style="left:40.37%">0.1</span><span style="left:80.74%">1</span><span style="left:100%">3</span></div>
+            <p class="rr-axis" data-th="rr.axis"></p>
+          </div>
+        </div>
+
+        <!-- open question -->
+        <div class="block" id="r-question" data-sub>
+          <div class="block-head"><h3 class="sub-h" data-t="q.title"></h3></div>
+          <div class="qa">
+            <div class="qa-card known">
+              <p class="qa-k"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5 11 15.5 16.5 9"/></svg><span data-t="q.known.k"></span></p>
+              <p data-th="q.known.v"></p>
+              <a class="qa-cite" href="https://doi.org/10.1038/s42005-026-02513-x" target="_blank" rel="noopener">K. Kuroyama et al., Commun. Phys. 9, 87 (2026)</a>
+            </div>
+            <div class="qa-card open">
+              <p class="qa-k"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.4 2.4c-.7.3-1 .8-1 1.5v.6"/><path d="M12 16.8v.2"/></svg><span data-t="q.open.k"></span></p>
+              <p data-th="q.open.v"></p>
+            </div>
+          </div>
+          <div class="goal">
+            <h4 data-t="goal.title"></h4>
+            <p data-t="goal.text"></p>
+            <div class="io">
+              <div class="io-col io-in"><p class="io-k" data-t="io.in"></p><ul><li data-t="io.in1"></li><li data-t="io.in2"></li><li data-t="io.in3"></li></ul></div>
+              <div class="io-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
+              <div class="io-col io-model"><p class="io-k" data-t="io.model"></p><p class="io-mname" data-t="io.modelV"></p></div>
+              <div class="io-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
+              <div class="io-col io-out"><p class="io-k" data-t="io.out"></p>
+                <ul class="io-syms">
+                  <li><span class="sym">g</span><span data-t="io.g"></span></li>
+                  <li><span class="sym">f<sub>p</sub></span><span data-t="io.fp"></span></li>
+                  <li><span class="sym">q</span><span data-t="io.q"></span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- research cycle -->
+        <div class="block" id="r-cycle" data-sub>
+          <div class="block-head"><h3 class="sub-h" data-t="cyc.title"></h3><p data-t="cyc.text"></p></div>
+          <ol class="pipeline" id="pipeline"></ol>
+          <div class="loop-back" aria-hidden="true"><span data-t="cyc.back"></span></div>
+        </div>
+
+        <!-- fabrication -->
+        <div class="block" id="r-fab" data-sub>
+          <div class="fab-intro">
+            <div class="block-head">
+              <h3 class="sub-h" data-t="fab.title"></h3>
+              <p data-t="fab.text"></p>
+              <ul class="fab-legend">
+                <li><span class="fab-sw" data-tech="eb" aria-hidden="true"></span><span data-t="fab.eb"></span></li>
+                <li><span class="fab-sw" data-tech="laser" aria-hidden="true"></span><span data-t="fab.laser"></span></li>
+                <li><span class="fab-sw" data-tech="other" aria-hidden="true"></span><span data-t="fab.other"></span></li>
+              </ul>
+            </div>
+            <figure class="fig">
+              <div class="fab-photos">
+                <figure><img src="img/mesa.webp" width="960" height="891" loading="lazy" decoding="async" data-alt="alt.mesa" alt=""><figcaption data-t="fab.a"></figcaption></figure>
+                <figure><img src="img/ohmic.webp" width="960" height="954" loading="lazy" decoding="async" data-alt="alt.ohmic" alt=""><figcaption data-t="fab.b"></figcaption></figure>
+              </div>
+              <figcaption><span class="fig-no">Fig. 4 |</span> <span class="fig-title" data-t="fig4.title"></span></figcaption>
+            </figure>
+          </div>
+          <div class="fab-scroll"><ol class="fab" id="fabList"></ol></div>
+        </div>
+
+        <!-- undergraduate work -->
+        <div class="block" id="earlier" data-sub>
+          <p class="block-label" data-t="ug.label"></p>
+          <h3 class="sub-h" data-t="ug.title"></h3>
+          <p class="ug-meta"><span data-t="ug.meta1"></span><span data-t="ug.meta2"></span></p>
+          <div class="ug-grid">
+            <div>
+              <dl class="ug-points">
+                <div><dt data-t="ug.bg.k"></dt><dd data-t="ug.bg.v"></dd></div>
+                <div><dt data-t="ug.me.k"></dt><dd data-th="ug.me.v"></dd></div>
+                <div><dt data-t="ug.re.k"></dt><dd data-t="ug.re.v"></dd></div>
+              </dl>
+              <div class="stats">
+                <div class="stat"><div class="stat-v">−20–25%</div><div class="stat-k" data-t="ug.s1"></div></div>
+                <div class="stat"><div class="stat-v">≈38%</div><div class="stat-k" data-t="ug.s2"></div></div>
+              </div>
+            </div>
+            <figure class="fig">
+              <div class="ug-figs">
+                <figure><div class="box photo"><img src="img/sem.webp" width="721" height="541" loading="lazy" decoding="async" data-alt="alt.sem" alt=""></div><figcaption data-t="ug.fa"></figcaption></figure>
+                <figure><div class="box plate"><img src="img/il.webp" width="1200" height="766" loading="lazy" decoding="async" data-alt="alt.il" alt=""></div><figcaption data-t="ug.fb"></figcaption></figure>
+                <figure><div class="box plate"><img src="img/comsol.webp" width="1100" height="834" loading="lazy" decoding="async" data-alt="alt.comsol" alt=""></div><figcaption data-t="ug.fc"></figcaption></figure>
+                <figure>
+                  <div class="box"><div class="stack" role="img" data-ta="ug.stackAria">
+                    <div class="ly ly-c">p-GaInAs contact</div>
+                    <div class="ly ly-p">p-InP cladding</div>
+                    <div class="ly ly-c">p-GaInAs SCH</div>
+                    <div class="ly ly-a">GaInAsP active (MQW)</div>
+                    <div class="ly ly-c">n-GaInAs SCH</div>
+                    <div class="ly ly-p">n-InP buffer</div>
+                    <div class="ly ly-n">n-InP</div>
+                    <div class="ly ly-s">n-Si substrate</div>
+                  </div></div>
+                  <figcaption data-t="ug.fd"></figcaption>
+                </figure>
+              </div>
+              <figcaption><span class="fig-no">Fig. 5 |</span> <span class="fig-title" data-t="fig5.title"></span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ projects ============ -->
+  <section class="section" id="projects" aria-labelledby="hProjects">
+    <div class="wrap section-grid">
+      <div class="section-side"><h2 class="section-title" id="hProjects" data-t="projects.title"></h2></div>
+      <div class="section-body">
+        <article class="case" id="cyclesafe">
+          <h3 class="case-title">CycleSafe</h3>
+          <p class="case-sub" data-t="cs.sub"></p>
+          <div class="case-award"><span class="badge badge-award" data-t="cs.award"></span><span data-t="cs.event"></span></div>
+          <div class="case-media">
+            <figure class="case-main"><img src="img/cyclesafe.webp" width="889" height="666" loading="lazy" decoding="async" data-alt="alt.cs" alt=""></figure>
+            <ul class="case-parts">
+              <li><figure><img src="img/cs-core.webp" width="410" height="311" loading="lazy" decoding="async" data-alt="cs.p1" alt=""><figcaption data-t="cs.p1"></figcaption></figure></li>
+              <li><figure><img src="img/cs-radar.webp" width="411" height="311" loading="lazy" decoding="async" data-alt="cs.p2" alt=""><figcaption data-t="cs.p2"></figcaption></figure></li>
+              <li><figure><img src="img/cs-base.webp" width="410" height="306" loading="lazy" decoding="async" data-alt="cs.p3" alt=""><figcaption data-t="cs.p3"></figcaption></figure></li>
+              <li><figure><img src="img/cs-led.webp" width="411" height="306" loading="lazy" decoding="async" data-alt="cs.p4" alt=""><figcaption data-t="cs.p4"></figcaption></figure></li>
+            </ul>
+          </div>
+          <dl class="case-points">
+            <div><dt data-t="cs.problem.k"></dt><dd data-t="cs.problem.v"></dd></div>
+            <div><dt data-t="cs.system.k"></dt><dd data-t="cs.system.v"></dd></div>
+            <div><dt data-t="cs.role.k"></dt><dd data-t="cs.role.v"></dd></div>
+          </dl>
+          <div class="sysdia" role="group" data-ta="sd.title">
+            <p class="sd-title" data-t="sd.title"></p>
+            <div class="sd-flow">
+              <div class="sd-box"><b data-t="sd.radar"></b><span>LD2451</span></div>
+              <div class="sd-link" aria-hidden="true"><span>UART</span></div>
+              <div class="sd-mid">
+                <div class="sd-box sd-core"><b>Spresense</b><span data-t="sd.coreV"></span></div>
+                <div class="sd-box sd-power"><span data-t="sd.power"></span></div>
+              </div>
+              <div class="sd-link" aria-hidden="true"><span>SPI / GPIO</span></div>
+              <div class="sd-outs">
+                <div class="sd-box"><b data-t="sd.oled"></b><span data-t="sd.oledV"></span></div>
+                <div class="sd-box"><b data-t="sd.led"></b><span data-t="sd.ledV"></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="case-foot"><p data-t="cs.org"></p><a id="csCode" href="#" target="_blank" rel="noopener" data-t="cs.code" hidden></a></div>
+        </article>
+
+        <h3 class="sub-h" data-t="proj.more"></h3>
+        <div class="projects" id="projectList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ timeline ============ -->
+  <section class="section" id="timeline" aria-labelledby="hTimeline">
+    <div class="wrap section-grid">
+      <div class="section-side"><h2 class="section-title" id="hTimeline" data-t="timeline.title"></h2></div>
+      <div class="section-body"><ol class="timeline" id="timelineList"></ol></div>
+    </div>
+  </section>
+
+  <!-- ============ toolbox ============ -->
+  <section class="section" id="toolbox" aria-labelledby="hToolbox">
+    <div class="wrap section-grid">
+      <div class="section-side"><h2 class="section-title" id="hToolbox" data-t="toolbox.title"></h2></div>
+      <div class="section-body"><div class="toolbox" id="toolboxList"></div></div>
+    </div>
+  </section>
+</main>
+
+<footer class="band">
+  <section class="contact" id="contact" aria-labelledby="hContact">
+    <div class="wrap section-grid">
+      <div class="section-side"><h2 class="section-title" id="hContact" data-t="contact.title"></h2></div>
+      <div class="section-body">
+        <p class="contact-heading" data-t="contact.heading"></p>
+        <p class="meta-k" data-t="contact.email"></p>
+        <div class="email-row">
+          <a class="email" id="email" href="#contact"></a>
+          <button type="button" class="copy-btn" id="copyBtn" data-t="contact.copy"></button>
+          <span class="copy-status" id="copyStatus" role="status" aria-live="polite"></span>
+        </div>
+        <div class="contact-meta">
+          <div><p class="meta-k" data-t="contact.where"></p><p class="meta-v" data-t="contact.whereV"></p></div>
+          <div><p class="meta-k" data-t="contact.time"></p><p class="meta-v"><span class="clock" id="clock">--:--</span> <span class="tz">JST, UTC+9</span></p></div>
+          <div id="linksBlock" hidden><p class="meta-k" data-t="contact.elsewhere"></p><ul class="links" id="links"></ul></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="wrap">
+    <div class="site-footer">
+      <span>© <span id="year">2026</span> Peng Hao</span>
+      <span data-t="footer.built"></span>
+      <a href="#top" data-t="footer.top"></a>
+    </div>
   </div>
-  <div class="hint" id="hint"></div>
+</footer>
 
 <script>
-  const card  = document.getElementById('card');
-  const stage = document.querySelector('.stage');
-  const hint  = document.getElementById('hint');
-  const root  = document.documentElement;
-  const motionBtn = document.getElementById('motionBtn');
-  let flipped = false, lang = 'en', raf = null;
-  let motionOn = false, baseBeta = null, baseGamma = null, oraf = null;
-  const MAX_TILT = 13;
+(() => {
+"use strict";
 
-  const texts = {
-    en:{ eyebrow:'Deep Thinking...', name:'PENG HAO',
-         role:'M1 Kuroyama Lab - University of Tokyo', hello:'Greetings —',
-         message:'Wish you were here. Tap the card to flip it back to the front. Replace this with a short note to your visitors.',
-         label:'Send to', motion:'Enable motion',
-         hintFront:'Move to tilt · Click to flip', hintBack:'Click to return',
-         hintTiltFront:'Tilt your phone · Tap to flip', hintTiltBack:'Tap to return' }
-  };
+/* ====================================================================
+   CONTENT: everything on the page is edited here.
+   Each text has English (en), Japanese (ja) and Chinese (zh) versions.
+   Strings used with data-th may contain simple HTML (<i>, <sub>, <sup>).
+   ==================================================================== */
 
-  function updateHint(){
-    const t = texts[lang];
-    if (motionOn) hint.textContent = flipped ? t.hintTiltBack : t.hintTiltFront;
-    else          hint.textContent = flipped ? t.hintBack     : t.hintFront;
-  }
-  function setLang(l){
-    lang = l; document.body.className = 'lang-' + l;
-    const t = texts[l];
-    document.querySelectorAll('[data-i]').forEach(el => { el.textContent = t[el.dataset.i]; });
-    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
-    updateHint();
-  }
+const SITE = {
+  email: ["phaooo678", "gmail.com"],   // joined at runtime, so simple scrapers do not see the address
+  timezone: "Asia/Tokyo",
+  cycleSafeCode: "",                    // GitHub URL of CycleRadarSystem; leave empty to hide the link
+  // Fill in a URL to show the link in the Contact section. Empty ones stay hidden.
+  links: [
+    { label: "GitHub", url: "" },
+    { label: "LinkedIn", url: "" },
+    { label: "researchmap", url: "" },
+    { label: "ORCID", url: "" },
+    { label: "Google Scholar", url: "" }
+  ]
+};
 
-  /* ---------- desktop : mouse tilt ---------- */
-  function onMove(e){
-    const r = card.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width;
-    const py = (e.clientY - r.top)  / r.height;
-    if (raf) cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => {
-      card.classList.remove('snapping');
-      root.style.setProperty('--ry', ((px - .5) *  MAX_TILT * 2) + 'deg');
-      root.style.setProperty('--rx', ((py - .5) * -MAX_TILT * 2) + 'deg');
-      root.style.setProperty('--mx', (px * 100) + '%');
-      root.style.setProperty('--my', (py * 100) + '%');
-    });
-  }
-  function reset(){
-    card.classList.add('snapping');
-    root.style.setProperty('--rx','0deg'); root.style.setProperty('--ry','0deg');
-    root.style.setProperty('--mx','50%');  root.style.setProperty('--my','50%');
-    root.style.setProperty('--glow','0');
-  }
-  stage.addEventListener('mousemove', onMove);
-  stage.addEventListener('mouseleave', reset);
+const T = {
+  "skip":        { en: "Skip to content", ja: "本文へスキップ", zh: "跳到正文" },
+  "ui.home":     { en: "PH lab notebook, back to top", ja: "PH 研究ノート（ページの先頭へ）", zh: "PH 研究笔记（回到顶部）" },
+  "ui.brand":    { en: "Lab notebook", ja: "研究ノート", zh: "研究笔记" },
+  "hero.name":   { en: "Peng Hao", ja: "<ruby>Peng<rt>ペン</rt></ruby> <ruby>Hao<rt>ハオ</rt></ruby>", zh: "彭浩" },
+  "ui.lang":     { en: "Language", ja: "言語", zh: "语言" },
+  "ui.toDark":   { en: "Switch to dark theme", ja: "ダークテーマに切り替え", zh: "切换到深色主题" },
+  "ui.toLight":  { en: "Switch to light theme", ja: "ライトテーマに切り替え", zh: "切换到浅色主题" },
+  "ui.menu":     { en: "Menu", ja: "メニュー", zh: "菜单" },
+  "nav.label":   { en: "Sections", ja: "セクション", zh: "栏目" },
+  "nav.about":   { en: "About", ja: "自己紹介", zh: "关于" },
+  "nav.research":{ en: "Research", ja: "研究", zh: "研究" },
+  "nav.projects":{ en: "Projects", ja: "プロジェクト", zh: "项目" },
+  "nav.timeline":{ en: "Timeline", ja: "経歴", zh: "经历" },
+  "nav.toolbox": { en: "Toolbox", ja: "スキル", zh: "技能" },
+  "nav.contact": { en: "Contact", ja: "連絡先", zh: "联系" },
 
-  card.addEventListener('click', () => {
-    flipped = !flipped;
-    root.style.setProperty('--flip', flipped ? '180deg' : '0deg');
-    card.classList.toggle('flipped', flipped);
-    updateHint();
-  });
-  document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+  /* hero */
+  "hero.thesis": {
+    en: "I study how two kinds of collective electron motion in a semiconductor couple so strongly that they merge into new hybrid modes, and I build the terahertz devices that control it.",
+    ja: "半導体の中で2種類の電子の集団運動が強く結合し、新しいハイブリッドモードになる現象を研究しています。その結合を制御するテラヘルツデバイスを、設計から自分の手で作っています。",
+    zh: "我研究半导体中两种电子集体运动如何强烈耦合、融合成新的杂化模式，并亲手打造调控这种耦合的太赫兹器件。"
+  },
+  "hero.role":   { en: "Master’s student, Electrical Engineering and Information Systems, The University of Tokyo", ja: "<span class='nw'>東京大学大学院</span> <span class='nw'>工学系研究科</span> <span class='nw'>電気系工学専攻</span> <span class='nw'>修士1年</span>", zh: "<span class='nw'>东京大学</span> <span class='nw'>大学院工学系研究科</span> <span class='nw'>电气系工学专攻</span> <span class='nw'>硕士一年级</span>" },
+  "hero.lab":    { en: "Kuroyama Lab, Institute of Industrial Science", ja: "生産技術研究所 黒山研究室", zh: "生产技术研究所 黑山研究室" },
+  "hero.cta1":   { en: "See the research", ja: "研究を見る", zh: "了解研究" },
+  "hero.cta2":   { en: "Get in touch", ja: "連絡する", zh: "联系我" },
 
-  /* ---------- mobile : gyroscope tilt ---------- */
-  function handleOrient(e){
-    if (e.gamma == null || e.beta == null) return;
-    if (baseBeta == null){ baseBeta = e.beta; baseGamma = e.gamma; }
-    const beta = e.beta, gamma = e.gamma;
-    if (oraf) cancelAnimationFrame(oraf);
-    oraf = requestAnimationFrame(() => {
-      const cG = Math.max(-28, Math.min(28, gamma - baseGamma));   // left-right
-      const cB = Math.max(-28, Math.min(28, beta  - baseBeta));    // front-back
-      root.style.setProperty('--ry', ( (cG/28) * 16) + 'deg');
-      root.style.setProperty('--rx', (-(cB/28) * 16) + 'deg');
-      root.style.setProperty('--mx', (50 + (cG/28) * 45) + '%');
-      root.style.setProperty('--my', (50 + (cB/28) * 45) + '%');
-      root.style.setProperty('--glow', '1');
-    });
-  }
-  function enableMotion(){
-    const start = () => {
-      window.addEventListener('deviceorientation', handleOrient);
-      motionOn = true; motionBtn.hidden = true;
-      baseBeta = null; baseGamma = null; updateHint();
-    };
-    if (typeof DeviceOrientationEvent !== 'undefined' &&
-        typeof DeviceOrientationEvent.requestPermission === 'function'){
-      DeviceOrientationEvent.requestPermission().then(s => { if (s === 'granted') start(); }).catch(()=>{});
-    } else { start(); }
-  }
-  const isTouch = window.matchMedia('(pointer: coarse)').matches || ('ontouchstart' in window);
-  if (isTouch && typeof DeviceOrientationEvent !== 'undefined'){
-    motionBtn.hidden = false;
-    motionBtn.addEventListener('click', (e) => { e.stopPropagation(); enableMotion(); });
-  }
+  "fig1.aria":   { en: "Simulated absorption map in which two branches avoid each other near 1.06 tesla and 0.89 terahertz.", ja: "1.06 T、0.89 THz付近で2本の分枝が反交差する吸収マップ（計算）。", zh: "两条分支在 1.06 T、0.89 THz 附近发生反交叉的吸收图（计算）。" },
+  "fig1.slider": { en: "Coupling", ja: "結合の強さ", zh: "耦合强度" },
+  "fig1.r0":     { en: "Uncoupled", ja: "結合なし", zh: "无耦合" },
+  "fig1.r1":     { en: "Strong coupling", ja: "強結合", zh: "强耦合" },
+  "fig1.r2":     { en: "Ultrastrong coupling", ja: "超強結合", zh: "超强耦合" },
+  "fig1.field":  { en: "Field", ja: "磁場", zh: "磁场" },
+  "fig1.upper":  { en: "Upper branch <i>f</i><sub>+</sub>", ja: "上側分枝 <i>f</i><sub>+</sub>", zh: "上支 <i>f</i><sub>+</sub>" },
+  "fig1.lower":  { en: "Lower branch <i>f</i><sub>−</sub>", ja: "下側分枝 <i>f</i><sub>−</sub>", zh: "下支 <i>f</i><sub>−</sub>" },
+  "fig1.split":  { en: "Splitting at 1.06 T", ja: "1.06 Tでの分裂幅", zh: "1.06 T 处的劈裂宽度" },
+  "fig1.title":  { en: "Avoided crossing between a magnetoplasmon (MP) and the second cyclotron resonance (2CR).", ja: "マグネトプラズモン（MP）と二次サイクロトロン共鳴（2CR）の反交差。", zh: "磁等离激元（MP）与二次回旋共振（2CR）的反交叉。" },
+  "fig1.caption":{
+    en: "Absorption of a GaAs two-dimensional electron gas versus magnetic field and frequency, calculated with a two-mode model (arbitrary units). Drag the slider to change the coupling and move across the plot to read off both branches. Above <i>g</i>/<i>ω</i><sub>0</sub> = 0.1 the modes are ultrastrongly coupled.",
+    ja: "2モードモデルで計算したGaAs二次元電子系の吸収（任意単位）を、磁場と周波数の関数として示しています。スライダーで結合の強さを変え、グラフ上をなぞると2本の分枝の値を読み取れます。<i>g</i>/<i>ω</i><sub>0</sub> が0.1を超えると超強結合領域です。",
+    zh: "用双模模型计算的 GaAs 二维电子气吸收谱（任意单位），横轴为磁场，纵轴为频率。拖动滑块改变耦合强度，在图上移动即可读出两条分支的数值。<i>g</i>/<i>ω</i><sub>0</sub> 超过 0.1 即进入超强耦合区。"
+  },
+  "fig1.xaxis":  { en: "Magnetic field B (T)", ja: "磁場 B (T)", zh: "磁场 B (T)" },
+  "fig1.yaxis":  { en: "Frequency (THz)", ja: "周波数 (THz)", zh: "频率 (THz)" },
 
-  /* ---------- build starfield ---------- */
-  (function(){
-    const H = 2400;
-    const w = Math.max(window.innerWidth, 900);
-    function field(n, minA, maxA){
-      const a = [];
-      for (let i=0;i<n;i++){
-        const x = Math.floor(Math.random()*w);
-        const y = Math.floor(Math.random()*H);
-        const op = (minA + Math.random()*(maxA-minA)).toFixed(2);
-        a.push(x + 'px ' + y + 'px rgba(255,255,255,' + op + ')');
+  /* highlights */
+  "hl.title":  { en: "Highlights", ja: "ハイライト", zh: "亮点" },
+  "hl.lede":   { en: "Three projects, each carried from design to working hardware.", ja: "設計から作製・実装まで一貫して取り組んだ3つのプロジェクトです。", zh: "三个从设计一直做到实物的项目。" },
+  "hl1.kind":  { en: "Master’s research", ja: "修士研究", zh: "硕士研究" },
+  "hl1.title": { en: "Controlling ultrastrong coupling at terahertz frequencies", ja: "テラヘルツ帯の超強結合を制御する", zh: "调控太赫兹频段的超强耦合" },
+  "hl1.text":  { en: "Gate electrostatics and nonlocal EM models, device design and cleanroom fabrication.", ja: "ゲート静電計算と非局所電磁界モデル、素子設計、クリーンルームでの作製。", zh: "栅极静电计算与非局域电磁模型、器件设计、洁净室加工。" },
+  "hl1.aria":  { en: "Calculated absorption map with an avoided crossing", ja: "反交差を示す吸収マップ（計算）", zh: "显示反交叉的吸收图（计算）" },
+  "hl2.kind":  { en: "Undergraduate research", ja: "学部研究", zh: "本科研究" },
+  "hl2.title": { en: "Cooler InP lasers with silver-nanoparticle bonding", ja: "銀ナノ粒子ボンディングでInPレーザの放熱を改善", zh: "用银纳米颗粒键合改善 InP 激光器散热" },
+  "hl2.text":  { en: "Device resistance down about 20–25% after bonding. Presented at the JSAP Spring Meeting 2026.", ja: "接合後に素子抵抗が約20–25%低減。2026年春の応用物理学会で発表。", zh: "键合后器件电阻降低约 20–25%，并在 2026 年日本应用物理学会春季学术讲演会上发表。" },
+  "hl3.kind":  { en: "Hackathon project", ja: "開発実績", zh: "开发项目" },
+  "hl3.text":  { en: "A radar-based rear warning for bicycles, built solo. Won the Sense the Wonder Award.", ja: "ミリ波レーダーで後方車両を知らせる自転車安全システムを一人で開発。Sense the Wonder賞を受賞。", zh: "独立开发的毫米波雷达自行车后方预警系统，获得 Sense the Wonder 奖。" },
+
+  /* about */
+  "about.title": { en: "About", ja: "自己紹介", zh: "关于我" },
+  "about.lede":  {
+    en: "I’m a first-year master’s student at the University of Tokyo, working where device physics meets engineering.",
+    ja: "東京大学大学院の修士1年生です。デバイス物理と工学が交わるところで研究しています。",
+    zh: "我是东京大学大学院的硕士一年级学生，研究方向位于器件物理与工程的交汇处。"
+  },
+  "about.p1": {
+    en: "In the Kuroyama Lab at the Institute of Industrial Science, I design terahertz devices on GaAs/AlGaAs heterostructures, fabricate them in the cleanroom, measure them at 0.3 K and write the simulations that explain what we see.",
+    ja: "生産技術研究所の黒山研究室で、GaAs/AlGaAsヘテロ構造上のテラヘルツデバイスを設計し、クリーンルームで作製して0.3 Kで測定し、その結果を説明するシミュレーションまで自分で行っています。",
+    zh: "在生产技术研究所黑山研究室，我在 GaAs/AlGaAs 异质结上设计太赫兹器件，在洁净室中加工，在 0.3 K 下测量，并编写解释实验结果的仿真。"
+  },
+  "about.p2": {
+    en: "Before that I studied engineering at Sophia University, where my bachelor’s research dealt with heat dissipation in InP semiconductor lasers.",
+    ja: "学部は上智大学 理工学部で、卒業研究ではInP系半導体レーザの放熱に取り組みました。",
+    zh: "本科就读于上智大学理工学部，毕业研究是 InP 系半导体激光器的散热。"
+  },
+  "about.off":   { en: "Outside the lab", ja: "研究以外では", zh: "实验室之外" },
+  "about.k1":    { en: "Based in", ja: "拠点", zh: "所在地" },
+  "about.v1":    { en: "Tokyo, Japan", ja: "東京", zh: "日本东京" },
+  "about.k2":    { en: "Degree", ja: "学位", zh: "学位" },
+  "about.v2":    { en: "M.Eng. in progress, expected March 2028", ja: "修士課程在籍（2028年3月修了予定）", zh: "硕士在读，预计 2028 年 3 月毕业" },
+  "about.k3":    { en: "Languages", ja: "言語", zh: "语言" },
+  "about.v3":    { en: "Chinese (native), Japanese (JLPT N1), English (TOEIC 760)", ja: "中国語（母語）、日本語（JLPT N1）、英語（TOEIC 760）", zh: "中文（母语）、日语（JLPT N1）、英语（TOEIC 760）" },
+  "about.k4":    { en: "Teaching", ja: "指導", zh: "授课" },
+  "about.v4":    { en: "Electric circuits and analog electronics for graduate entrance exams", ja: "大学院入試対策の電気回路・アナログ電子回路", zh: "为准备日本大学院入学考试的学生讲授电路与模拟电子电路" },
+  "hb.moto":     { en: "Motorcycle touring", ja: "バイク旅行", zh: "摩托车旅行" },
+  "hb.climb":    { en: "Bouldering", ja: "ボルダリング", zh: "抱石" },
+  "hb.coffee":   { en: "Brewing coffee", ja: "コーヒーを淹れること", zh: "冲咖啡" },
+
+  /* image descriptions */
+  "alt.mesa":   { en: "Optical micrograph of an X-shaped GaAs mesa after wet etching", ja: "ウェットエッチング後のX字型GaAsメサの光学顕微鏡像", zh: "湿法刻蚀后 X 形 GaAs 台面的光学显微镜照片" },
+  "alt.ohmic":  { en: "Optical micrograph of the ohmic contact pattern after exposure and development", ja: "露光・現像後のオーミック電極パターンの光学顕微鏡像", zh: "曝光显影后欧姆接触图形的光学显微镜照片" },
+  "alt.sem":    { en: "SEM image of a high-mesa InP laser device", ja: "ハイメサInPレーザ素子のSEM像", zh: "高台面 InP 激光器件的 SEM 图像" },
+  "alt.il":     { en: "Optical output versus current density before and after bonding at 10, 20 and 30 °C", ja: "10・20・30 °Cにおけるボンディング前後のI-L特性", zh: "10、20、30 °C 下键合前后的光输出与电流密度曲线" },
+  "alt.comsol": { en: "COMSOL temperature map of the bonded laser", ja: "接合したレーザのCOMSOL温度分布", zh: "键合激光器的 COMSOL 温度分布图" },
+  "alt.cs":     { en: "The CycleSafe system: control unit with display, radar, LED module and cables", ja: "CycleSafeの全体構成：表示付き制御ユニット、レーダー、LEDモジュール", zh: "CycleSafe 全套系统：带显示屏的控制单元、雷达与 LED 模块" },
+  "alt.moto":   { en: "Motorcycle parked at a seaside lookout", ja: "海を望む展望台に停めたバイク", zh: "停在海边观景台的摩托车" },
+  "alt.climb":  { en: "Bouldering at an indoor climbing gym", ja: "屋内ジムでのボルダリング", zh: "在室内岩馆抱石" },
+  "alt.coffee": { en: "Coffee brewing on a kitchen counter", ja: "キッチンで淹れているコーヒー", zh: "在厨房冲煮的咖啡" },
+
+  /* research */
+  "research.title":   { en: "Research", ja: "研究", zh: "研究" },
+  "research.heading": { en: "Controlling ultrastrong coupling between plasmons and the second cyclotron resonance", ja: "プラズモンと二次サイクロトロン共鳴の超強結合制御", zh: "等离激元与二次回旋共振的超强耦合调控" },
+  "research.p1": {
+    en: "When light in a cavity couples strongly to an excitation in matter, the two mix into new hybrid states called polaritons. A GaAs two-dimensional electron gas combined with a terahertz resonator can push the coupling strength g past 10% of the mode frequency. In this ultrastrong regime, vacuum fluctuations can change the ground state itself. Usually, though, g is fixed by the device geometry and the electron density once the chip is made. I want to understand what sets g and control it electrically.",
+    ja: "共振器中の光と物質の励起が強く結合すると、両者が混ざり合った新しい状態（ポラリトン）が生まれます。GaAs二次元電子系とテラヘルツ共振器を組み合わせると、結合強度 g がモード周波数の10%を超える超強結合に到達でき、真空場の揺らぎが基底状態そのものを変えうる領域に入ります。ただし通常、g は素子形状と電子密度で決まり、作製後には変えられません。私は g を決める要因を理解し、電気的に制御することを目指しています。",
+    zh: "当腔中的光与物质激发强烈耦合时，两者会混合成称为极化激元的新杂化态。在 GaAs 二维电子气与太赫兹谐振器组成的系统中，耦合强度 g 可以超过模式频率的 10%，进入真空涨落足以改变基态的超强耦合区。但通常芯片做成后，g 就由器件几何和电子密度决定，无法再改变。我的目标是弄清决定 g 的因素，并用电学方式调控它。"
+  },
+  "sn.label":    { en: "In this section", ja: "このセクションの内容", zh: "本节内容" },
+  "sn.modes":    { en: "Two modes", ja: "2つの励起", zh: "两种激发" },
+  "sn.regimes":  { en: "Coupling regimes", ja: "結合の領域", zh: "耦合区间" },
+  "sn.question": { en: "Open question", ja: "未解明の課題", zh: "待解问题" },
+  "sn.cycle":    { en: "Research cycle", ja: "研究の進め方", zh: "研究流程" },
+  "sn.fab":      { en: "Fabrication", ja: "素子作製", zh: "器件加工" },
+  "sn.ug":       { en: "Undergraduate work", ja: "学部研究", zh: "本科研究" },
+
+  "fig2.aria":    { en: "Schematic layout of a gold bowtie antenna over a 2DEG channel, with a quantum point contact at the centre.", ja: "2DEGチャネル上の金ボウタイアンテナと、中央の量子ポイントコンタクトを示すレイアウト模式図。", zh: "二维电子沟道上方的金蝶形天线及中心量子点接触的版图示意图。" },
+  "fig2.title":   { en: "A bowtie device cell (schematic).", ja: "ボウタイ型デバイスセル（模式図）。", zh: "蝶形天线器件单元（示意图）。" },
+  "fig2.caption": {
+    en: "The gold bowtie focuses terahertz fields onto the 2DEG channel. Its tips double as split gates that form a quantum point contact, which turns absorption into a photocurrent. Tap a layer to hide it.",
+    ja: "金のボウタイアンテナがテラヘルツ電場を2DEGチャネルに集めます。アンテナの先端はスプリットゲートを兼ねて量子ポイントコンタクトを形成し、吸収を光電流として取り出します。レイヤーをタップすると表示を切り替えられます。",
+    zh: "金蝶形天线把太赫兹电场汇聚到二维电子沟道上。天线尖端同时充当分裂栅，形成量子点接触，把吸收转换为光电流。点击图层可切换显示。"
+  },
+  "fig2.layers":  { en: "Layers", ja: "レイヤー", zh: "图层" },
+  "fig2.au":      { en: "Antenna and gates (Au)", ja: "アンテナ・ゲート（Au）", zh: "天线与栅极（Au）" },
+  "fig2.mesa":    { en: "2DEG mesa", ja: "2DEGメサ", zh: "2DEG 台面" },
+  "fig2.ohmic":   { en: "Ohmic contacts", ja: "オーミック電極", zh: "欧姆接触" },
+
+  "modes.title": { en: "Two modes, one coupling", ja: "2つの励起と、その結合", zh: "两种激发与它们的耦合" },
+  "modes.text":  { en: "The project studies how two excitations of the same electron gas couple, and how to set the coupling strength g.", ja: "同じ二次元電子系に生じる2つの励起、MPと2CRの結合を調べ、結合強度 g の制御を目指しています。", zh: "研究同一二维电子气中两种激发（MP 与 2CR）之间的耦合，并尝试调控耦合强度 g。" },
+  "mp.name":     { en: "Magnetoplasmon (MP)", ja: "マグネトプラズモン（MP）", zh: "磁等离激元（MP）" },
+  "mp.text":     { en: "Electrons in the 2DEG oscillate together in a magnetic field. In our devices the MP sits in the resonator gap and makes a strongly non-uniform near field.", ja: "磁場中で2DEGの電子が集団で振動する励起です。本素子では共振器のギャップに局在し、強く不均一な近接場をつくります。", zh: "磁场中二维电子气的电子集体振荡所形成的激发。在我们的器件中，MP 局域在谐振器间隙处，产生强烈不均匀的近场。" },
+  "mp.aria":     { en: "Animation: electron density in the 2DEG oscillates as a wave, with field lines running from positive to negative regions.", ja: "アニメーション：2DEGの電子密度が波として振動し、電気力線が正から負の領域へ伸びる様子。", zh: "动画：二维电子气的电子密度以波的形式振荡，电场线从正区指向负区。" },
+  "ex.wave":     { en: "electron density oscillates as a wave", ja: "電子密度の疎密が波として振動", zh: "电子密度的疏密以波的形式振荡" },
+  "cr.name":     { en: "Second cyclotron resonance (2CR)", ja: "二次サイクロトロン共鳴（2CR）", zh: "二次回旋共振（2CR）" },
+  "cr.text":     { en: "The second harmonic of cyclotron motion, in which the orbit changes shape. A uniform field cannot excite it; it needs a non-uniform one (Kohn’s theorem).", ja: "サイクロトロン運動の第2高調波で、軌道の形が振動します。一様な電場では励起されず、不均一な電場が必要です（Kohnの定理）。", zh: "回旋运动的二次谐波，振动的是轨道的形状。均匀电场无法激发它，需要不均匀的电场（Kohn 定理）。" },
+  "cr.aria":     { en: "Animation: in cyclotron resonance the orbit centre oscillates; in the second harmonic the orbit shape oscillates.", ja: "アニメーション：サイクロトロン共鳴では軌道の重心が、2CRでは軌道の形が振動する様子。", zh: "动画：回旋共振中轨道的重心振动，二次回旋共振中轨道的形状振动。" },
+  "ex.centre":   { en: "centre oscillates", ja: "重心が振動", zh: "重心振动" },
+  "ex.shape":    { en: "shape oscillates", ja: "形が振動", zh: "形状振动" },
+  "ex.uniform":  { en: "uniform field", ja: "一様な電場で励起", zh: "均匀电场即可激发" },
+  "ex.nonuniform": { en: "non-uniform field", ja: "不均一な電場が必要", zh: "需要不均匀电场" },
+  "mx.name":     { en: "MP × 2CR coupling", ja: "MP × 2CR の結合", zh: "MP × 2CR 耦合" },
+  "mx.text":     { en: "The MP’s non-uniform near field drives the 2CR. Where <i>ω</i><sub>MP</sub> ≈ 2<i>ω</i><sub>c</sub> the two hybridize, and the splitting 2<i>g</i> measures how strongly.", ja: "MPの不均一な近接場が2CRを励起し、<i>ω</i><sub>MP</sub> ≈ 2<i>ω</i><sub>c</sub> となる磁場で両者が混成します。分裂幅 2<i>g</i> が結合の強さを表します。", zh: "MP 的不均匀近场驱动 2CR。在 <i>ω</i><sub>MP</sub> ≈ 2<i>ω</i><sub>c</sub> 的磁场下两者杂化，劈裂宽度 2<i>g</i> 反映耦合的强弱。" },
+  "mx.aria":     { en: "Sketch of the two branches avoiding each other, with the splitting 2g marked at the crossing.", ja: "2本の分枝が反交差し、交点に分裂幅2gを示した模式図。", zh: "两条分支发生反交叉、交点处标出劈裂 2g 的示意图。" },
+  "mx.try":      { en: "Try it in Fig. 1", ja: "Fig. 1 で試す", zh: "在 Fig. 1 中试试" },
+  "fig3.title":  { en: "The two excitations and how they couple (schematics).", ja: "2つの励起とその結合（模式図）。", zh: "两种激发及其耦合（示意图）。" },
+
+  "rr.title":  { en: "Where ultrastrong begins", ja: "どこからが超強結合か", zh: "怎样才算超强耦合" },
+  "rr.text":   { en: "Coupling counts as ultrastrong once g passes about 10% of the bare frequency ω. The rotating-wave approximation then breaks down and counter-rotating terms start to matter. The lower marker follows the slider in Fig. 1.", ja: "結合強度 g が元の周波数 ω の約10%を超えると超強結合と呼ばれ、回転波近似が破れて反回転項が効くようになります。下側の印は Fig. 1 のスライダーと連動しています。", zh: "当耦合强度 g 超过原频率 ω 的约 10% 时称为超强耦合，此时旋转波近似失效，反旋转项开始起作用。下方的标记与 Fig. 1 的滑块联动。" },
+  "rr.z1":     { en: "Rotating-wave approximation holds", ja: "回転波近似が有効", zh: "旋转波近似成立" },
+  "rr.z2":     { en: "Ultrastrong", ja: "超強結合", zh: "超强耦合" },
+  "rr.z3":     { en: "Deep strong", ja: "深強結合", zh: "深强耦合" },
+  "rr.axis":   { en: "Normalized coupling <i>g</i>/<i>ω</i>, log scale", ja: "規格化結合強度 <i>g</i>/<i>ω</i>（対数目盛）", zh: "归一化耦合强度 <i>g</i>/<i>ω</i>（对数刻度）" },
+  "rr.prior":  { en: "Prior work: <i>g</i>/<i>ω</i><sub>p</sub> ≈ 0.1", ja: "先行研究：<i>g</i>/<i>ω</i><sub>p</sub> ≈ 0.1", zh: "先前研究：<i>g</i>/<i>ω</i><sub>p</sub> ≈ 0.1" },
+  "rr.you":    { en: "Fig. 1", ja: "Fig. 1", zh: "Fig. 1" },
+
+  "q.title":   { en: "The open question", ja: "未解明の課題", zh: "尚未解决的问题" },
+  "q.known.k": { en: "What is known", ja: "わかっていること", zh: "已经清楚的" },
+  "q.known.v": {
+    en: "Our lab integrated a terahertz split-ring resonator (SRR) with a quantum point contact (QPC) and saw the MP and 2CR anticross in the QPC photocurrent. Narrowing the QPC with gate voltages raised the coupling to <i>g</i>/<i>ω</i><sub>p</sub> ≈ 0.1, the ultrastrong regime.",
+    ja: "所属研究室では、テラヘルツ共振器（SRR）と量子ポイントコンタクト（QPC）を集積した素子で、QPC光電流にMPと2CRの反交差を観測しました。ゲート電圧でQPCを狭めるほど結合は強まり、<i>g</i>/<i>ω</i><sub>p</sub> ≈ 0.1 の超強結合に達しました。",
+    zh: "所在研究室在集成了太赫兹开口谐振环（SRR）和量子点接触（QPC）的器件中，于 QPC 光电流里观测到 MP 与 2CR 的反交叉。用栅压收窄 QPC 时耦合不断增强，达到 <i>g</i>/<i>ω</i><sub>p</sub> ≈ 0.1 的超强耦合。"
+  },
+  "q.open.k":  { en: "What is missing", ja: "わかっていないこと", zh: "尚不清楚的" },
+  "q.open.v":  {
+    en: "Why the gate voltage changes <i>g</i> is not understood quantitatively. The different effective masses suggest the MP lives in the resonator gap while the 2CR forms near the QPC, but there is still no way to predict the coupling or design for it.",
+    ja: "ゲート電圧で <i>g</i> が変わる機構は、定量的にはわかっていません。有効質量の違いから、MPは共振器のギャップ、2CRはQPC近傍と離れた場所で生じていると考えられますが、結合強度を予測・設計する指針はまだありません。",
+    zh: "栅压为何会改变 <i>g</i>，目前还没有定量的解释。有效质量的差异表明 MP 位于谐振器间隙、2CR 出现在 QPC 附近，两者在空间上分离，但仍缺乏预测和设计耦合强度的方法。"
+  },
+  "goal.title": { en: "My goal", ja: "研究の目的", zh: "研究目标" },
+  "goal.text":  { en: "Predict the coupling without assumed values, then use the model to design better devices.", ja: "仮定値に頼らずに結合強度を予測し、その予測を素子設計に活かすこと。", zh: "不依赖假设值预测耦合强度，并用这个模型设计更好的器件。" },
+  "io.in":      { en: "Inputs", ja: "入力", zh: "输入" },
+  "io.in1":     { en: "Wafer parameters", ja: "ウエハ条件", zh: "晶圆参数" },
+  "io.in2":     { en: "Device geometry", ja: "素子形状", zh: "器件几何" },
+  "io.in3":     { en: "Gate voltages", ja: "ゲート電圧", zh: "栅压" },
+  "io.model":   { en: "Model", ja: "モデル", zh: "模型" },
+  "io.modelV":  { en: "Gate electrostatics + nonlocal electromagnetics", ja: "ゲート静電計算 ＋ 非局所電磁界計算", zh: "栅极静电计算 ＋ 非局域电磁计算" },
+  "io.out":     { en: "Outputs", ja: "出力", zh: "输出" },
+  "io.g":       { en: "coupling strength", ja: "結合強度", zh: "耦合强度" },
+  "io.fp":      { en: "plasma frequency", ja: "プラズマ周波数", zh: "等离子体频率" },
+  "io.q":       { en: "field wavenumber", ja: "電場の波数", zh: "电场波数" },
+
+  "cyc.title": { en: "Research cycle", ja: "研究の進め方", zh: "研究流程" },
+  "cyc.text":  { en: "Each round goes from model to measurement and feeds the results back. The comparison chip for this round is being fabricated now.", ja: "モデル化から測定までを1つのサイクルとして回し、結果をモデルに戻します。現在は比較用チップを作製している段階です。", zh: "每一轮从建模走到测量，再把结果反馈给模型。目前正在加工用于对比的芯片。" },
+  "cyc.back":  { en: "update the model and repeat", ja: "モデルを更新して次のサイクルへ", zh: "更新模型，进入下一轮" },
+  "st.done":   { en: "Done", ja: "完了", zh: "已完成" },
+  "st.now":    { en: "Now", ja: "進行中", zh: "进行中" },
+  "st.next":   { en: "Next", ja: "今後", zh: "下一步" },
+
+  "fab.title": { en: "Fabrication in the cleanroom", ja: "クリーンルームでの素子作製", zh: "洁净室中的器件加工" },
+  "fab.text":  { en: "Fine markers, gates and resonators are written by electron-beam lithography; the mesa, contacts and pads by laser writing. I do the exposure, development, etching, deposition and lift-off myself.", ja: "微細なマーカー・ゲート・共振器はEB露光、メサ・電極・パッドはレーザ描画でパターニングします。露光・現像・エッチング・蒸着・リフトオフの各工程を自ら行っています。", zh: "精细的标记、栅极和谐振器用电子束光刻，台面、电极和焊盘用激光直写。曝光、显影、刻蚀、蒸镀、剥离各工序均由我亲手完成。" },
+  "fab.eb":    { en: "Electron-beam lithography (fine patterns)", ja: "EB露光（微細パターン）", zh: "电子束光刻（精细图形）" },
+  "fab.laser": { en: "Laser writing (photolithography)", ja: "レーザ描画（フォトリソグラフィ）", zh: "激光直写（光刻）" },
+  "fab.other": { en: "Other", ja: "その他", zh: "其他" },
+  "fab.a":     { en: "(a) Mesa after wet etching", ja: "(a) メサ（ウェットエッチング後）", zh: "(a) 台面（湿法刻蚀后）" },
+  "fab.b":     { en: "(b) Ohmic contact pattern after exposure and development", ja: "(b) オーミック電極（露光・現像後）", zh: "(b) 欧姆接触图形（曝光显影后）" },
+  "fig4.title":{ en: "Steps from the current fabrication run (optical micrographs).", ja: "作製中の素子（光学顕微鏡像）。", zh: "本轮加工中的器件（光学显微镜照片）。" },
+
+  "ug.label":  { en: "Undergraduate research", ja: "学部研究", zh: "本科研究" },
+  "ug.title":  { en: "Better heat dissipation in InP lasers with silver-nanoparticle bonding", ja: "銀ナノ粒子ボンディングによるInP系半導体レーザの放熱改善", zh: "用银纳米颗粒键合改善 InP 系半导体激光器的散热" },
+  "ug.meta1":  { en: "Sophia University, Shimomura Lab", ja: "上智大学 下村研究室", zh: "上智大学 下村研究室" },
+  "ug.meta2":  { en: "Poster 15p-PA2-4, 73rd JSAP Spring Meeting, March 2026", ja: "第73回応用物理学会春季学術講演会（2026年3月）ポスター発表 15p-PA2-4", zh: "第 73 届日本应用物理学会春季学术讲演会（2026 年 3 月），海报 15p-PA2-4" },
+  "ug.bg.k":   { en: "Background", ja: "背景", zh: "背景" },
+  "ug.bg.v":   { en: "In continuous-wave, high-power operation, self-heating raises the threshold current and lowers the optical output.", ja: "連続（CW）・高出力動作では、自己発熱により閾値電流が上昇し、光出力が低下します。", zh: "在连续波、大功率工作时，自热会使阈值电流升高、光输出下降。" },
+  "ug.me.k":   { en: "Method", ja: "手法", zh: "方法" },
+  "ug.me.v":   { en: "Die-bond the laser to a copper heat spreader by sintering silver nanoparticles, comparing sintering conditions (temperature, time, N<sub>2</sub> atmosphere) and surface treatments (bare Cu, Au plating, evaporated Au–Zn foil).", ja: "レーザ素子をCuヒートスプレッダへ銀ナノ粒子焼結でダイボンディング。焼結条件（温度・時間・N<sub>2</sub>雰囲気）と接合面処理（bare Cu／Auめっき／Au-Zn蒸着箔）を比較しました。", zh: "用银纳米颗粒烧结把激光器芯片键合到铜热沉上，比较了烧结条件（温度、时间、N<sub>2</sub> 气氛）和接合面处理（裸铜、镀金、Au-Zn 蒸镀箔）。" },
+  "ug.re.k":   { en: "Result", ja: "結果", zh: "结果" },
+  "ug.re.v":   { en: "Device resistance fell by about 20–25% and slope efficiency improved. Matching COMSOL to the measurements put the interface contact ratio at about 38%, so reducing voids at the interface is the next step for high-duty, high-temperature operation.", ja: "接合後に素子抵抗が約20–25%低減し、スロープ効率が向上しました。COMSOL熱解析を実測と照合して接合界面の接触率を約38%と推定し、高Duty・高温動作に向けて界面のボイド低減が課題であることを示しました。", zh: "键合后器件电阻降低约 20–25%，斜率效率提高。将 COMSOL 热仿真与实测对比，估计接合界面的接触率约为 38%，说明要实现高占空比、高温工作，下一步需要减少界面空洞。" },
+  "ug.s1":     { en: "device resistance after bonding", ja: "接合後の素子抵抗", zh: "键合后器件电阻" },
+  "ug.s2":     { en: "estimated contact ratio of the bonded interface", ja: "推定した接合界面の接触率", zh: "估算的接合界面接触率" },
+  "ug.fa":     { en: "(a) SEM image of the mounted high-mesa device", ja: "(a) 実装したハイメサ素子のSEM像", zh: "(a) 键合后的高台面器件 SEM 图像" },
+  "ug.fb":     { en: "(b) I–L characteristics before and after bonding (broad-area device)", ja: "(b) ボンディング前後のI-L特性（ブロード素子）", zh: "(b) 键合前后的 I-L 特性（宽条器件）" },
+  "ug.fc":     { en: "(c) COMSOL temperature map, example with 50% contact", ja: "(c) COMSOL熱解析（温度分布、接触率50%の計算例）", zh: "(c) COMSOL 热仿真（温度分布，接触率 50% 的示例）" },
+  "ug.fd":     { en: "(d) Layer structure of the laser", ja: "(d) レーザの層構造", zh: "(d) 激光器的层结构" },
+  "ug.stackAria": { en: "Layer stack from top: p-GaInAs contact, p-InP cladding, p-GaInAs SCH, GaInAsP active MQW, n-GaInAs SCH, n-InP buffer, n-InP, n-Si substrate.", ja: "上から p-GaInAsコンタクト層、p-InPクラッド層、p-GaInAs SCH、GaInAsP活性層（MQW）、n-GaInAs SCH、n-InPバッファ層、n-InP層、n-Si基板。", zh: "自上而下：p-GaInAs 接触层、p-InP 包层、p-GaInAs SCH、GaInAsP 有源层（MQW）、n-GaInAs SCH、n-InP 缓冲层、n-InP 层、n-Si 衬底。" },
+  "fig5.title":{ en: "Silver-nanoparticle bonding of InP lasers.", ja: "InPレーザの銀ナノ粒子ボンディング。", zh: "InP 激光器的银纳米颗粒键合。" },
+
+  /* projects */
+  "projects.title": { en: "Projects", ja: "プロジェクト", zh: "项目" },
+  "cs.sub":     { en: "Rear-vehicle detection and warning for bicycles, using millimetre-wave radar", ja: "ミリ波レーダーによる自転車後方検知・警告システム", zh: "基于毫米波雷达的自行车后方检测与预警系统" },
+  "cs.award":   { en: "Sense the Wonder Award", ja: "Sense the Wonder賞", zh: "Sense the Wonder 奖" },
+  "cs.event":   { en: "Sensing Solution Hackathon 2024, special award, December 2024", ja: "Sensing Solution ハッカソン 2024（特別賞、2024年12月）", zh: "Sensing Solution 黑客松 2024（特别奖，2024 年 12 月）" },
+  "cs.problem.k": { en: "Problem", ja: "課題", zh: "问题" },
+  "cs.problem.v": { en: "Checking behind you while swerving around parked cars on narrow roads is tiring, and a following car can come too close.", ja: "狭い道路や停車車両を避ける際の、後方確認の負担と後続車との接触リスクを減らす。", zh: "在狭窄道路上绕开停放车辆时，回头确认很费力，也有与后车发生接触的风险。" },
+  "cs.system.k":  { en: "System", ja: "システム", zh: "系统" },
+  "cs.system.v":  { en: "A Spresense board and a millimetre-wave radar detect vehicles approaching from behind. An LED warning light and an OLED display alert both the rider and the driver behind. It mounts magnetically, no tools needed.", ja: "Spresenseとミリ波レーダーで後方車両を検知し、LED警告灯とOLED表示でライダー・後続車の双方に知らせます。磁気吸着で工具なしに着脱できます。", zh: "用 Spresense 和毫米波雷达检测后方来车，通过 LED 警示灯和 OLED 显示同时提醒骑行者与后车。磁吸安装，无需工具即可拆装。" },
+  "cs.role.k":    { en: "My role", ja: "担当", zh: "我的工作" },
+  "cs.role.v":    { en: "Everything, solo: concept, parts selection, circuit design, C++ firmware, 3D-printed enclosure and the final pitch. Repeated prototyping and testing tuned when detection and warnings trigger.", ja: "構想・部品選定・回路設計・C++ファームウェア・3Dプリント筐体・発表までを一人で担当。試作とテストを繰り返し、検知と警告のタイミングを調整しました。", zh: "从构思、选型、电路设计、C++ 固件、3D 打印外壳到最终展示，全部独立完成。通过反复试制与测试，调整了检测和预警的时机。" },
+  "cs.p1":  { en: "Core control unit", ja: "コア制御ユニット", zh: "核心控制单元" },
+  "cs.p2":  { en: "Millimetre-wave radar", ja: "ミリ波レーダー", zh: "毫米波雷达" },
+  "cs.p3":  { en: "Magnetic base", ja: "磁気吸着台座", zh: "磁吸底座" },
+  "cs.p4":  { en: "LED module", ja: "LEDモジュール", zh: "LED 模块" },
+  "sd.title":  { en: "How it works", ja: "システム構成", zh: "系统构成" },
+  "sd.radar":  { en: "Millimetre-wave radar", ja: "ミリ波レーダー", zh: "毫米波雷达" },
+  "sd.coreV":  { en: "Main and extension boards, C++ firmware", ja: "メイン・拡張ボード、C++ファームウェア", zh: "主板与扩展板，C++ 固件" },
+  "sd.power":  { en: "Battery, TP4056 charger, 5 V converter", ja: "バッテリー、TP4056充電IC、5 V変換", zh: "电池、TP4056 充电芯片、5 V 转换" },
+  "sd.oled":   { en: "OLED display", ja: "OLED表示", zh: "OLED 显示屏" },
+  "sd.oledV":  { en: "for the rider", ja: "ライダー向け", zh: "提示骑行者" },
+  "sd.led":    { en: "LED warning light", ja: "LED警告灯", zh: "LED 警示灯" },
+  "sd.ledV":   { en: "for the driver behind", ja: "後続車向け", zh: "提示后车" },
+  "cs.org":    { en: "Organized by the System Integration Division of SICE and Sony Group Corporation. Entry title: Smart Safety Cycle, a bicycle safety system.", ja: "主催：公益社団法人計測自動制御学会 システムインテグレーション部門、ソニーグループ株式会社。作品名「スマート・セーフティ・サイクル：自転車安全システム」。", zh: "主办：日本计测自动控制学会（SICE）系统集成部门、索尼集团。参赛作品名“智能安全骑行：自行车安全系统”。" },
+  "cs.code":   { en: "Code on GitHub", ja: "GitHubでコードを見る", zh: "在 GitHub 查看代码" },
+  "proj.more": { en: "Other projects", ja: "その他のプロジェクト", zh: "其他项目" },
+  "badge.award": { en: "Award", ja: "受賞", zh: "获奖" },
+  "badge.wip":   { en: "In progress", ja: "開発中", zh: "开发中" },
+  "proj.link":   { en: "View project", ja: "プロジェクトを見る", zh: "查看项目" },
+
+  /* timeline, toolbox */
+  "timeline.title": { en: "Timeline", ja: "経歴", zh: "经历" },
+  "type.edu":   { en: "Education", ja: "学歴", zh: "教育" },
+  "type.conf":  { en: "Conference", ja: "学会発表", zh: "学术会议" },
+  "type.award": { en: "Award", ja: "受賞", zh: "获奖" },
+  "toolbox.title": { en: "Toolbox", ja: "スキル", zh: "技能" },
+
+  /* contact */
+  "contact.title":   { en: "Contact", ja: "連絡先", zh: "联系" },
+  "contact.heading": {
+    en: "Happy to talk about terahertz devices, semiconductor R&D, or anything on this page.",
+    ja: "テラヘルツデバイスや半導体の研究開発、このページの内容について、お気軽にご連絡ください。",
+    zh: "欢迎和我聊太赫兹器件、半导体研发，或这页上的任何内容。"
+  },
+  "contact.email":    { en: "Email", ja: "メール", zh: "邮箱" },
+  "contact.copy":     { en: "Copy address", ja: "アドレスをコピー", zh: "复制地址" },
+  "contact.copied":   { en: "Copied", ja: "コピーしました", zh: "已复制" },
+  "contact.copyFail": { en: "Copying is blocked here. The address is selected, so you can copy it yourself.", ja: "ここでは自動コピーが使えません。アドレスを選択したので、そのままコピーしてください。", zh: "此处无法自动复制。地址已选中，请手动复制。" },
+  "contact.where":    { en: "Lab", ja: "所属", zh: "所在单位" },
+  "contact.whereV":   { en: "Kuroyama Lab, Institute of Industrial Science, The University of Tokyo (Komaba Research Campus, Tokyo)", ja: "東京大学 生産技術研究所 黒山研究室（駒場リサーチキャンパス）", zh: "东京大学生产技术研究所 黑山研究室（驹场研究校区）" },
+  "contact.time":     { en: "Local time in Tokyo", ja: "東京の現在時刻", zh: "东京当前时间" },
+  "contact.elsewhere":{ en: "Elsewhere", ja: "その他のリンク", zh: "其他链接" },
+  "footer.built":     { en: "Hand-built with HTML, CSS and JavaScript.", ja: "HTML・CSS・JavaScriptで手作りしています。", zh: "以 HTML、CSS 和 JavaScript 手工搭建。" },
+  "footer.top":       { en: "Back to top", ja: "ページの先頭へ", zh: "回到顶部" }
+};
+
+const FACTS = [["about.k1", "about.v1"], ["about.k2", "about.v2"], ["about.k3", "about.v3"], ["about.k4", "about.v4"]];
+
+const PIPELINE = [
+  { status: "done", name: { en: "Model", ja: "モデル化", zh: "建模" },
+    text: { en: "Gate electrostatics and nonlocal electromagnetic calculation", ja: "ゲート静電計算・非局所電磁界計算", zh: "栅极静电与非局域电磁计算" } },
+  { status: "done", name: { en: "Design", ja: "設計", zh: "设计" },
+    text: { en: "A comparison chip with three coupling structures and several QPC positions", ja: "3種の結合構造とQPC配置を比較するチップ", zh: "用于对比三种耦合结构和不同 QPC 位置的芯片" } },
+  { status: "now", name: { en: "Fabricate", ja: "作製", zh: "加工" },
+    text: { en: "Seven process steps in the cleanroom", ja: "クリーンルームで全7工程", zh: "洁净室中共 7 道工序" } },
+  { status: "next", name: { en: "Measure", ja: "測定", zh: "测量" },
+    text: { en: "THz photocurrent at 0.3 K in a magnetic field", ja: "0.3 K・磁場中のTHz光電流", zh: "0.3 K、磁场中的太赫兹光电流测量" } },
+  { status: "next", name: { en: "Compare and update", ja: "照合・更新", zh: "比对与更新" },
+    text: { en: "Check the model against the data and refine it", ja: "実測とモデルを比較して改良", zh: "将模型与实测对比并改进" } }
+];
+
+const FAB = [
+  { tech: "eb", name: { en: "EB markers", ja: "EBマーカー", zh: "EB 标记" },
+    steps: { en: ["EB lithography", "Ti/Au deposition", "Lift-off"], ja: ["EB露光", "Ti/Au蒸着", "リフトオフ"], zh: ["电子束光刻", "Ti/Au 蒸镀", "剥离"] } },
+  { tech: "laser", name: { en: "Mesa", ja: "メサ", zh: "台面" },
+    steps: { en: ["Laser writing", "Wet etching"], ja: ["レーザ描画", "ウェットエッチング"], zh: ["激光直写", "湿法刻蚀"] } },
+  { tech: "laser", name: { en: "Ohmic contacts", ja: "オーミック電極", zh: "欧姆接触" },
+    steps: { en: ["Laser writing", "AuGeNi/Au deposition", "Lift-off and anneal"], ja: ["レーザ描画", "AuGeNi/Au蒸着", "リフトオフ・アニール"], zh: ["激光直写", "AuGeNi/Au 蒸镀", "剥离与退火"] } },
+  { tech: "eb", name: { en: "QPC gates", ja: "ゲート（QPC）", zh: "栅极（QPC）" },
+    steps: { en: ["Fine EB lithography on thin PMMA", "Gate metal"], ja: ["薄膜PMMAで微細EB露光", "ゲート金属"], zh: ["薄层 PMMA 精细电子束光刻", "栅极金属"] } },
+  { tech: "eb", name: { en: "SRR", ja: "SRR", zh: "SRR" },
+    steps: { en: ["EB lithography", "Ti/Au deposition", "Lift-off"], ja: ["EB露光", "Ti/Au蒸着", "リフトオフ"], zh: ["电子束光刻", "Ti/Au 蒸镀", "剥离"] } },
+  { tech: "laser", name: { en: "Pads", ja: "パッド", zh: "焊盘" },
+    steps: { en: ["Laser writing", "Deposition", "Lift-off"], ja: ["レーザ描画", "蒸着", "リフトオフ"], zh: ["激光直写", "蒸镀", "剥离"] } },
+  { tech: "other", name: { en: "Scribe", ja: "スクライブ", zh: "划片" },
+    steps: { en: ["Protective resist", "Cleaving"], ja: ["保護レジスト", "劈開"], zh: ["保护胶", "解理"] } }
+];
+
+const PROJECTS = [
+  { art: "contours", year: "2026", link: "",
+    title: { en: "qfield", ja: "qfield", zh: "qfield" },
+    text: { en: "A simulator for gate-defined 2DEG devices. Draw gate electrodes, set the heterostructure and the gate voltages, and get the depleted electron-density map and its gradient field. The engine also runs headless from scripts.",
+            ja: "ゲート定義型の2DEGデバイス向けシミュレータ。ゲート電極を描き、ヘテロ構造とゲート電圧を設定すると、空乏化した電子密度分布とその勾配場を計算します。エンジンはGUIなしでスクリプトからも呼び出せます。",
+            zh: "面向栅控二维电子气器件的仿真工具。绘制栅电极、设定异质结参数和栅压，即可得到耗尽后的电子密度分布及其梯度场。计算引擎也可以脱离图形界面，直接由脚本调用。" },
+    tags: ["Python", "PyQt6", { en: "Electrostatics", ja: "静電解析", zh: "静电计算" }] },
+  { art: "srr", year: "2026", link: "",
+    title: { en: "Split-ring resonator in Meep", ja: "MeepによるSRR解析", zh: "Meep 开口谐振环仿真" },
+    text: { en: "A finite-difference time-domain model of a split-ring resonator, packaged as a Colab notebook that runs in the browser.",
+            ja: "スプリットリング共振器（SRR）のFDTDモデル。ブラウザ上で実行できるColabノートブックにまとめました。",
+            zh: "开口谐振环（SRR）的时域有限差分模型，打包成可在浏览器中直接运行的 Colab 笔记本。" },
+    tags: ["FDTD", "Meep", "Colab"] },
+  { art: "moire", year: "2026", badge: "wip", link: "",
+    title: { en: "Screen-photo cleanup", ja: "画面撮影写真の補正", zh: "屏幕照片修复" },
+    text: { en: "A phone app that turns photos of a screen into clean, screenshot-like images: automatic cropping, perspective correction and moiré removal with pretrained models.",
+            ja: "画面を撮影した写真を、スクリーンショットのようにきれいな画像に変換するスマートフォンアプリ。自動トリミング、台形補正、学習済みモデルによるモアレ除去を組み合わせます。",
+            zh: "将屏幕翻拍照片处理成截图般清晰图像的手机应用，结合了自动裁剪、透视校正和基于预训练模型的去摩尔纹。" },
+    tags: [{ en: "Computer vision", ja: "画像処理", zh: "计算机视觉" }, { en: "Mobile", ja: "モバイル", zh: "移动端" }] },
+  { art: "map", year: "2026", badge: "wip", link: "",
+    title: { en: "Photo × Map", ja: "Photo × Map", zh: "Photo × Map" },
+    text: { en: "An iOS app that blends a photo with a map of where it was taken, plus the date and time, so a moment can be shared together with its place.",
+            ja: "写真と撮影場所の地図、日時をなめらかに合成するiOSアプリ。その瞬間を、場所と一緒に共有できます。",
+            zh: "把照片与拍摄地点的地图及日期时间自然融合的 iOS 应用，让每个瞬间都能连同地点一起分享。" },
+    tags: ["iOS", { en: "Maps", ja: "地図", zh: "地图" }] }
+];
+
+const TIMELINE = [
+  { type: "edu", date: { en: "2026.04 – now", ja: "2026.04 – 現在", zh: "2026.04 – 至今" },
+    title: { en: "Master of Engineering (in progress)", ja: "修士課程", zh: "硕士研究生" },
+    org: { en: "The University of Tokyo, Department of Electrical Engineering and Information Systems", ja: "東京大学大学院 工学系研究科 電気系工学専攻", zh: "东京大学 大学院工学系研究科 电气系工学专攻" },
+    detail: { en: "Kuroyama Lab, Institute of Industrial Science. Expected to finish in March 2028.", ja: "生産技術研究所 黒山研究室。2028年3月修了予定。", zh: "生产技术研究所黑山研究室，预计 2028 年 3 月毕业。" } },
+  { type: "conf", date: "2026.03",
+    title: { en: "73rd JSAP Spring Meeting", ja: "第73回応用物理学会春季学術講演会", zh: "第 73 届日本应用物理学会春季学术讲演会" },
+    org: { en: "The Japan Society of Applied Physics", ja: "応用物理学会", zh: "日本应用物理学会" },
+    detail: { en: "Poster 15p-PA2-4 on silver-nanoparticle bonding for InP laser heat dissipation.", ja: "ポスター発表 15p-PA2-4（銀ナノ粒子ボンディングによるInPレーザの放熱改善）。", zh: "海报 15p-PA2-4：银纳米颗粒键合改善 InP 激光器散热。" } },
+  { type: "edu", date: "2022.04 – 2026.03",
+    title: { en: "Bachelor of Engineering", ja: "学士（工学）", zh: "工学学士" },
+    org: { en: "Sophia University, Department of Engineering and Applied Sciences", ja: "上智大学 理工学部 機能創造理工学科", zh: "上智大学 理工学部 机能创造理工学科" },
+    detail: { en: "Shimomura Lab. Thesis on heat dissipation in InP semiconductor lasers.", ja: "下村研究室。卒業研究：InP系半導体レーザの放熱改善。", zh: "下村研究室，毕业论文：InP 系半导体激光器的散热改善。" } },
+  { type: "award", date: "2024.12",
+    title: { en: "Sense the Wonder Award", ja: "Sense the Wonder賞", zh: "Sense the Wonder 奖" },
+    org: { en: "Sensing Solution Hackathon 2024 (special award)", ja: "Sensing Solution ハッカソン 2024（特別賞）", zh: "Sensing Solution 黑客松 2024（特别奖）" },
+    detail: { en: "For CycleSafe, a millimetre-wave radar system for bicycle safety.", ja: "ミリ波レーダーによる自転車安全システム CycleSafe で受賞。", zh: "凭借毫米波雷达自行车安全系统 CycleSafe 获奖。" } }
+];
+
+const TOOLBOX = [
+  { group: { en: "Simulation", ja: "シミュレーション", zh: "仿真" },
+    items: [{ en: "COMSOL Multiphysics (nonlocal weak-form and thermal models)", ja: "COMSOL Multiphysics（非局所弱形式・熱解析）", zh: "COMSOL Multiphysics（非局域弱形式与热仿真）" }, "Meep (FDTD)", { en: "Python solvers for gate electrostatics", ja: "Pythonによるゲート静電計算", zh: "Python 栅极静电求解器" }] },
+  { group: { en: "Fabrication", ja: "作製", zh: "工艺" },
+    items: [{ en: "Electron-beam lithography", ja: "EB露光", zh: "电子束光刻" }, { en: "Laser writing (photolithography)", ja: "レーザ描画（フォトリソグラフィ）", zh: "激光直写（光刻）" }, { en: "Metal deposition and lift-off", ja: "金属蒸着・リフトオフ", zh: "金属蒸镀与剥离" }, { en: "Wet etching", ja: "ウェットエッチング", zh: "湿法刻蚀" }, { en: "Silver-nanoparticle die bonding", ja: "銀ナノ粒子ダイボンディング", zh: "银纳米颗粒芯片键合" }] },
+  { group: { en: "Measurement", ja: "測定", zh: "测量" },
+    items: [{ en: "Helium-3 refrigerator (0.3 K, up to 2.5 T)", ja: "³He冷凍機（0.3 K、最大2.5 T）", zh: "³He 制冷机（0.3 K，最高 2.5 T）" }, { en: "Terahertz photocurrent spectroscopy", ja: "テラヘルツ光電流分光", zh: "太赫兹光电流光谱测量" }, { en: "Laser L–I–V characterization", ja: "レーザのL-I-V評価", zh: "激光器 L-I-V 测试" }] },
+  { group: { en: "Layout and CAD", ja: "レイアウト・CAD", zh: "版图与 CAD" },
+    items: ["AutoCAD", "KLayout", { en: "DXF checks in Python (ezdxf), GDS export", ja: "PythonによるDXF検査（ezdxf）、GDS変換", zh: "Python 检查 DXF（ezdxf）、导出 GDS" }] },
+  { group: { en: "Embedded", ja: "組込み", zh: "嵌入式" },
+    items: ["C++", "Spresense", { en: "Millimetre-wave radar (LD2451)", ja: "ミリ波レーダー（LD2451）", zh: "毫米波雷达（LD2451）" }, { en: "OLED displays, 3D-printed enclosures", ja: "OLED表示、3Dプリント筐体", zh: "OLED 显示、3D 打印外壳" }] },
+  { group: { en: "Software", ja: "ソフトウェア", zh: "软件" },
+    items: ["Python (NumPy, SciPy, PyQt6)", "JavaScript", { en: "Data analysis and visualization", ja: "データ解析・可視化", zh: "数据分析与可视化" }] }
+];
+
+/* ====================== end of content ====================== */
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const root = document.documentElement;
+const NS = "http://www.w3.org/2000/svg";
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+};
+let lang = ["en", "ja", "zh"].includes(window.__phLang) ? window.__phLang : "en";
+const L = v => (v == null ? "" : typeof v === "string" ? v : (v[lang] ?? v.en ?? ""));
+const t = k => (T[k] ? L(T[k]) : k);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const reduceMotion = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+/* ---------- shared physics: MP and 2CR as two coupled oscillators ---------- */
+// GaAs: cyclotron slope 0.4178 THz/T (m* = 0.067 m0); strip plasma frequency 0.77 THz
+const PHYS = { S: 0.4178, FP: 0.77, BMAX: 2.0, FMAX: 1.8 };
+PHYS.BX = PHYS.FP / (Math.sqrt(3) * PHYS.S);          // field where MP and 2CR cross (~1.06 T)
+function modes(B, e) {
+  const fc = PHYS.S * B, a = Math.sqrt(PHYS.FP * PHYS.FP + fc * fc), b = 2 * fc;
+  const a2 = a * a, b2 = b * b, k = 2 * e * a * b;
+  const mean = 0.5 * (a2 + b2), half = 0.5 * (a2 - b2);
+  const disc = Math.sqrt(half * half + k * k);
+  const lu = mean + disc, ll = Math.max(mean - disc, 0);
+  let xu;
+  if (k < 1e-12) xu = a2 >= b2 ? 1 : 0;
+  else { const d = lu - a2; xu = (k * k) / (k * k + d * d); }
+  return { up: Math.sqrt(lu), lo: Math.sqrt(ll), xu, xl: 1 - xu, mp: a, cr2: b };
+}
+
+const hexRGB = h => {
+  h = String(h || "#000").trim().replace("#", "");
+  if (h.length === 3) h = h.replace(/./g, c => c + c);
+  const n = parseInt(h.slice(0, 6), 16) || 0;
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+};
+function makeLUT() {            // colour map built from the --map-0 … --map-4 tokens of the current theme
+  const cs = getComputedStyle(root);
+  const stops = [0, 1, 2, 3, 4].map(i => hexRGB(cs.getPropertyValue("--map-" + i)));
+  const lut = new Uint8ClampedArray(256 * 3);
+  for (let i = 0; i < 256; i++) {
+    const x = (i / 255) * (stops.length - 1), k = Math.min(stops.length - 2, Math.floor(x)), f = x - k;
+    for (let c = 0; c < 3; c++) lut[i * 3 + c] = stops[k][c] + (stops[k + 1][c] - stops[k][c]) * f;
+  }
+  return lut;
+}
+
+/* ---------- artwork for project cards (drawn from code, themed by CSS) ---------- */
+const ART = {
+  contours() {
+    const sig = z => 1 / (1 + Math.exp(-z));
+    const y0 = 262, y1 = 118, x0 = 20, x1 = 380;
+    let s = `<defs><pattern id="qfHatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" class="a-gate-h"/></pattern></defs>`;
+    s += `<rect class="a-gate" x="20" y="44" width="140" height="34"/><rect x="20" y="44" width="140" height="34" fill="url(#qfHatch)"/>`;
+    s += `<rect class="a-gate" x="240" y="44" width="140" height="34"/><rect x="240" y="44" width="140" height="34" fill="url(#qfHatch)"/>`;
+    s += `<path class="a-axis" d="M${x0} ${y0}H${x1}"/><path class="a-axis a-dash" d="M${x0} ${y1}H${x1}"/>`;
+    [0.35, 0.65, 0.95, 1.25, 1.55, 1.85].forEach((V, k) => {
+      let d = "";
+      for (let x = x0; x <= x1; x += 4) {
+        const g = sig((168 - x) / 13) + sig((x - 232) / 13);
+        const n = Math.max(0, 1 - V * g);
+        d += (x === x0 ? "M" : "L") + x + " " + (y0 - n * (y0 - y1)).toFixed(1);
       }
-      return a.join(',');
-    }
-    document.querySelectorAll('.star-layer').forEach(layer => {
-      layer.style.setProperty('--sh', field(+layer.dataset.n, +layer.dataset.min, +layer.dataset.max));
+      s += `<path class="a-prof" style="opacity:${(0.28 + k * 0.144).toFixed(2)}" d="${d}"/>`;
     });
-  })();
+    return { vb: "0 0 400 300", body: s };
+  },
+  srr() {
+    let s = "";
+    for (let i = 1; i <= 7; i++) s += `<circle class="a-wave" cx="200" cy="150" r="${28 + i * 26}" style="opacity:${(0.85 - i * 0.1).toFixed(2)}"/>`;
+    s += `<circle class="a-hot" cx="200" cy="108" r="20"/>`;
+    s += `<path class="a-srr" d="M194 108H158V192H242V108H206"/>`;
+    return { vb: "0 0 400 300", body: s };
+  },
+  moire() {
+    const s = `<defs>
+      <pattern id="moA" width="5" height="10" patternUnits="userSpaceOnUse"><rect width="2.2" height="10" class="a-grate"/></pattern>
+      <pattern id="moB" width="5" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(5 200 150)"><rect width="2.2" height="10" class="a-grate"/></pattern>
+      <clipPath id="moClip"><rect x="86" y="52" width="228" height="196" rx="4"/></clipPath>
+    </defs>
+    <rect class="a-screen" x="76" y="42" width="248" height="216" rx="12"/>
+    <g clip-path="url(#moClip)"><rect x="86" y="52" width="228" height="196" fill="url(#moA)"/><rect class="moire-b" x="86" y="52" width="228" height="196" fill="url(#moB)"/></g>
+    <path class="a-crop" d="M60 70V26H104M296 26H340V70M340 230V274H296M104 274H60V230"/>`;
+    return { vb: "0 0 400 300", body: s };
+  },
+  map() {
+    const s = `<defs>
+      <linearGradient id="pmSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="s-sky1"/><stop offset="1" class="s-sky2"/></linearGradient>
+      <linearGradient id="pmFade" x1="0" y1="0" x2="1" y2="1"><stop offset=".42" stop-color="#000"/><stop offset=".72" stop-color="#fff"/></linearGradient>
+      <mask id="pmMask" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="300"><rect width="400" height="300" fill="url(#pmFade)"/></mask>
+    </defs>
+    <rect width="400" height="300" fill="url(#pmSky)"/>
+    <path class="a-mtn" d="M30 250 176 108Q200 98 224 108L370 250Z"/>
+    <path class="a-snow" d="M176 108Q200 98 224 108L246.6 130 236 126 226 136 214 127 202 137 190 127 178 136 166 126 153.4 130Z"/>
+    <g mask="url(#pmMask)">
+      <rect class="a-mapbg" width="400" height="300"/>
+      <path class="a-road" d="M250 0V300M318 0V300M384 0V300M0 252H400M180 176H400M0 120H400"/>
+      <path class="a-road-main" d="M0 214Q150 196 400 236"/>
+      <path class="a-route" d="M128 292C176 262 238 276 300 214"/>
+    </g>
+    <path class="a-pin" d="M300 222c-9-12-14-19-14-26a14 14 0 1 1 28 0c0 7-5 14-14 26z"/>
+    <circle class="a-pin-hole" cx="300" cy="196" r="5"/>
+    <text class="a-text" x="22" y="74">35.36° N 138.73° E</text>
+    <text class="a-text" x="22" y="92">2026.08.14 05:12</text>`;
+    return { vb: "0 0 400 300", body: s };
+  }
+};
+const CHECK = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5 6.5 11.5 12.5 4.5"/></svg>';
 
-  setLang('en');
+/* ---------- renderers ---------- */
+function renderFacts() {
+  $("#facts").innerHTML = FACTS.map(([k, v]) => `<div><dt>${esc(t(k))}</dt><dd>${esc(t(v))}</dd></div>`).join("");
+}
+function renderPipeline() {
+  $("#pipeline").innerHTML = PIPELINE.map(s => `<li class="pl-item" data-status="${s.status}">
+      <span class="pl-node" aria-hidden="true">${s.status === "done" ? CHECK : ""}</span>
+      <div class="pl-body"><h4 class="pl-name">${esc(L(s.name))} <span class="pl-status">${esc(t("st." + s.status))}</span></h4><p class="pl-desc">${esc(L(s.text))}</p></div>
+    </li>`).join("");
+}
+function renderFab() {
+  $("#fabList").innerHTML = FAB.map((s, i) => `<li>
+      <div class="fab-top"><span class="fab-no">${String(i + 1).padStart(2, "0")}</span><span class="fab-sw" data-tech="${s.tech}" aria-hidden="true"></span></div>
+      <h4>${esc(L(s.name))}<span class="sr"> (${esc(t("fab." + s.tech))})</span></h4>
+      <ul>${L(s.steps).map(x => `<li>${esc(x)}</li>`).join("")}</ul>
+    </li>`).join("");
+}
+function renderProjects() {
+  $("#projectList").innerHTML = PROJECTS.map(p => {
+    const art = ART[p.art]();
+    const badge = p.badge ? `<span class="badge badge-${p.badge}">${esc(t("badge." + p.badge))}</span>` : "";
+    const link = p.link ? `<a class="proj-link" href="${esc(p.link)}" target="_blank" rel="noopener">${esc(t("proj.link"))}</a>` : "";
+    return `<article class="proj">
+      <div class="proj-art"><svg viewBox="${art.vb}" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">${art.body}</svg></div>
+      <div class="proj-head"><h3>${esc(L(p.title))}</h3><span class="proj-year">${esc(p.year)}</span></div>
+      ${badge}
+      <p>${esc(L(p.text))}</p>
+      <ul class="proj-tags">${p.tags.map(tag => `<li class="tag">${esc(L(tag))}</li>`).join("")}</ul>
+      ${link}
+    </article>`;
+  }).join("");
+}
+function renderTimeline() {
+  $("#timelineList").innerHTML = TIMELINE.map(it => `<li class="tl-item">
+      <div class="tl-date">${esc(L(it.date))}</div>
+      <div class="tl-body">
+        <span class="tl-type" data-type="${it.type}">${esc(t("type." + it.type))}</span>
+        <h3 class="tl-title">${esc(L(it.title))}</h3>
+        <p class="tl-org">${esc(L(it.org))}</p>
+        ${it.detail ? `<p class="tl-detail">${esc(L(it.detail))}</p>` : ""}
+      </div>
+    </li>`).join("");
+}
+function renderToolbox() {
+  $("#toolboxList").innerHTML = TOOLBOX.map(g => `<div class="tool-group"><h3>${esc(L(g.group))}</h3><ul>${g.items.map(i => `<li>${esc(L(i))}</li>`).join("")}</ul></div>`).join("");
+}
+function renderLinks() {
+  const items = SITE.links.filter(l => l.url);
+  $("#linksBlock").hidden = items.length === 0;
+  $("#links").innerHTML = items.map(l => `<li><a href="${esc(l.url)}" target="_blank" rel="noopener me">${esc(l.label)}</a></li>`).join("");
+  const code = $("#csCode");
+  code.hidden = !SITE.cycleSafeCode;
+  if (SITE.cycleSafeCode) code.href = SITE.cycleSafeCode;
+}
+
+/* ---------- Fig. 1: live avoided-crossing spectrum ---------- */
+const Plot = (() => {
+  const wrap = $("#plot"), cv = $("#plotCanvas"), ctx = cv.getContext("2d");
+  const off = document.createElement("canvas"), octx = off.getContext("2d");
+  const slider = $("#coupling"), etaNum = $("#etaNum");
+  const roB = $("#roB"), roUp = $("#roUp"), roLo = $("#roLo"), roSp = $("#roSp");
+  const { S, FP, BMAX, FMAX, BX } = PHYS, GAM = 0.026, ETA_MAX = 0.3;
+  let eta = 0, cursorB = BX, W = 0, H = 0, dpr = 1;
+  let pad = { l: 52, r: 46, t: 12, b: 44 };
+  let lut = null, col = null, noise = null, raf = 0, introId = 0, introDone = false, lastPointer = "mouse";
+  let onChange = () => {};
+
+  const hex = h => {
+    h = String(h || "#000").trim().replace("#", "");
+    if (h.length === 3) h = h.replace(/./g, c => c + c);
+    const n = parseInt(h.slice(0, 6), 16) || 0;
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  };
+  const mix = (A, B, f) => { const p = hex(A), q = hex(B); return `rgb(${p.map((v, i) => Math.round(v + (q[i] - v) * f)).join(",")})`; };
+
+  function readTheme() {
+    const cs = getComputedStyle(root), v = n => cs.getPropertyValue(n).trim();
+    col = { panel: v("--panel"), ink: v("--ink"), ink2: v("--ink-2"), ink3: v("--ink-3"), line: v("--line"), au: v("--au"), mp: v("--mp"), font: getComputedStyle(document.body).fontFamily };
+    const stops = [0, 1, 2, 3, 4].map(i => hex(v("--map-" + i)));
+    lut = new Uint8ClampedArray(256 * 3);
+    for (let i = 0; i < 256; i++) {
+      const x = (i / 255) * (stops.length - 1), k = Math.min(stops.length - 2, Math.floor(x)), f = x - k;
+      for (let c = 0; c < 3; c++) lut[i * 3 + c] = stops[k][c] + (stops[k + 1][c] - stops[k][c]) * f;
+    }
+  }
+  function resize() {
+    const r = wrap.getBoundingClientRect();
+    if (r.width < 10 || r.height < 10) return;
+    W = r.width; H = r.height;
+    dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    pad = W < 440 ? { l: 40, r: 34, t: 10, b: 38 } : { l: 52, r: 46, t: 12, b: 44 };
+    const pw = Math.max(2, Math.round(W - pad.l - pad.r)), ph = Math.max(2, Math.round(H - pad.t - pad.b));
+    off.width = pw; off.height = ph;
+    noise = new Float32Array(pw * ph);
+    let s = 20260;
+    for (let i = 0; i < noise.length; i++) { s = (s * 1664525 + 1013904223) >>> 0; noise[i] = (s / 4294967296 - 0.5) * 0.028; }
+    draw();
+  }
+  function renderMap() {
+    const pw = off.width, ph = off.height, img = octx.createImageData(pw, ph), d = img.data, g2 = GAM * GAM;
+    for (let i = 0; i < pw; i++) {
+      const m = modes(((i + 0.5) / pw) * BMAX, eta);
+      const wu = 0.07 + 0.93 * m.xu, wl = 0.07 + 0.93 * m.xl;   // the MP carries the oscillator strength
+      for (let j = 0; j < ph; j++) {
+        const f = (1 - (j + 0.5) / ph) * FMAX, du = f - m.up, dl = f - m.lo;
+        let v = (wu * g2) / (du * du + g2) + (wl * g2) / (dl * dl + g2) + noise[j * pw + i];
+        v = v <= 0 ? 0 : v >= 1 ? 1 : v;
+        const q = ((Math.pow(v, 0.8) * 255) | 0) * 3, p = (j * pw + i) * 4;
+        d[p] = lut[q]; d[p + 1] = lut[q + 1]; d[p + 2] = lut[q + 2]; d[p + 3] = 255;
+      }
+    }
+    octx.putImageData(img, 0, 0);
+  }
+  const xpx = B => pad.l + (B / BMAX) * (W - pad.l - pad.r);
+  const ypx = f => pad.t + (1 - f / FMAX) * (H - pad.t - pad.b);
+  function curve(fn, color, dash, width) {
+    ctx.strokeStyle = color; ctx.lineWidth = width; ctx.setLineDash(dash); ctx.beginPath();
+    for (let i = 0; i <= 120; i++) { const B = (i / 120) * BMAX, x = xpx(B), y = ypx(fn(B)); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+    ctx.stroke(); ctx.setLineDash([]);
+  }
+  function draw() {
+    raf = 0;
+    if (!W || !H) return;
+    if (!lut) readTheme();
+    renderMap();
+    const pw = W - pad.l - pad.r, ph = H - pad.t - pad.b, small = W < 440, fs = small ? 10 : 11;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = col.panel; ctx.fillRect(0, 0, W, H);
+    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(off, pad.l, pad.t, pw, ph);
+    ctx.strokeStyle = col.line; ctx.lineWidth = 1; ctx.strokeRect(pad.l + 0.5, pad.t + 0.5, pw - 1, ph - 1);
+
+    ctx.save(); ctx.beginPath(); ctx.rect(pad.l, pad.t, pw, ph); ctx.clip();
+    curve(B => S * B, col.ink3, [1.5, 4], 1.2);
+    curve(B => Math.sqrt(FP * FP + S * S * B * B), col.mp, [6, 5], 1.4);
+    curve(B => 2 * S * B, col.au, [6, 5], 1.4);
+    const cx = Math.round(xpx(cursorB)) + 0.5, m = modes(cursorB, eta);
+    ctx.strokeStyle = col.ink2; ctx.lineWidth = 1; ctx.setLineDash([2, 3]);
+    ctx.beginPath(); ctx.moveTo(cx, pad.t); ctx.lineTo(cx, pad.t + ph); ctx.stroke(); ctx.setLineDash([]);
+    for (const [f, x] of [[m.up, m.xu], [m.lo, m.xl]]) {
+      ctx.beginPath(); ctx.arc(cx, ypx(f), 4.5, 0, Math.PI * 2);
+      ctx.fillStyle = col.panel; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = mix(col.au, col.mp, x); ctx.stroke();
+    }
+    ctx.restore();
+
+    ctx.font = `500 ${fs}px ${col.font}`; ctx.fillStyle = col.ink2; ctx.strokeStyle = col.ink3; ctx.lineWidth = 1;
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    for (const b of [0, 0.5, 1, 1.5, 2]) {
+      const x = Math.round(xpx(b)) + 0.5;
+      ctx.beginPath(); ctx.moveTo(x, pad.t + ph); ctx.lineTo(x, pad.t + ph + 4); ctx.stroke();
+      ctx.fillText(b === 0 ? "0" : b.toFixed(1), x, pad.t + ph + 7);
+    }
+    ctx.textAlign = "right"; ctx.textBaseline = "middle";
+    for (const f of [0, 0.5, 1, 1.5]) {
+      const y = Math.round(ypx(f)) + 0.5;
+      ctx.beginPath(); ctx.moveTo(pad.l - 4, y); ctx.lineTo(pad.l, y); ctx.stroke();
+      ctx.fillText(f === 0 ? "0" : f.toFixed(1), pad.l - 7, y);
+    }
+    ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+    ctx.fillText(t("fig1.xaxis"), pad.l + pw / 2, H - 3);
+    ctx.save(); ctx.translate(small ? 9 : 12, pad.t + ph / 2); ctx.rotate(-Math.PI / 2); ctx.textBaseline = "middle"; ctx.fillText(t("fig1.yaxis"), 0, 0); ctx.restore();
+
+    ctx.font = `600 ${fs}px ${col.font}`; ctx.textAlign = "left"; ctx.textBaseline = "middle";
+    const lab = (txt, f, c) => { ctx.fillStyle = c; ctx.fillText(txt, pad.l + pw + 6, Math.min(pad.t + ph - 6, Math.max(pad.t + 6, ypx(f)))); };
+    lab("2CR", 2 * S * BMAX, col.au);
+    lab("MP", Math.sqrt(FP * FP + S * S * BMAX * BMAX), col.mp);
+    lab("CR", S * BMAX, col.ink3);
+
+    roB.textContent = cursorB.toFixed(2) + " T";
+    roUp.textContent = m.up.toFixed(3) + " THz";
+    roLo.textContent = m.lo.toFixed(3) + " THz";
+    const mx = modes(BX, eta);
+    roSp.textContent = Math.round((mx.up - mx.lo) * 1000) + " GHz";
+  }
+  function schedule() { if (!raf) raf = requestAnimationFrame(draw); }
+  function setEta(v) {
+    eta = Math.min(ETA_MAX, Math.max(0, v));
+    slider.style.setProperty("--pct", ((eta / ETA_MAX) * 100).toFixed(2) + "%");
+    etaNum.textContent = eta.toFixed(2);
+    onChange(eta);
+    schedule();
+  }
+  function cancelIntro() { if (introId) cancelAnimationFrame(introId); introId = 0; introDone = true; }
+  function intro() {
+    if (introDone) return;
+    introDone = true;
+    const target = 0.12;
+    if (reduceMotion) { slider.value = String(target); setEta(target); return; }
+    const t0 = performance.now(), dur = 1800;
+    const step = now => {
+      const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      slider.value = String(target * e); setEta(target * e);
+      introId = k < 1 ? requestAnimationFrame(step) : 0;
+    };
+    introId = requestAnimationFrame(step);
+  }
+
+  slider.addEventListener("input", () => { cancelIntro(); setEta(parseFloat(slider.value)); });
+  const fromEvent = e => {
+    const r = cv.getBoundingClientRect();
+    const B = ((e.clientX - r.left - pad.l) / (W - pad.l - pad.r)) * BMAX;
+    cursorB = Math.min(BMAX, Math.max(0, B)); schedule();
+  };
+  cv.addEventListener("pointerdown", e => { lastPointer = e.pointerType; fromEvent(e); });
+  cv.addEventListener("pointermove", e => { lastPointer = e.pointerType; fromEvent(e); });
+  cv.addEventListener("pointerleave", () => { if (lastPointer !== "touch") { cursorB = BX; schedule(); } });
+  cv.addEventListener("keydown", e => {
+    const step = e.shiftKey ? 0.1 : 0.02;
+    if (e.key === "ArrowRight" || e.key === "ArrowUp") cursorB = Math.min(BMAX, cursorB + step);
+    else if (e.key === "ArrowLeft" || e.key === "ArrowDown") cursorB = Math.max(0, cursorB - step);
+    else if (e.key === "Home") cursorB = 0;
+    else if (e.key === "End") cursorB = BMAX;
+    else return;
+    e.preventDefault(); schedule();
+  });
+
+  if ("ResizeObserver" in window) new ResizeObserver(resize).observe(wrap);
+  else window.addEventListener("resize", resize);
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => { if (es.some(en => en.isIntersecting)) { io.disconnect(); setTimeout(intro, 250); } }, { threshold: 0.45 });
+    io.observe(wrap);
+  } else setTimeout(intro, 300);
+
+  return {
+    eta: () => eta,
+    redraw() { lut = null; schedule(); },
+    set onChange(fn) { onChange = fn; },
+    init() { setEta(0); resize(); }
+  };
+})();
+
+/* ---------- Fig. 3: animated explainers ---------- */
+const Explainer = (() => {
+  // (a) magnetoplasmon: a density wave in the 2DEG with field lines from + to -
+  const N = 40, X0 = 14, DX = 7.4, LAM = 100, K = (2 * Math.PI) / LAM, A = 3.2, V = 22, Y = 123, ARC_Y = 106, H = 19;
+  const dots = [], plus = [], minus = [], arcs = [], heads = [];
+  const mk = (tag, cls, parent) => { const el = document.createElementNS(NS, tag); el.setAttribute("class", cls); parent.appendChild(el); return el; };
+  for (let i = 0; i < N; i++) { const c = mk("circle", "ex-e", $("#exDots")); c.setAttribute("r", "2.3"); c.setAttribute("cy", Y); dots.push(c); }
+  for (let i = 0; i < 6; i++) {
+    const p = mk("text", "ex-plus", $("#exPlus")); p.setAttribute("text-anchor", "middle"); p.setAttribute("y", "115"); p.textContent = "+"; plus.push(p);
+    const m = mk("text", "ex-minus", $("#exMinus")); m.setAttribute("text-anchor", "middle"); m.setAttribute("y", "115"); m.textContent = "−"; minus.push(m);
+  }
+  for (let i = 0; i < 12; i++) { arcs.push(mk("path", "ex-arc", $("#exArcs"))); heads.push(mk("path", "ex-head", $("#exArcs"))); }
+  function drawMP(time) {
+    const shift = (V * time) % LAM;
+    for (let i = 0; i < N; i++) { const x0 = X0 + i * DX; dots[i].setAttribute("cx", (x0 + A * Math.sin(K * x0 - K * V * time)).toFixed(2)); }
+    let ia = 0;
+    for (let m = -1; m <= 4; m++) {
+      const xp = shift + m * LAM, xm = xp + LAM / 2, idx = m + 1;
+      plus[idx].setAttribute("x", xp.toFixed(1));
+      minus[idx].setAttribute("x", xm.toFixed(1));
+      for (const x2 of [xp + LAM / 2, xp - LAM / 2]) {        // field lines point from + to -
+        const dir = Math.sign(x2 - xp), a = xp + 6 * dir, b = x2 - 6 * dir, mid = (a + b) / 2, top = ARC_Y - H;
+        arcs[ia].setAttribute("d", `M${a.toFixed(1)} ${ARC_Y}Q${mid.toFixed(1)} ${ARC_Y - 2 * H} ${b.toFixed(1)} ${ARC_Y}`);
+        heads[ia].setAttribute("d", `M${(mid + 4 * dir).toFixed(1)} ${top}L${(mid - 3 * dir).toFixed(1)} ${top - 3.4}L${(mid - 3 * dir).toFixed(1)} ${top + 3.4}Z`);
+        ia++;
+      }
+    }
+  }
+  // (b) CR: orbit centre oscillates; 2CR: orbit shape oscillates
+  const crOrbit = $("#crOrbit"), crC = $("#crC"), crEl = $("#crEl"), crEll = $("#crEll"), crEl2 = $("#crEl2");
+  const arrow = (x, len) => `M${x} 142H${x + len}M${x + len - 5} 138L${x + len} 142L${x + len - 5} 146`;
+  $("#crFieldL").setAttribute("d", [40, 62, 84, 106].map(x => arrow(x, 15)).join(""));
+  $("#crFieldR").setAttribute("d", [[196, 7], [214, 11], [236, 16], [260, 22]].map(([x, l]) => arrow(x, l)).join(""));
+  function drawCR(time) {
+    const w = Math.PI, cx = 80 + 9 * Math.sin(w * time), th = 1.5 * w * time;
+    crOrbit.setAttribute("cx", cx.toFixed(2)); crC.setAttribute("cx", cx.toFixed(2));
+    crEl.setAttribute("cx", (cx + 28 * Math.cos(th)).toFixed(2)); crEl.setAttribute("cy", (88 + 28 * Math.sin(th)).toFixed(2));
+    const d = 7 * Math.sin(2 * w * time), rx = 28 + d, ry = 28 - d;
+    crEll.setAttribute("rx", rx.toFixed(2)); crEll.setAttribute("ry", ry.toFixed(2));
+    crEl2.setAttribute("cx", (240 + rx * Math.cos(th)).toFixed(2)); crEl2.setAttribute("cy", (88 + ry * Math.sin(th)).toFixed(2));
+  }
+  // (c) static sketch of the avoided crossing, from the same model as Fig. 1
+  function drawMX() {
+    const E = 0.12, x = B => 34 + (B / PHYS.BMAX) * 252, y = f => 150 - (f / PHYS.FMAX) * 130;
+    const path = fn => { let d = ""; for (let i = 0; i <= 90; i++) { const B = (i / 90) * PHYS.BMAX; d += (i ? "L" : "M") + x(B).toFixed(1) + " " + y(fn(B)).toFixed(1); } return d; };
+    $("#mxMP").setAttribute("d", path(B => modes(B, 0).mp));
+    $("#mx2CR").setAttribute("d", path(B => Math.min(PHYS.FMAX * 1.02, modes(B, 0).cr2)));
+    $("#mxUp").setAttribute("d", path(B => Math.min(PHYS.FMAX * 1.02, modes(B, E).up)));
+    $("#mxLo").setAttribute("d", path(B => modes(B, E).lo));
+    const xc = PHYS.BX / PHYS.BMAX;
+    [["#mxU1", xc - 0.07], ["#mxU2", xc + 0.07], ["#mxL1", xc - 0.07], ["#mxL2", xc + 0.07]].forEach(([s, o]) => $(s).setAttribute("offset", o.toFixed(3)));
+    const m = modes(PHYS.BX, E), bx = x(PHYS.BX) + 4, yu = y(m.up) + 3, yl = y(m.lo) - 3;
+    $("#mxBr").setAttribute("d", `M${bx} ${yu}V${yl}M${bx - 3} ${yu}H${bx + 3}M${bx - 3} ${yl}H${bx + 3}`);
+    const g = $("#mx2g"); g.setAttribute("x", (bx + 7).toFixed(1)); g.setAttribute("y", ((yu + yl) / 2 + 5).toFixed(1));
+    const lm = $("#mxLabMP"); lm.setAttribute("x", "290"); lm.setAttribute("y", (y(modes(PHYS.BMAX, 0).mp) + 4).toFixed(1));
+    const lc = $("#mxLab2CR"); lc.setAttribute("x", "290"); lc.setAttribute("y", (y(modes(PHYS.BMAX, 0).cr2) + 4).toFixed(1));
+  }
+  const box = $("#modes");
+  let raf = 0, visible = false, t0 = performance.now();
+  function frame(now) {
+    const time = (now - t0) / 1000;
+    drawMP(time); drawCR(time);
+    raf = visible ? requestAnimationFrame(frame) : 0;
+  }
+  function init() {
+    drawMX(); drawMP(0.25); drawCR(0.25);
+    if (reduceMotion || !("IntersectionObserver" in window)) return;
+    new IntersectionObserver(es => {
+      visible = es.some(en => en.isIntersecting);
+      if (visible && !raf) { t0 = performance.now() - 250; raf = requestAnimationFrame(frame); }
+    }, { threshold: 0.15 }).observe(box);
+  }
+  return { init };
+})();
+
+/* ---------- highlight thumbnail: a small absorption map in the site palette ---------- */
+const Thumb = (() => {
+  const cv = $("#hlCanvas");
+  if (!cv) return { redraw() {} };
+  const ctx = cv.getContext("2d");
+  let lut = null;
+  function draw() {
+    const r = cv.getBoundingClientRect();
+    if (r.width < 4 || r.height < 4) return;
+    const s = Math.min(window.devicePixelRatio || 1, 1.5), w = Math.round(r.width * s), h = Math.round(r.height * s);
+    if (cv.width !== w) cv.width = w;
+    if (cv.height !== h) cv.height = h;
+    if (!lut) lut = makeLUT();
+    const img = ctx.createImageData(w, h), d = img.data, g2 = 0.024 * 0.024, E = 0.14;
+    const B0 = 0.3, B1 = 1.9, F0 = 0.45, F1 = 1.45;
+    let seed = 11;
+    for (let i = 0; i < w; i++) {
+      const m = modes(B0 + ((i + 0.5) / w) * (B1 - B0), E);
+      const wu = 0.07 + 0.93 * m.xu, wl = 0.07 + 0.93 * m.xl;
+      for (let j = 0; j < h; j++) {
+        const f = F1 - ((j + 0.5) / h) * (F1 - F0), du = f - m.up, dl = f - m.lo;
+        seed = (seed * 1664525 + 1013904223) >>> 0;
+        let v = (wu * g2) / (du * du + g2) + (wl * g2) / (dl * dl + g2) + (seed / 4294967296 - 0.5) * 0.03;
+        v = v <= 0 ? 0 : v >= 1 ? 1 : v;
+        const q = ((Math.pow(v, 0.8) * 255) | 0) * 3, p = (j * w + i) * 4;
+        d[p] = lut[q]; d[p + 1] = lut[q + 1]; d[p + 2] = lut[q + 2]; d[p + 3] = 255;
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(draw).observe(cv.parentElement);
+  else window.addEventListener("resize", draw);
+  return { redraw() { lut = null; draw(); } };
+})();
+
+/* ---------- coupling-regime ruler, linked to Fig. 1 ---------- */
+const Ruler = (() => {
+  const you = $("#rrYou"), lab = $("#rrYouLabel");
+  const pos = v => Math.max(0, Math.min(1, (Math.log10(Math.max(v, 0.01)) + 2) / (Math.log10(3) + 2)));
+  function update(v) {
+    const p = v < 0.0005 ? 0 : pos(v);
+    you.style.left = (p * 100).toFixed(2) + "%";
+    you.dataset.align = p < 0.12 ? "start" : p > 0.88 ? "end" : "mid";
+    lab.innerHTML = `${esc(t("rr.you"))}: <i>g</i>/<i>ω</i><sub>0</sub> = ${v.toFixed(2)}`;
+  }
+  return { update };
+})();
+
+const slider = $("#coupling"), regimeEl = $("#regime");
+function regimeKey(v) { return v < 0.0005 ? "r0" : v < 0.1 ? "r1" : "r2"; }
+function updateRegime() {
+  const v = Plot.eta(), k = regimeKey(v);
+  regimeEl.textContent = t("fig1." + k);
+  regimeEl.dataset.level = k;
+  slider.setAttribute("aria-valuetext", `g/ω0 = ${v.toFixed(2)}, ${t("fig1." + k)}`);
+  Ruler.update(v);
+}
+Plot.onChange = updateRegime;
+
+/* ---------- Fig. 2: layer toggles ---------- */
+$$(".layer-btn").forEach(btn => btn.addEventListener("click", () => {
+  const on = btn.getAttribute("aria-pressed") !== "true";
+  btn.setAttribute("aria-pressed", String(on));
+  const g = $(`#device [data-layer="${btn.dataset.layer}"]`);
+  if (g) g.classList.toggle("is-off", !on);
+}));
+
+/* ---------- theme ---------- */
+const themeBtn = $("#themeBtn");
+const mqDark = window.matchMedia ? matchMedia("(prefers-color-scheme: dark)") : { matches: false };
+const isDark = () => { const v = root.getAttribute("data-theme"); return v ? v === "dark" : !!mqDark.matches; };
+function updateThemeLabel() { themeBtn.setAttribute("aria-label", t(isDark() ? "ui.toLight" : "ui.toDark")); }
+themeBtn.addEventListener("click", () => {
+  const next = isDark() ? "light" : "dark";
+  root.setAttribute("data-theme", next);
+  store.set("ph-theme", next);
+});
+new MutationObserver(() => { updateThemeLabel(); Plot.redraw(); Thumb.redraw(); }).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+if (mqDark.addEventListener) mqDark.addEventListener("change", () => { updateThemeLabel(); Plot.redraw(); Thumb.redraw(); });
+
+/* ---------- contact ---------- */
+const address = SITE.email.join("@");
+const emailEl = $("#email"), copyStatus = $("#copyStatus");
+emailEl.textContent = address;
+emailEl.href = "mailto:" + address;
+let copyTimer = 0;
+function selectAddress() {
+  const range = document.createRange(); range.selectNodeContents(emailEl);
+  const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+}
+$("#copyBtn").addEventListener("click", () => {
+  const done = msg => { copyStatus.textContent = msg; clearTimeout(copyTimer); copyTimer = setTimeout(() => { copyStatus.textContent = ""; }, 3500); };
+  const fail = () => { selectAddress(); done(t("contact.copyFail")); };
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(address).then(() => done(t("contact.copied")), fail);
+    else fail();
+  } catch (e) { fail(); }
+});
+const clockEl = $("#clock");
+function updateClock() {
+  try {
+    clockEl.textContent = new Intl.DateTimeFormat(lang === "zh" ? "zh-CN" : lang, { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: SITE.timezone }).format(new Date());
+  } catch (e) { clockEl.textContent = "--:--"; }
+}
+setInterval(updateClock, 20000);
+$("#year").textContent = String(new Date().getFullYear());
+
+/* ---------- header, menu, active section ---------- */
+const header = $(".site-header");
+let ticking = false;
+window.addEventListener("scroll", () => {
+  if (ticking) return; ticking = true;
+  requestAnimationFrame(() => { header.classList.toggle("is-scrolled", window.scrollY > 4); ticking = false; });
+}, { passive: true });
+
+const menuBtn = $("#menuBtn"), mobileNav = $("#mobileNav");
+const closeMenu = () => { mobileNav.hidden = true; menuBtn.setAttribute("aria-expanded", "false"); };
+menuBtn.addEventListener("click", () => { const open = mobileNav.hidden; mobileNav.hidden = !open; menuBtn.setAttribute("aria-expanded", String(open)); });
+mobileNav.addEventListener("click", e => { if (e.target.closest("a")) closeMenu(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !mobileNav.hidden) { closeMenu(); menuBtn.focus(); } });
+if (window.matchMedia) { const wide = matchMedia("(min-width: 1000px)"); if (wide.addEventListener) wide.addEventListener("change", e => { if (e.matches) closeMenu(); }); }
+
+if ("IntersectionObserver" in window) {
+  const navLinks = $$(".nav a"), subLinks = $$(".subnav a");
+  const band = { rootMargin: "-45% 0px -50% 0px" };
+  const sio = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) navLinks.forEach(a => a.classList.toggle("is-active", a.getAttribute("href") === "#" + en.target.id)); });
+  }, band);
+  $$("section[id]").forEach(s => { if (s.id !== "top" && s.id !== "highlights") sio.observe(s); });
+  const subio = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) subLinks.forEach(a => a.classList.toggle("is-active", a.getAttribute("href") === "#" + en.target.id)); });
+  }, { rootMargin: "-35% 0px -55% 0px" });
+  $$("[data-sub]").forEach(b => subio.observe(b));
+}
+
+/* ---------- language ---------- */
+function applyLang(next) {
+  lang = ["en", "ja", "zh"].includes(next) ? next : "en";
+  root.lang = lang === "zh" ? "zh-CN" : lang;
+  $$("[data-t]").forEach(el => { el.textContent = t(el.dataset.t); });
+  $$("[data-th]").forEach(el => { el.innerHTML = t(el.dataset.th); });
+  $$("[data-ta]").forEach(el => { el.setAttribute("aria-label", t(el.dataset.ta)); });
+  $$("[data-alt]").forEach(el => { el.setAttribute("alt", t(el.dataset.alt)); });
+  $$(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+  renderFacts(); renderPipeline(); renderFab(); renderProjects(); renderTimeline(); renderToolbox(); renderLinks();
+  updateThemeLabel(); updateRegime(); updateClock();
+  Plot.redraw();
+}
+$$(".lang button").forEach(b => b.addEventListener("click", () => { applyLang(b.dataset.lang); store.set("ph-lang", lang); }));
+
+applyLang(lang);
+Plot.init();
+Explainer.init();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => Plot.redraw());
+})();
 </script>
-
 <!-- GoatCounter analytics -->
 <script data-goatcounter="https://phaooo.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
